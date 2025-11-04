@@ -37,7 +37,7 @@ class HybridRetriever:
             bm25_weight=self.bm25_weight
         )
     
-    def retrieve(
+    async def retrieve(
         self,
         query: str,
         top_k: int = None,

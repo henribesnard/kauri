@@ -4,6 +4,7 @@ Combines retrieval, context preparation, and LLM generation
 """
 from typing import List, Dict, Any, Optional, AsyncGenerator
 import time
+import uuid
 import structlog
 from src.config import settings
 from src.rag.retriever.hybrid_retriever import get_hybrid_retriever
@@ -119,6 +120,10 @@ Cite les références (articles, sections) dans ta réponse."""
         """
         start_time = time.time()
 
+        # Generate conversation_id if not provided
+        if conversation_id is None:
+            conversation_id = str(uuid.uuid4())
+
         logger.info("rag_pipeline_query_start",
                    query=query[:100],
                    conversation_id=conversation_id,
@@ -161,7 +166,7 @@ Cite les références (articles, sections) dans ta réponse."""
                        retrieval_time_ms=int(retrieval_time * 1000),
                        generation_time_ms=int(generation_time * 1000),
                        model_used=llm_response["model"],
-                       tokens_used=llm_response["tokens"])
+                       tokens_used=llm_response["tokens_used"])
 
             # Step 4: Format response
             return {
@@ -170,7 +175,7 @@ Cite les références (articles, sections) dans ta réponse."""
                 "answer": llm_response["content"],
                 "sources": self._convert_to_source_documents(documents),
                 "model_used": llm_response["model"],
-                "tokens_used": llm_response["tokens"],
+                "tokens_used": llm_response["tokens_used"],
                 "latency_ms": int(total_time * 1000),
                 "metadata": {
                     "retrieval_time_ms": int(retrieval_time * 1000),
@@ -205,6 +210,10 @@ Cite les références (articles, sections) dans ta réponse."""
         }
         """
         start_time = time.time()
+
+        # Generate conversation_id if not provided
+        if conversation_id is None:
+            conversation_id = str(uuid.uuid4())
 
         logger.info("rag_pipeline_query_stream_start",
                    query=query[:100],
