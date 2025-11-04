@@ -141,11 +141,22 @@ async def ingest_file(file_path: Path, session, embedder, chroma_store):
         return "created"
 
     except Exception as e:
-        logger.error("ingestion_failed", path=str(file_path), error=str(e))
+        error_msg = str(e)
+        # Distinguish corrupted files from other errors
+        if "Package not found" in error_msg or "BadZipFile" in error_msg:
+            logger.warning("corrupted_file_skipped",
+                          path=str(file_path),
+                          file_name=file_path.name,
+                          error=error_msg)
+        else:
+            logger.error("ingestion_failed",
+                        path=str(file_path),
+                        file_name=file_path.name,
+                        error=error_msg)
         session.rollback()
         return "failed"
 
-async def build_bm25_index(session, bm25_retriever):
+def build_bm25_index(session, bm25_retriever):
     """Build BM25 index from all documents in database"""
     logger.info("building_bm25_index")
 
@@ -203,12 +214,30 @@ async def main_async():
         stats[result] += 1
 
     # Build BM25 index from all chunks
-    await build_bm25_index(session, bm25_retriever)
+    build_bm25_index(session, bm25_retriever)
 
     session.close()
 
     logger.info("ingestion_complete", **stats)
-    print(f"\n✅ Ingestion terminée: {stats['created']} créés, {stats['skipped']} ignorés, {stats['failed']} échecs")
+
+    # Display summary
+    total = stats['created'] + stats['skipped'] + stats['failed']
+    success_rate = (stats['created'] / total * 100) if total > 0 else 0
+
+    print(f"\n{'='*60}")
+    print(f"✅ Ingestion terminée!")
+    print(f"{'='*60}")
+    print(f"📊 Statistiques:")
+    print(f"  • Fichiers trouvés:      {total}")
+    print(f"  • Documents créés:       {stats['created']}")
+    print(f"  • Documents ignorés:     {stats['skipped']} (déjà existants)")
+    print(f"  • Échecs:                {stats['failed']} (fichiers corrompus)")
+    print(f"  • Taux de succès:        {success_rate:.1f}%")
+    print(f"{'='*60}\n")
+
+    if stats['failed'] > 0:
+        print(f"⚠️  {stats['failed']} fichier(s) corrompu(s) n'ont pas pu être ingérés.")
+        print(f"   Consultez les logs ci-dessus pour voir les fichiers concernés.\n")
 
 
 def main():
