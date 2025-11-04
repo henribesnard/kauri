@@ -61,6 +61,7 @@ class Settings(BaseSettings):
     # RAG Configuration
     rag_top_k: int = Field(default=10, alias="RAG_TOP_K")
     rag_rerank_top_k: int = Field(default=5, alias="RAG_RERANK_TOP_K")
+    reranker_model: str = Field(default="BAAI/bge-reranker-base", alias="RERANKER_MODEL")
 
     # BM25 Configuration
     bm25_k1: float = Field(default=1.5, alias="BM25_K1")  # BM25 term frequency saturation parameter

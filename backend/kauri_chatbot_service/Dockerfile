@@ -51,7 +51,8 @@ ENV TRANSFORMERS_CACHE=/opt/models
 # Create app user (security best practice)
 RUN useradd -m -u 1000 kauri && \
     mkdir -p /app /app/logs /app/data/chroma_db && \
-    chown -R kauri:kauri /app
+    chown -R kauri:kauri /app && \
+    chown -R kauri:kauri /opt/models
 
 # Set working directory
 WORKDIR /app
