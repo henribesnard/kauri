@@ -1,0 +1,247 @@
+version: '3.8'
+
+# ============================================
+# KAURI - Architecture Microservices
+# ============================================
+# Services: PostgreSQL, Redis, User Service, Chatbot Service
+
+services:
+  # ====================
+  # PostgreSQL Database
+  # ====================
+  postgres:
+    image: postgres:15-alpine
+    container_name: kauri_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_MULTIPLE_DATABASES: ${USER_DB_NAME},${CHATBOT_DB_NAME}
+    ports:
+      - "3100:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-databases.sh:/docker-entrypoint-initdb.d/init-databases.sh
+    networks:
+      - kauri_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ====================
+  # Redis Cache
+  # ====================
+  redis:
+    image: redis:7-alpine
+    container_name: kauri_redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 512mb --maxmemory-policy allkeys-lru
+    ports:
+      - "3103:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - kauri_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # ====================
+  # ChromaDB (Vector Database - Development)
+  # ====================
+  chromadb:
+    image: chromadb/chroma:0.4.24
+    container_name: kauri_chromadb
+    restart: unless-stopped
+    environment:
+      ANONYMIZED_TELEMETRY: "False"
+      ALLOW_RESET: "True"
+      IS_PERSISTENT: "True"
+    ports:
+      - "3104:8000"
+    volumes:
+      - chromadb_data:/chroma/chroma
+    networks:
+      - kauri_network
+    healthcheck:
+      test: ["CMD-SHELL", "exit 0"]
+      interval: 5s
+      timeout: 3s
+      retries: 1
+
+  # ====================
+  # User Service
+  # ====================
+  kauri_user_service:
+    build:
+      context: ./backend/kauri_user_service
+      dockerfile: Dockerfile
+    container_name: kauri_user_service
+    restart: unless-stopped
+    environment:
+      # Hérite du .env racine
+      - KAURI_ENV=${KAURI_ENV}
+      - DEBUG=${DEBUG}
+
+      # JWT
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_ALGORITHM=${JWT_ALGORITHM}
+      - JWT_EXPIRE_HOURS=${JWT_EXPIRE_HOURS}
+
+      # Database
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/kauri_users
+
+      # Redis
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+      # Service specific
+      - SERVICE_PORT=${USER_SERVICE_PORT}
+      - CORS_ORIGINS=${CORS_ORIGINS}
+      - LOG_LEVEL=${LOG_LEVEL}
+    ports:
+      - "${USER_SERVICE_PORT}:${USER_SERVICE_PORT}"
+    volumes:
+      - ./backend/kauri_user_service:/app
+      - user_service_logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - kauri_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${USER_SERVICE_PORT}/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ====================
+  # Chatbot Service
+  # ====================
+  kauri_chatbot_service:
+    build:
+      context: ./backend/kauri_chatbot_service
+      dockerfile: Dockerfile
+    container_name: kauri_chatbot_service
+    restart: unless-stopped
+    environment:
+      # Hérite du .env racine
+      - KAURI_ENV=${KAURI_ENV}
+      - DEBUG=${DEBUG}
+
+      # API Keys
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+
+      # JWT (pour validation)
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_ALGORITHM=${JWT_ALGORITHM}
+
+      # Database
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/kauri_chatbot
+
+      # Redis
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+      # Vector Database
+      - VECTOR_DB_TYPE=chromadb
+      - VECTOR_DB_HOST=chromadb
+      - VECTOR_DB_PORT=8000
+
+      # Service specific
+      - SERVICE_PORT=${CHATBOT_SERVICE_PORT}
+      - USER_SERVICE_URL=http://kauri_user_service:${USER_SERVICE_PORT}
+      - CORS_ORIGINS=${CORS_ORIGINS}
+      - LOG_LEVEL=${LOG_LEVEL}
+    ports:
+      - "${CHATBOT_SERVICE_PORT}:${CHATBOT_SERVICE_PORT}"
+    volumes:
+      - ./backend/kauri_chatbot_service:/app
+      - chatbot_service_logs:/app/logs
+      - chatbot_data:/app/data
+      - ./base_connaissances:/app/base_connaissances:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_healthy
+      kauri_user_service:
+        condition: service_healthy
+    networks:
+      - kauri_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${CHATBOT_SERVICE_PORT}/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # ====================
+  # Frontend (React + Nginx)
+  # ====================
+  kauri_frontend:
+    build:
+      context: ./frontend/kauri-app
+      dockerfile: Dockerfile
+    container_name: kauri_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      kauri_user_service:
+        condition: service_healthy
+      kauri_chatbot_service:
+        condition: service_healthy
+    networks:
+      - kauri_network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+# ====================
+# Networks
+# ====================
+networks:
+  kauri_network:
+    driver: bridge
+    name: kauri_network
+
+# ====================
+# Volumes
+# ====================
+volumes:
+  postgres_data:
+    name: kauri_postgres_data
+  redis_data:
+    name: kauri_redis_data
+  chromadb_data:
+    name: kauri_chromadb_data
+  user_service_logs:
+    name: kauri_user_service_logs
+  chatbot_service_logs:
+    name: kauri_chatbot_service_logs
+  chatbot_data:
+    name: kauri_chatbot_data

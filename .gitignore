@@ -1,0 +1,194 @@
+# ============================================
+# KAURI Project - Git Ignore
+# ============================================
+
+# ============================================
+# Données sensibles et base de connaissances
+# ============================================
+base_connaissances/
+*.docx
+*.pdf
+!README.md
+
+# ============================================
+# Environnement et configuration
+# ============================================
+.env
+.env.local
+.env.*.local
+*.env
+
+# ============================================
+# Bases de données et volumes Docker
+# ============================================
+postgres_data/
+redis_data/
+chromadb_data/
+chroma_data/
+chroma_collections/
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+user_service_logs/
+chatbot_service_logs/
+ingestion.log
+
+# ============================================
+# Python
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+.python-version
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ============================================
+# Node.js (si frontend à venir)
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ============================================
+# Docker
+# ============================================
+*.tar
+*.tar.gz
+
+# ============================================
+# Système d'exploitation
+# ============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ============================================
+# Modèles ML et cache
+# ============================================
+models/
+*.h5
+*.pkl
+*.pth
+*.onnx
+.transformers_cache/
+.cache/
+*.safetensors
+
+# ============================================
+# Temporaires
+# ============================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+
+# ============================================
+# Tests et coverage
+# ============================================
+.pytest_cache/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+
+# ============================================
+# Documentation générée
+# ============================================
+site/
+docs/_build/
+
+# ============================================
+# Clés et certificats
+# ============================================
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+credentials.json
+service-account.json
+
+# ============================================
+# Fichiers IDE et éditeurs
+# ============================================
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch

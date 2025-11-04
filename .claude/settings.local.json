@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(while read dir)",
+      "Bash(do touch $dir/__init__.py)",
+      "Bash(done)",
+      "Bash(tree:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(docker-compose ps:*)",
+      "Bash(docker-compose down:*)",
+      "Bash(docker-compose logs:*)",
+      "Bash(docker-compose restart:*)",
+      "Bash(curl:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkN2U2OWVkNC1mYTI0LTQwMjItYTZjYi0yYzg1YWViNGMwMTIiLCJlbWFpbCI6InRlc3RAa2F1cmkuY29tIiwiZXhwIjoxNzYyMjg4ODcxLCJpYXQiOjE3NjIyMDI0NzEsImp0aSI6IjMzYzM1ZDI0LWZhNDktNDJhNi1hMjZjLWFlMjRhODEyMGViNiIsInR5cGUiOiJhY2Nlc3MifQ.jk0sgksBf-zImSUbu-0g7PGtHGe0Gn_eOs9hJ3j5QOE\")",
+      "Bash(find:*)",
+      "Bash(python:*)",
+      "Bash(docker-compose build:*)",
+      "Bash(npm create:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npm exec:*)",
+      "Bash(npm run dev:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NDhiNjU4OS01NTE5LTQzZDUtOTcwOC1kYjc3NWRhNjkwOWMiLCJlbWFpbCI6InRlc3QyQGthdXJpLmNvbSIsImV4cCI6MTc2MjMyMDYwNSwiaWF0IjoxNzYyMjM0MjA1LCJqdGkiOiI2ZDE2NmEyYi04ZmYwLTRmM2QtYmZiNi0yMzA3YTc3MzM4YzkiLCJ0eXBlIjoiYWNjZXNzIn0.WqJVdMboHWVXGKxm_jOvgi6l6yhhblMFF9VIh6wGtL0\")",
+      "Bash(docker exec:*)",
+      "Bash(NUL)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker-compose stop:*)",
+      "Bash(docker-compose exec:*)",
+      "Bash(docker-compose rm:*)",
+      "Bash(tee:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
