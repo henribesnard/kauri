@@ -2,11 +2,13 @@
 export interface User {
   id: string;
   email: string;
-  full_name: string;
+  first_name: string;
+  last_name: string;
+  full_name?: string;
   company_name?: string;
   role?: string;
-  is_active: boolean;
-  created_at: string;
+  is_active?: boolean;
+  created_at?: string;
 }
 
 export interface LoginCredentials {

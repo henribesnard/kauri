@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Bell, User, LogOut, Settings } from 'lucide-react';
+import { Search, Bell, User, LogOut, Settings, MessageCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,6 +30,15 @@ const Header: React.FC = () => {
 
         {/* Actions à droite */}
         <div className="flex items-center gap-4 ml-6">
+          {/* Chat */}
+          <button
+            onClick={() => navigate('/chat')}
+            className="p-2 text-gray-600 hover:bg-green-50 hover:text-green-600 rounded-lg transition"
+            title="Chat avec Kauri"
+          >
+            <MessageCircle size={20} />
+          </button>
+
           {/* Notifications */}
           <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
             <Bell size={20} />

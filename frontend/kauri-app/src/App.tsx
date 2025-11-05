@@ -6,6 +6,7 @@ import DashboardLayout from './components/layout/DashboardLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
+import ChatPage from './pages/ChatPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 function App() {
@@ -26,8 +27,9 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route index element={<Navigate to="/chat" replace />} />
             <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="chat" element={<ChatPage />} />
             <Route
               path="achats"
               element={<PlaceholderPage title="Achats" description="Gérez vos factures d'achat et fournisseurs" />}
@@ -51,7 +53,7 @@ function App() {
           </Route>
 
           {/* Route par défaut */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          <Route path="*" element={<Navigate to="/chat" replace />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

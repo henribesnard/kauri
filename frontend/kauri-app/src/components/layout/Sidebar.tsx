@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Home,
   ShoppingCart,
@@ -7,8 +7,16 @@ import {
   Building2,
   Package,
   BarChart3,
-  CheckCircle2
+  CheckCircle2,
+  Plus,
+  MessageSquare,
+  Clock,
+  ChevronDown,
+  Settings,
+  LogOut,
+  User
 } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface NavItem {
   name: string;
@@ -19,6 +27,18 @@ interface NavItem {
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showConversations, setShowConversations] = useState(false);
+
+  // Extract initials from first and last name
+  const getInitials = () => {
+    const firstName = user?.first_name || '';
+    const lastName = user?.last_name || '';
+    if (!firstName && !lastName) return 'U';
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+  };
 
   const navItems: NavItem[] = [
     { name: 'Tableau de bord', path: '/dashboard', icon: <Home size={20} /> },
@@ -29,59 +49,134 @@ const Sidebar: React.FC = () => {
     { name: 'Rapports', path: '/rapports', icon: <BarChart3 size={20} /> },
   ];
 
+  const mockConversations = [
+    { id: '1', title: 'Conversation du 03/11/2...', date: 'il y a 2 jours', messages: 1 },
+    { id: '2', title: 'Conversation du 03/11/2...', date: 'il y a 2 jours', messages: 2 },
+    { id: '3', title: 'Conversation du 01/11/2...', date: 'il y a 4 jours', messages: 1 },
+  ];
+
   const isActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
 
   return (
     <div className="w-64 bg-white h-screen border-r border-gray-200 flex flex-col">
       {/* Logo */}
-      <div className="p-6 border-b border-gray-200">
+      <div className="p-6">
         <h1 className="text-2xl font-bold text-gray-900">Kauri</h1>
-        <p className="text-sm text-gray-600 mt-1">Expert Comptable OHADA</p>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
-        {navItems.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`
-              flex items-center justify-between px-4 py-3 rounded-lg transition-colors
-              ${isActive(item.path)
-                ? 'bg-green-50 text-green-700'
-                : 'text-gray-700 hover:bg-gray-50'
-              }
-            `}
+      {/* Bouton Nouvelle conversation (visible seulement sur /chat) */}
+      {location.pathname === '/chat' && (
+        <div className="px-4 pb-4">
+          <button
+            onClick={() => window.location.reload()}
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
           >
-            <div className="flex items-center gap-3">
-              {item.icon}
-              <span className="font-medium">{item.name}</span>
-            </div>
-            {item.badge && (
-              <span className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full">
-                {item.badge}
-              </span>
-            )}
-          </Link>
-        ))}
-      </nav>
-
-      {/* OHADA Badge */}
-      <div className="p-4 border-t border-gray-200">
-        <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 size={20} className="text-green-600" />
-            <div>
-              <p className="text-sm font-semibold text-green-900">Conformité OHADA</p>
-              <p className="text-xs text-green-700">Tous vos documents sont conformes aux normes SYSCOHADA</p>
-            </div>
-          </div>
-          <button className="mt-2 text-xs text-green-700 hover:text-green-800 font-medium">
-            Voir le détail →
+            <Plus size={18} />
+            <span className="text-sm font-medium">Nouvelle conversation</span>
           </button>
         </div>
+      )}
+
+      {/* Navigation ou Conversations */}
+      {location.pathname === '/chat' ? (
+        <nav className="flex-1 p-4 overflow-y-auto">
+          <div className="space-y-1">
+            {mockConversations.map((conv) => (
+              <button
+                key={conv.id}
+                className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-50 transition"
+              >
+                <div className="flex items-start gap-2">
+                  <MessageSquare size={16} className="text-gray-400 mt-1 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 truncate">{conv.title}</p>
+                    <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                      <Clock size={12} />
+                      <span>{conv.date}</span>
+                      <span>•</span>
+                      <span>{conv.messages} message{conv.messages > 1 ? 's' : ''}</span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </nav>
+      ) : (
+        <nav className="flex-1 p-4 space-y-1">
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`
+                flex items-center justify-between px-4 py-3 rounded-lg transition-colors
+                ${isActive(item.path)
+                  ? 'bg-green-50 text-green-700'
+                  : 'text-gray-700 hover:bg-gray-50'
+                }
+              `}
+            >
+              <div className="flex items-center gap-3">
+                {item.icon}
+                <span className="font-medium">{item.name}</span>
+              </div>
+              {item.badge && (
+                <span className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-full">
+                  {item.badge}
+                </span>
+              )}
+            </Link>
+          ))}
+        </nav>
+      )}
+
+      {/* Menu utilisateur */}
+      <div className="p-4">
+        <button
+          onClick={() => setShowUserMenu(!showUserMenu)}
+          className="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+              {getInitials()}
+            </div>
+            <div className="text-left">
+              <p className="text-sm font-medium text-gray-900">
+                {user?.first_name || ''} {user?.last_name || ''}
+              </p>
+              <p className="text-xs text-gray-500">{user?.email}</p>
+            </div>
+          </div>
+          <ChevronDown size={16} className={`text-gray-400 transition-transform ${showUserMenu ? 'rotate-180' : ''}`} />
+        </button>
+
+        {/* Dropdown menu */}
+        {showUserMenu && (
+          <div className="mt-2 border border-gray-200 rounded-lg overflow-hidden">
+            <button className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+              <User size={16} />
+              Tableau de bord
+            </button>
+            <button className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+              <Settings size={16} />
+              Configuration
+            </button>
+            <button
+              onClick={handleLogout}
+              className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+            >
+              <LogOut size={16} />
+              Se déconnecter
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

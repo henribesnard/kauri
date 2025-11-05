@@ -1,9 +1,12 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
 const DashboardLayout: React.FC = () => {
+  const location = useLocation();
+  const isChat = location.pathname === '/chat';
+
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
@@ -11,11 +14,11 @@ const DashboardLayout: React.FC = () => {
 
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
-        <Header />
+        {/* Header - hidden on chat page */}
+        {!isChat && <Header />}
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className={`flex-1 overflow-y-auto ${isChat ? '' : 'p-6'}`}>
           <Outlet />
         </main>
       </div>

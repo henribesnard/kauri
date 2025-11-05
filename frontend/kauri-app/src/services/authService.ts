@@ -1,31 +1,42 @@
 import apiClient from './api';
-import { LoginCredentials, RegisterData, AuthResponse, User } from '../types';
+import type { LoginCredentials, RegisterData, AuthResponse, User } from '../types';
 
 const USER_SERVICE_URL = import.meta.env.VITE_USER_SERVICE_URL || 'http://localhost:8001';
 
 export const authService = {
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    const formData = new FormData();
-    formData.append('username', credentials.email);
-    formData.append('password', credentials.password);
-
-    const response = await apiClient.post<AuthResponse>(
+    const response = await apiClient.post<any>(
       `${USER_SERVICE_URL}/api/v1/auth/login`,
-      formData,
       {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        email: credentials.email,
+        password: credentials.password,
       }
     );
 
+    // Adapter le format du backend au format frontend
+    const adaptedUser: User = {
+      id: response.data.user.user_id,
+      email: response.data.user.email,
+      first_name: response.data.user.first_name || '',
+      last_name: response.data.user.last_name || '',
+      full_name: `${response.data.user.first_name || ''} ${response.data.user.last_name || ''}`.trim(),
+      is_active: response.data.user.is_active,
+      created_at: response.data.user.created_at,
+    };
+
+    const adaptedResponse: AuthResponse = {
+      access_token: response.data.access_token,
+      token_type: response.data.token_type,
+      user: adaptedUser,
+    };
+
     // Store token and user data
-    if (response.data.access_token) {
-      localStorage.setItem('access_token', response.data.access_token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+    if (adaptedResponse.access_token) {
+      localStorage.setItem('access_token', adaptedResponse.access_token);
+      localStorage.setItem('user', JSON.stringify(adaptedResponse.user));
     }
 
-    return response.data;
+    return adaptedResponse;
   },
 
   async register(data: RegisterData): Promise<AuthResponse> {
@@ -57,7 +68,16 @@ export const authService = {
 
   getStoredUser(): User | null {
     const userStr = localStorage.getItem('user');
-    return userStr ? JSON.parse(userStr) : null;
+    if (!userStr || userStr === 'undefined' || userStr === 'null') {
+      return null;
+    }
+    try {
+      return JSON.parse(userStr);
+    } catch (error) {
+      console.error('Error parsing stored user:', error);
+      localStorage.removeItem('user');
+      return null;
+    }
   },
 
   isAuthenticated(): boolean {
