@@ -1,7 +1,7 @@
 # KAURI Chatbot - Résumé Exécutif
 
-> **Document de décision stratégique**  
-> **Date**: 2025-11-03  
+> **Document de décision stratégique**
+> **Date**: 2025-11-04
 > **Destinataires**: Direction Technique, Product Management
 
 ---
@@ -269,7 +269,7 @@ L'architecture actuelle est **excellente pour un MVP** mais **inadaptée pour pr
 
 ---
 
-**Document créé par**: Architecture Team  
-**Date**: 2025-11-03  
-**Version**: 1.0  
+**Document créé par**: Architecture Team
+**Date**: 2025-11-04
+**Version**: 1.0
 **Statut**: Proposition - En attente de décision
