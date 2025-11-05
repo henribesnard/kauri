@@ -15,6 +15,7 @@ from ...schemas.user import (
     UserLogin,
     TokenResponse,
     UserResponse,
+    UserLoginResponse,
     Message
 )
 from ...auth.password import hash_password, verify_password
@@ -198,7 +199,11 @@ async def login(
         email=user.email
     )
 
-    return TokenResponse(**token_data)
+    # Créer réponse avec token et utilisateur (schéma sécurisé)
+    return TokenResponse(
+        **token_data,
+        user=UserLoginResponse.from_orm(user)
+    )
 
 
 @router.post("/logout", response_model=Message)

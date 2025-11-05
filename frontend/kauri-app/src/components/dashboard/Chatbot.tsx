@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot } from 'lucide-react';
 import { chatbotService } from '../../services/chatbotService';
-import { ChatMessage } from '../../types';
+import type { ChatMessage } from '../../types';
 
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

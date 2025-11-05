@@ -1,6 +1,6 @@
 import React from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
-import { Transaction } from '../../types';
+import type { Transaction } from '../../types';
 
 interface TransactionListProps {
   transactions: Transaction[];

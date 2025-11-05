@@ -1,5 +1,5 @@
 import apiClient from './api';
-import { ChatQueryRequest, ChatQueryResponse } from '../types';
+import type { ChatQueryRequest, ChatQueryResponse } from '../types';
 
 const CHATBOT_SERVICE_URL = import.meta.env.VITE_CHATBOT_SERVICE_URL || 'http://localhost:8002';
 

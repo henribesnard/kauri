@@ -25,6 +25,7 @@ KAURI est une solution ERP complète de gestion comptable conforme aux normes OH
 ### Fonctionnalités Principales
 
 - 🤖 **Chatbot RAG Intelligent** - Assistant virtuel expert en comptabilité OHADA
+- 🎯 **Classification d'Intention** - Routing intelligent par LLM (LangGraph)
 - 👥 **Gestion Utilisateurs** - Authentification, autorisation et gestion des profils
 - 📊 **Comptabilité OHADA** - Gestion conforme au plan comptable SYSCOHADA
 - 🔍 **Recherche Hybride** - BM25 + Vector Search + Reranking pour résultats pertinents
@@ -71,9 +72,10 @@ KAURI est une solution ERP complète de gestion comptable conforme aux normes OH
 | **Backend Framework** | FastAPI | 0.115.11 |
 | **Base SQL** | PostgreSQL | 15 |
 | **Cache** | Redis | 7 |
-| **Vector DB** | ChromaDB (dev) / Pinecone (prod) | 0.5.23 |
+| **Vector DB** | ChromaDB (dev) / Pinecone (prod) | 0.4.24 |
 | **Embeddings** | BGE-M3 (local) | 1024 dim |
-| **LLM** | DeepSeek + OpenAI | API |
+| **LLM** | DeepSeek + OpenAI (gpt-4o/gpt-4o-mini) | API |
+| **Orchestration** | LangGraph | 0.2.60 |
 | **Containerisation** | Docker + Docker Compose | - |
 
 ---
@@ -282,9 +284,18 @@ POST /api/v1/auth/logout       # Déconnexion
 
 **Responsabilités** :
 - Chatbot RAG expert OHADA
-- Recherche hybride (BM25 + Vector)
+- **Classification d'intention intelligente (LLM-based)**
+- Recherche hybride (BM25 + Vector + Reranking)
 - Génération de réponses avec LLM
 - Gestion des conversations
+
+**Architecture Workflow** :
+```
+Query → Intent Classification → Routing Conditionnel
+   ├─ general_conversation → Réponse directe (sans RAG)
+   ├─ rag_query → Recherche + Génération avec docs
+   └─ clarification → Demande de précisions
+```
 
 **Endpoints Principaux** :
 ```
@@ -294,7 +305,9 @@ GET  /api/v1/chat/stream       # Query streaming SSE
 GET  /api/v1/chat/conversations # Liste conversations
 ```
 
-**Documentation** : http://localhost:8002/api/v1/docs
+**Documentation** :
+- API: http://localhost:8002/api/v1/docs
+- Architecture: [INTENT_CLASSIFICATION_ARCHITECTURE.md](./INTENT_CLASSIFICATION_ARCHITECTURE.md)
 
 ---
 

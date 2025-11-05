@@ -9,11 +9,11 @@ pydantic==2.10.6
 pydantic-settings==2.7.1
 python-dotenv==1.0.1
 
-# Database
-sqlalchemy==2.0.38
-alembic==1.15.1
-psycopg2-binary==2.9.10
-asyncpg==0.30.0
+# Database (PostgreSQL removed - using ChromaDB only)
+# sqlalchemy==2.0.38  # Removed
+# alembic==1.15.1     # Removed
+# psycopg2-binary==2.9.10  # Removed
+# asyncpg==0.30.0     # Removed
 
 # Vector Database
 chromadb==0.4.24
@@ -32,6 +32,8 @@ rank-bm25==0.2.2
 langchain==0.3.20
 langchain-community==0.3.19
 langchain-core==0.3.42
+langgraph==0.2.60
+langchain-openai==0.2.14
 
 # Document Processing
 pypdf==5.3.1

@@ -20,8 +20,8 @@ class Settings(BaseSettings):
     kauri_env: str = Field(default="development", alias="KAURI_ENV")
     debug: bool = Field(default=True, alias="DEBUG")
 
-    # Database
-    database_url: str = Field(alias="DATABASE_URL")
+    # Database (PostgreSQL removed - no longer needed for chatbot service)
+    # database_url: str = Field(alias="DATABASE_URL")  # Removed
 
     # Redis
     redis_host: str = Field(default="redis", alias="REDIS_HOST")
@@ -57,6 +57,10 @@ class Settings(BaseSettings):
     llm_fallback_model: str = Field(default="gpt-4o-mini", alias="LLM_FALLBACK_MODEL")
     llm_temperature: float = Field(default=0.1, alias="LLM_TEMPERATURE")  # Déterministe pour réponses cohérentes
     llm_max_tokens: int = Field(default=2500, alias="LLM_MAX_TOKENS")  # Réponses complètes et structurées
+
+    # Intent Classification
+    intent_classifier_temperature: float = Field(default=0.0, alias="INTENT_CLASSIFIER_TEMPERATURE")  # Déterministe pour classification
+    intent_classifier_max_tokens: int = Field(default=500, alias="INTENT_CLASSIFIER_MAX_TOKENS")  # Classification + réponse directe si nécessaire
 
     # RAG Configuration
     rag_top_k: int = Field(default=10, alias="RAG_TOP_K")

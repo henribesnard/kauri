@@ -1,6 +1,6 @@
 import React from 'react';
 import { AlertCircle, Clock, CheckCircle } from 'lucide-react';
-import { Task } from '../../types';
+import type { Task } from '../../types';
 
 interface TaskListProps {
   tasks: Task[];

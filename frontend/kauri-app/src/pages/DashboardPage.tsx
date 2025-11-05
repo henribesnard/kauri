@@ -3,9 +3,8 @@ import { TrendingUp, DollarSign, Wallet, AlertTriangle } from 'lucide-react';
 import KPICard from '../components/dashboard/KPICard';
 import TransactionList from '../components/dashboard/TransactionList';
 import TaskList from '../components/dashboard/TaskList';
-import Chatbot from '../components/dashboard/Chatbot';
 import { useAuth } from '../contexts/AuthContext';
-import { Transaction, Task } from '../types';
+import type { Transaction, Task } from '../types';
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuth();
@@ -111,9 +110,6 @@ const DashboardPage: React.FC = () => {
         <TransactionList transactions={mockTransactions} />
         <TaskList tasks={mockTasks} />
       </div>
-
-      {/* Chatbot */}
-      <Chatbot />
     </div>
   );
 };

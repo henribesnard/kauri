@@ -42,6 +42,7 @@ class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     expires_in: int  # Durée en secondes
+    user: 'UserLoginResponse'  # Forward reference - schéma sécurisé sans is_superuser/is_verified
 
 
 class TokenData(BaseModel):
@@ -85,6 +86,15 @@ class UserResponse(UserBase):
 
     class Config:
         from_attributes = True  # Pydantic v2 (anciennement orm_mode)
+
+
+class UserLoginResponse(UserBase):
+    """Schéma sécurisé pour la réponse login (sans is_superuser, is_verified)"""
+    user_id: str
+    # Removed for security: is_superuser, is_verified, created_at, updated_at, last_login
+
+    class Config:
+        from_attributes = True
 
 
 class UserInDB(UserResponse):

@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     # JWT
     jwt_secret_key: str = Field(alias="JWT_SECRET_KEY")
     jwt_algorithm: str = Field(default="HS256", alias="JWT_ALGORITHM")
-    jwt_expire_hours: int = Field(default=24, alias="JWT_EXPIRE_HOURS")
+    jwt_expire_hours: int = Field(default=1, alias="JWT_EXPIRE_HOURS")  # Changé de 24h à 1h pour sécurité
 
     # CORS
     cors_origins: str = Field(default="*", alias="CORS_ORIGINS")

@@ -1,44 +1,63 @@
 """
 Document Processor - Parse and extract content from files
+Simplified version using DocumentReader for .docx files
 """
-import os
 import hashlib
-from typing import Dict, Any, List
+from typing import Dict, Any
 from pathlib import Path
 import structlog
-from pypdf import PdfReader
-import docx
-from bs4 import BeautifulSoup
+from .document_reader import get_document_reader
 
 logger = structlog.get_logger()
 
+
 class DocumentProcessor:
-    SUPPORTED_FORMATS = [".txt", ".md", ".pdf", ".docx", ".html"]
-    
+    """
+    Process documents from base_connaissances
+    Uses DocumentReader for enhanced .docx support (tables, structure)
+    """
+    SUPPORTED_FORMATS = [".docx"]  # Focus on .docx for OHADA documents
+
+    def __init__(self):
+        self.document_reader = get_document_reader()
+
     @staticmethod
     def compute_hash(content: str) -> str:
+        """Compute SHA-256 hash of content"""
         return hashlib.sha256(content.encode("utf-8")).hexdigest()
-    
+
     def process_file(self, file_path: Path) -> Dict[str, Any]:
+        """
+        Process a document file
+
+        Args:
+            file_path: Path to document file
+
+        Returns:
+            Dict with content, metadata, hash
+        """
         logger.info("processing_file", path=str(file_path))
         extension = file_path.suffix.lower()
-        
-        if extension == ".txt" or extension == ".md":
-            content = file_path.read_text(encoding="utf-8")
-        elif extension == ".pdf":
-            reader = PdfReader(str(file_path))
-            content = "\n".join(page.extract_text() for page in reader.pages)
-        elif extension == ".docx":
-            doc = docx.Document(str(file_path))
-            content = "\n\n".join(para.text for para in doc.paragraphs if para.text.strip())
-        else:
-            content = file_path.read_text(encoding="utf-8")
-        
-        return {
-            "content": content,
-            "hash": self.compute_hash(content),
-            "title": file_path.stem,
-            "file_path": str(file_path)
-        }
 
+        if extension not in self.SUPPORTED_FORMATS:
+            raise ValueError(f"Unsupported format: {extension}. Supported: {self.SUPPORTED_FORMATS}")
+
+        # Use DocumentReader for .docx (with table support)
+        if extension == ".docx":
+            doc_data = self.document_reader.read_docx(file_path)
+
+            return {
+                "content": doc_data["content"],
+                "hash": self.compute_hash(doc_data["content"]),
+                "metadata": doc_data["metadata"],
+                "has_tables": doc_data.get("has_tables", False),
+                "file_path": str(file_path),
+                "file_name": file_path.name,
+                "title": doc_data["metadata"].get("title", file_path.stem)
+            }
+        else:
+            raise ValueError(f"Format not yet implemented: {extension}")
+
+
+# Singleton instance
 document_processor = DocumentProcessor()
