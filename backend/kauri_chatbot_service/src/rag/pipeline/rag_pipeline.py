@@ -84,14 +84,63 @@ Réponds à la question en te basant UNIQUEMENT sur les documents fournis ci-des
 Si l'information n'est pas présente dans les documents, indique-le clairement.
 Cite les références (articles, sections) dans ta réponse."""
 
+    def _generate_title_from_path(self, file_path: str) -> str:
+        """
+        Generate structured title from file_path (version simple - tous les niveaux)
+
+        Examples:
+          /app/base_connaissances/actes_uniformes/droit comptable/titre3.docx
+          -> actes_uniformes > droit comptable > titre3
+
+          /app/base_connaissances/plan_comptable/chapitres_word/partie_1/chapitre_5.docx
+          -> plan_comptable > chapitres_word > partie_1 > chapitre_5
+
+          /app/base_connaissances/presentation_ohada/Présentation de l'OHADA.docx
+          -> presentation_ohada > Présentation de l'OHADA
+
+        Cette approche est évolutive pour supporter jurisprudence/, doctrine/, etc.
+        """
+        if not file_path:
+            return "Document sans titre"
+
+        # Normalize path separators and remove base prefix
+        path = file_path.replace("\\", "/")
+        path = path.replace("/app/base_connaissances/", "")
+
+        # Also handle Windows absolute paths if any
+        if "base_connaissances/" in path:
+            path = path.split("base_connaissances/", 1)[1]
+
+        # Remove file extension
+        if "." in path:
+            path = path.rsplit(".", 1)[0]
+
+        # Split path into parts and clean
+        parts = [part.strip() for part in path.split("/") if part.strip()]
+
+        # Return hierarchical title
+        return " > ".join(parts)
+
     def _convert_to_source_documents(self, documents: List[Dict[str, Any]]) -> List[SourceDocument]:
-        """Convert internal document format to API schema"""
+        """
+        Convert internal document format to API schema
+
+        Always generates title from file_path for consistency and clarity.
+        This ensures all sources have hierarchical titles showing their location
+        in the knowledge base (actes_uniformes, plan_comptable, jurisprudence, etc.)
+        """
         sources = []
         for doc in documents:
+            metadata = doc.get("metadata", {})
+
+            # Always generate structured title from file_path
+            # This ensures consistency across all document types and future additions
+            file_path = metadata.get("source", "")
+            title = self._generate_title_from_path(file_path)
+
             sources.append(SourceDocument(
-                content=doc.get("content", ""),
-                score=doc.get("score", 0.0),
-                metadata=doc.get("metadata", {})
+                title=title,
+                score=doc.get("score", 0.0)
             ))
         return sources
 

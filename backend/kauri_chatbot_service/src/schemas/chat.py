@@ -14,9 +14,8 @@ class ChatRequest(BaseModel):
 
 class SourceDocument(BaseModel):
     """Source document used in RAG"""
-    content: str = Field(..., description="Document content")
+    title: str = Field(..., description="Document title (structured path)")
     score: float = Field(..., description="Relevance score")
-    metadata: Dict[str, Any] = Field(default_factory=dict, description="Document metadata")
 
 
 class ChatResponse(BaseModel):
