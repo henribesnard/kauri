@@ -14,7 +14,7 @@ const Chatbot: React.FC = () => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [sessionId, setSessionId] = useState<string | undefined>();
+  const [conversationId, setConversationId] = useState<string | undefined>();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -39,16 +39,18 @@ const Chatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await chatbotService.sendQuery(inputValue, sessionId);
+      const response = await chatbotService.sendQuery(inputValue, conversationId);
 
-      if (!sessionId) {
-        setSessionId(response.session_id);
+      if (!conversationId && response.conversation_id) {
+        setConversationId(response.conversation_id);
       }
 
       const assistantMessage: ChatMessage = {
         role: 'assistant',
         content: response.response,
         timestamp: new Date(),
+        sources: response.sources,
+        metadata: response.metadata,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);

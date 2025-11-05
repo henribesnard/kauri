@@ -1,15 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot } from 'lucide-react';
 import { chatbotService } from '../services/chatbotService';
+import { conversationService } from '../services/conversationService';
 import { useAuth } from '../contexts/AuthContext';
-import type { ChatMessage } from '../types';
+import ConversationSidebar from '../components/chat/ConversationSidebar';
+import type { ChatMessage, Conversation } from '../types';
 
 const ChatPage: React.FC = () => {
   const { user } = useAuth();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [sessionId, setSessionId] = useState<string | undefined>();
+  const [conversationId, setConversationId] = useState<string | undefined>();
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [loadingConversations, setLoadingConversations] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -20,12 +24,84 @@ const ChatPage: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
+  // Load conversations on mount
+  useEffect(() => {
+    loadConversations();
+  }, []);
+
+  const loadConversations = async () => {
+    setLoadingConversations(true);
+    try {
+      const response = await conversationService.listConversations(false, 50, 0);
+      setConversations(response.conversations);
+    } catch (error) {
+      console.error('Erreur lors du chargement des conversations:', error);
+    } finally {
+      setLoadingConversations(false);
+    }
+  };
+
+  const loadConversationMessages = async (convId: string) => {
+    try {
+      const conversation = await conversationService.getConversation(convId);
+      if (conversation.messages) {
+        // Convert API messages to ChatMessage format
+        const chatMessages: ChatMessage[] = conversation.messages.map(msg => ({
+          ...msg,
+          timestamp: new Date(msg.created_at || new Date()),
+        }));
+        setMessages(chatMessages);
+      }
+      setConversationId(convId);
+    } catch (error) {
+      console.error('Erreur lors du chargement des messages:', error);
+    }
+  };
+
+  const handleNewConversation = () => {
+    setConversationId(undefined);
+    setMessages([]);
+  };
+
+  const handleSelectConversation = (convId: string) => {
+    loadConversationMessages(convId);
+  };
+
+  const handleDeleteConversation = async (convId: string) => {
+    try {
+      await conversationService.deleteConversation(convId);
+      // Reload conversations list
+      await loadConversations();
+      // If deleted conversation was active, clear it
+      if (conversationId === convId) {
+        handleNewConversation();
+      }
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
+    }
+  };
+
+  const handleArchiveConversation = async (convId: string) => {
+    try {
+      await conversationService.updateConversation(convId, { is_archived: true });
+      // Reload conversations list
+      await loadConversations();
+      // If archived conversation was active, clear it
+      if (conversationId === convId) {
+        handleNewConversation();
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'archivage:', error);
+    }
+  };
+
   const handleSend = async () => {
     if (!inputValue.trim() || isLoading) return;
 
+    const query = inputValue;
     const userMessage: ChatMessage = {
       role: 'user',
-      content: inputValue,
+      content: query,
       timestamp: new Date(),
     };
 
@@ -33,29 +109,138 @@ const ChatPage: React.FC = () => {
     setInputValue('');
     setIsLoading(true);
 
-    try {
-      const response = await chatbotService.sendQuery(inputValue, sessionId);
+    // Create placeholder for assistant message
+    const assistantMessageIndex = messages.length + 1;
+    const assistantMessage: ChatMessage = {
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+    };
+    setMessages((prev) => [...prev, assistantMessage]);
 
-      if (!sessionId) {
-        setSessionId(response.session_id);
+    try {
+      // Use fetch with streaming instead of EventSource for POST support
+      const token = localStorage.getItem('access_token');
+      const CHATBOT_SERVICE_URL = import.meta.env.VITE_CHATBOT_SERVICE_URL || 'http://localhost:3202';
+
+      const response = await fetch(`${CHATBOT_SERVICE_URL}/api/v1/chat/stream`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          query: query,
+          conversation_id: conversationId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const assistantMessage: ChatMessage = {
-        role: 'assistant',
-        content: response.response,
-        timestamp: new Date(),
-      };
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let fullResponse = '';
+      let buffer = '';
 
-      setMessages((prev) => [...prev, assistantMessage]);
+      if (!reader) {
+        throw new Error('No reader available');
+      }
+
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) {
+          setIsLoading(false);
+          break;
+        }
+
+        // Decode the chunk and add to buffer
+        buffer += decoder.decode(value, { stream: true });
+
+        // Split by double newlines (SSE format)
+        const lines = buffer.split('\n\n');
+        buffer = lines.pop() || ''; // Keep incomplete line in buffer
+
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.substring(6));
+
+              if (data.type === 'conversation_id') {
+                if (!conversationId) {
+                  setConversationId(data.conversation_id);
+                  loadConversations();
+                }
+              } else if (data.type === 'sources') {
+                // Sources received, could show them
+                setMessages((prev) => {
+                  const newMessages = [...prev];
+                  newMessages[assistantMessageIndex] = {
+                    ...newMessages[assistantMessageIndex],
+                    sources: data.sources,
+                  };
+                  return newMessages;
+                });
+              } else if (data.type === 'token') {
+                fullResponse += data.content;
+                setMessages((prev) => {
+                  const newMessages = [...prev];
+                  newMessages[assistantMessageIndex] = {
+                    ...newMessages[assistantMessageIndex],
+                    content: fullResponse,
+                  };
+                  return newMessages;
+                });
+              } else if (data.type === 'done') {
+                if (data.metadata) {
+                  setMessages((prev) => {
+                    const newMessages = [...prev];
+                    newMessages[assistantMessageIndex] = {
+                      ...newMessages[assistantMessageIndex],
+                      metadata: data.metadata,
+                    };
+                    return newMessages;
+                  });
+
+                  // Update conversation ID from metadata
+                  if (data.metadata.conversation_id && !conversationId) {
+                    setConversationId(data.metadata.conversation_id);
+                    loadConversations();
+                  }
+                }
+                setIsLoading(false);
+              } else if (data.type === 'error') {
+                console.error('Streaming error:', data.content);
+                setMessages((prev) => {
+                  const newMessages = [...prev];
+                  newMessages[assistantMessageIndex] = {
+                    ...newMessages[assistantMessageIndex],
+                    content: 'Désolé, une erreur est survenue. Veuillez réessayer.',
+                  };
+                  return newMessages;
+                });
+                setIsLoading(false);
+                break;
+              }
+            } catch (error) {
+              console.error('Error parsing SSE data:', error);
+            }
+          }
+        }
+      }
+
     } catch (error) {
       console.error('Erreur lors de l\'envoi du message:', error);
-      const errorMessage: ChatMessage = {
-        role: 'assistant',
-        content: 'Désolé, une erreur est survenue. Veuillez réessayer.',
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
+      setMessages((prev) => {
+        const newMessages = [...prev];
+        newMessages[assistantMessageIndex] = {
+          ...newMessages[assistantMessageIndex],
+          content: 'Désolé, une erreur est survenue. Veuillez réessayer.',
+        };
+        return newMessages;
+      });
       setIsLoading(false);
     }
   };
@@ -77,9 +262,22 @@ const ChatPage: React.FC = () => {
   ];
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
-      {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto px-4 pt-8 pb-4 max-w-4xl mx-auto w-full flex flex-col">
+    <div className="h-screen flex bg-gray-50">
+      {/* Conversation Sidebar */}
+      <ConversationSidebar
+        conversations={conversations}
+        currentConversationId={conversationId}
+        onSelectConversation={handleSelectConversation}
+        onNewConversation={handleNewConversation}
+        onDeleteConversation={handleDeleteConversation}
+        onArchiveConversation={handleArchiveConversation}
+        loading={loadingConversations}
+      />
+
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col">
+        {/* Messages Container */}
+        <div className="flex-1 overflow-y-auto px-4 pt-8 pb-4 max-w-4xl mx-auto w-full flex flex-col scrollbar-hide">
         {messages.length === 0 && (
           <>
             <div className="text-center mb-6">
@@ -139,22 +337,47 @@ const ChatPage: React.FC = () => {
                 <Bot size={18} className="text-green-600" />
               </div>
             )}
-            <div
-              className={`max-w-[70%] rounded-2xl px-4 py-3 ${
-                message.role === 'user'
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-100 text-gray-900'
-              }`}
-            >
-              <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-              <p className={`text-xs mt-1 ${
-                message.role === 'user' ? 'text-green-100' : 'text-gray-500'
-              }`}>
-                {message.timestamp.toLocaleTimeString('fr-FR', {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
-              </p>
+            <div className={`max-w-[70%]`}>
+              <div
+                className={`rounded-2xl px-4 py-3 ${
+                  message.role === 'user'
+                    ? 'bg-green-600 text-white'
+                    : 'bg-gray-100 text-gray-900'
+                }`}
+              >
+                <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+
+                {/* Sources - Only for assistant messages */}
+                {message.role === 'assistant' && message.sources && message.sources.length > 0 && (
+                  <div className="mt-4 pt-3 border-t border-gray-300">
+                    <div className="mb-2">
+                      <span className="text-xs font-semibold text-gray-700">Sources ({message.sources.length})</span>
+                    </div>
+                    <div className="space-y-1.5">
+                      {message.sources.map((source, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-xs">
+                          <span className="font-bold text-gray-400 min-w-[16px]">{idx + 1}.</span>
+                          <div className="flex-1 min-w-0">
+                            <span className="font-medium text-gray-800 truncate block">{source.title}</span>
+                          </div>
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-green-100 text-green-700 font-semibold flex-shrink-0">
+                            {source.score.toFixed(2)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <p className={`text-xs mt-2 ${
+                  message.role === 'user' ? 'text-green-100' : 'text-gray-500'
+                }`}>
+                  {message.timestamp.toLocaleTimeString('fr-FR', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                </p>
+              </div>
             </div>
           </div>
         ))}
@@ -174,36 +397,37 @@ const ChatPage: React.FC = () => {
           </div>
         )}
         <div ref={messagesEndRef} />
-      </div>
+        </div>
 
-      {/* Input Container - Only shown when there are messages */}
-      {messages.length > 0 && (
-        <div className="px-4 py-4">
-          <div className="max-w-4xl mx-auto w-full">
-            <div className="relative rounded-xl transition-all" style={{ boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)' }}>
-              <textarea
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Posez votre question..."
-                className="w-full pl-4 pr-12 py-3 bg-white border-0 rounded-xl focus:outline-none resize-none transition-all"
-                rows={1}
-                disabled={isLoading}
-                style={{ minHeight: '48px', maxHeight: '120px' }}
-                onFocus={(e) => e.currentTarget.parentElement!.style.boxShadow = '0 0 0 2px #22c55e'}
-                onBlur={(e) => e.currentTarget.parentElement!.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)'}
-              />
-              <button
-                onClick={handleSend}
-                disabled={isLoading || !inputValue.trim()}
-                className="absolute right-2 bottom-2 bg-gray-200 hover:bg-green-600 text-gray-600 hover:text-white p-2 rounded-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-              >
-                <Send size={20} />
-              </button>
+        {/* Input Container - Only shown when there are messages */}
+        {messages.length > 0 && (
+          <div className="px-4 py-4">
+            <div className="max-w-4xl mx-auto w-full">
+              <div className="relative rounded-xl transition-all" style={{ boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)' }}>
+                <textarea
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Posez votre question..."
+                  className="w-full pl-4 pr-12 py-3 bg-white border-0 rounded-xl focus:outline-none resize-none transition-all"
+                  rows={1}
+                  disabled={isLoading}
+                  style={{ minHeight: '48px', maxHeight: '120px' }}
+                  onFocus={(e) => e.currentTarget.parentElement!.style.boxShadow = '0 0 0 2px #22c55e'}
+                  onBlur={(e) => e.currentTarget.parentElement!.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)'}
+                />
+                <button
+                  onClick={handleSend}
+                  disabled={isLoading || !inputValue.trim()}
+                  className="absolute right-2 bottom-2 bg-gray-200 hover:bg-green-600 text-gray-600 hover:text-white p-2 rounded-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <Send size={20} />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

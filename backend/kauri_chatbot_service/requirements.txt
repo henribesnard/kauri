@@ -9,11 +9,10 @@ pydantic==2.10.6
 pydantic-settings==2.7.1
 python-dotenv==1.0.1
 
-# Database (PostgreSQL removed - using ChromaDB only)
-# sqlalchemy==2.0.38  # Removed
-# alembic==1.15.1     # Removed
-# psycopg2-binary==2.9.10  # Removed
-# asyncpg==0.30.0     # Removed
+# Database (PostgreSQL for conversations and messages)
+sqlalchemy==2.0.38
+alembic==1.16.5
+psycopg2-binary==2.9.10
 
 # Vector Database
 chromadb==0.4.24

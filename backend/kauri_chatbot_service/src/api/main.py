@@ -9,7 +9,7 @@ import structlog
 import time
 
 from ..config import settings
-from .routes import chat
+from .routes import chat, conversations, admin
 
 # Configure structured logging
 logger = structlog.get_logger()
@@ -33,7 +33,9 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(chat.router, prefix="/api/v1")
+app.include_router(chat.router)
+app.include_router(conversations.router)
+app.include_router(admin.router)
 
 
 # Middleware pour logging des requêtes

@@ -18,7 +18,17 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
-          {/* Routes protégées */}
+          {/* Route Chat standalone (sans DashboardLayout) */}
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute>
+                <ChatPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Routes protégées avec DashboardLayout */}
           <Route
             path="/"
             element={
@@ -29,7 +39,6 @@ function App() {
           >
             <Route index element={<Navigate to="/chat" replace />} />
             <Route path="dashboard" element={<DashboardPage />} />
-            <Route path="chat" element={<ChatPage />} />
             <Route
               path="achats"
               element={<PlaceholderPage title="Achats" description="Gérez vos factures d'achat et fournisseurs" />}

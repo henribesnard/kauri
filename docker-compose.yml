@@ -155,6 +155,7 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/kauri_chatbot
+      - CHATBOT_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/kauri_chatbot
 
       # Redis
       - REDIS_HOST=redis

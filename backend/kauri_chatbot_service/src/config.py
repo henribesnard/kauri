@@ -20,8 +20,8 @@ class Settings(BaseSettings):
     kauri_env: str = Field(default="development", alias="KAURI_ENV")
     debug: bool = Field(default=True, alias="DEBUG")
 
-    # Database (PostgreSQL removed - no longer needed for chatbot service)
-    # database_url: str = Field(alias="DATABASE_URL")  # Removed
+    # Database (PostgreSQL for conversations and messages)
+    database_url: str = Field(alias="CHATBOT_DATABASE_URL")
 
     # Redis
     redis_host: str = Field(default="redis", alias="REDIS_HOST")
@@ -101,8 +101,8 @@ class Settings(BaseSettings):
     openapi_url: str = Field(default="/api/v1/openapi.json", alias="OPENAPI_URL")
 
     class Config:
-        # Cherche d'abord dans .env du service, puis dans .env racine
-        env_file = [".env", "../.env", "../../.env"]
+        # Cherche d'abord dans .env.local (pour dev local), puis .env du service, puis .env racine
+        env_file = [".env.local", ".env", "../.env", "../../.env"]
         env_file_encoding = "utf-8"
         case_sensitive = False
         extra = "ignore"  # Ignore les variables non définies

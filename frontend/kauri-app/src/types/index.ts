@@ -57,18 +57,77 @@ export interface Task {
 
 // Chatbot types
 export interface ChatMessage {
+  id?: string;
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
+  created_at?: string;
+  sources?: Array<{
+    title: string;
+    score: number;
+  }>;
+  metadata?: Record<string, any>;
+}
+
+export interface Conversation {
+  id: string;
+  user_id: string;
+  title: string | null;
+  created_at: string;
+  updated_at: string;
+  is_archived: boolean;
+  metadata?: Record<string, any>;
+  message_count?: number;
+  messages?: ChatMessage[];
+}
+
+export interface ConversationTag {
+  id: string;
+  conversation_id: string;
+  tag: string;
+  created_at: string;
+}
+
+export interface ConversationListResponse {
+  conversations: Conversation[];
+  total: number;
+}
+
+export interface ConversationStatsResponse {
+  total_conversations: number;
+  active_conversations: number;
+  archived_conversations: number;
+  total_messages: number;
 }
 
 export interface ChatQueryRequest {
   query: string;
-  session_id?: string;
+  conversation_id?: string;
+  user_settings?: Record<string, any>;
 }
 
 export interface ChatQueryResponse {
   response: string;
-  session_id: string;
-  sources?: string[];
+  conversation_id: string;
+  sources?: Array<{
+    title: string;
+    score: number;
+  }>;
+  metadata?: {
+    model?: string;
+    tokens?: number;
+    latency_ms?: number;
+    intent?: string;
+  };
+}
+
+export interface CreateConversationRequest {
+  title?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface UpdateConversationRequest {
+  title?: string;
+  is_archived?: boolean;
+  metadata?: Record<string, any>;
 }
