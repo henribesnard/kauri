@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from src.models.database import get_db
 from src.services.conversation_service import ConversationService
+from src.services.context_manager import context_manager
 from src.schemas.conversation import (
     ConversationCreate,
     ConversationUpdate,
@@ -18,7 +19,9 @@ from src.schemas.conversation import (
     TagCreate,
     TagRemove,
     TagResponse,
-    ConversationStats
+    ConversationStats,
+    MessageFeedback,
+    ConversationContextInfo
 )
 from src.auth.jwt_validator import get_current_user
 
@@ -187,6 +190,7 @@ async def get_conversation(
             content=msg.content,
             sources=msg.sources or [],
             metadata=msg.extra_data or {},
+            user_feedback=msg.user_feedback,
             created_at=msg.created_at,
             deleted_at=msg.deleted_at
         ))
@@ -488,3 +492,83 @@ async def auto_generate_title(
         metadata=conversation.extra_data or {},
         message_count=len(conversation.messages) if conversation.messages else 0
     )
+
+
+@router.post("/messages/{message_id}/feedback", status_code=status.HTTP_200_OK)
+async def add_message_feedback(
+    message_id: uuid.UUID,
+    feedback: MessageFeedback,
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Add feedback to a message
+
+    Args:
+        message_id: UUID of the message
+        feedback: Feedback data
+        db: Database session
+        current_user: Authenticated user from JWT
+
+    Returns:
+        Success message
+    """
+    user_id = uuid.UUID(current_user["user_id"])
+
+    success = ConversationService.add_message_feedback(
+        db=db,
+        message_id=message_id,
+        user_id=user_id,
+        rating=feedback.rating,
+        comment=feedback.comment
+    )
+
+    if not success:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Message not found or unauthorized"
+        )
+
+    return {"message": "Feedback added successfully"}
+
+
+@router.get("/{conversation_id}/context-info", response_model=ConversationContextInfo)
+async def get_conversation_context_info(
+    conversation_id: uuid.UUID,
+    include_current_query: bool = Query(False, description="Include hypothetical current query"),
+    current_query: str = Query(None, description="Hypothetical current query"),
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Get context information for a conversation
+
+    Args:
+        conversation_id: UUID of the conversation
+        include_current_query: Whether to include current query in token count
+        current_query: Optional current query to include in count
+        db: Database session
+        current_user: Authenticated user from JWT
+
+    Returns:
+        Context information
+    """
+    user_id = uuid.UUID(current_user["user_id"])
+
+    # Verify user owns the conversation
+    conversation = ConversationService.get_conversation(db, conversation_id, user_id)
+    if not conversation:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Conversation not found"
+        )
+
+    # Get context info
+    _, context_info = context_manager.get_conversation_context(
+        db=db,
+        conversation_id=conversation_id,
+        include_current_query=include_current_query,
+        current_query=current_query
+    )
+
+    return ConversationContextInfo(**context_info.to_dict())

@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot } from 'lucide-react';
 import { chatbotService } from '../../services/chatbotService';
-import type { ChatMessage } from '../../types';
+import { conversationService } from '../../services/conversationService';
+import { MessageFeedback } from '../chat/MessageFeedback';
+import { ContextWarningBanner } from '../chat/ContextWarningBanner';
+import type { ChatMessage, ConversationContextInfo } from '../../types';
 
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +18,7 @@ const Chatbot: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId, setConversationId] = useState<string | undefined>();
+  const [contextInfo, setContextInfo] = useState<ConversationContextInfo | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -25,8 +29,23 @@ const Chatbot: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
+  const fetchContextInfo = async (convId: string) => {
+    try {
+      const info = await conversationService.getContextInfo(convId);
+      setContextInfo(info);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des infos de contexte:', error);
+    }
+  };
+
   const handleSend = async () => {
     if (!inputValue.trim() || isLoading) return;
+
+    // Check if context is over limit
+    if (contextInfo?.is_over_limit) {
+      alert('La limite de contexte est atteinte. Veuillez créer une nouvelle conversation.');
+      return;
+    }
 
     const userMessage: ChatMessage = {
       role: 'user',
@@ -41,11 +60,14 @@ const Chatbot: React.FC = () => {
     try {
       const response = await chatbotService.sendQuery(inputValue, conversationId);
 
-      if (!conversationId && response.conversation_id) {
-        setConversationId(response.conversation_id);
+      let currentConvId = conversationId;
+      if (!currentConvId && response.conversation_id) {
+        currentConvId = response.conversation_id;
+        setConversationId(currentConvId);
       }
 
       const assistantMessage: ChatMessage = {
+        id: response.message_id || `msg-${Date.now()}`,
         role: 'assistant',
         content: response.response,
         timestamp: new Date(),
@@ -54,6 +76,13 @@ const Chatbot: React.FC = () => {
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
+
+      // Fetch context info after each message (non-blocking)
+      if (currentConvId) {
+        fetchContextInfo(currentConvId).catch(err => {
+          console.error('Error fetching context info:', err);
+        });
+      }
     } catch (error) {
       console.error('Erreur lors de l\'envoi du message:', error);
       const errorMessage: ChatMessage = {
@@ -108,6 +137,11 @@ const Chatbot: React.FC = () => {
             </button>
           </div>
 
+          {/* Context Warning Banner */}
+          {contextInfo && (contextInfo.is_near_limit || contextInfo.is_over_limit) && (
+            <ContextWarningBanner contextInfo={contextInfo} />
+          )}
+
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((message, index) => (
@@ -116,21 +150,40 @@ const Chatbot: React.FC = () => {
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-2 ${
+                  className={`max-w-[80%] ${
                     message.role === 'user'
-                      ? 'bg-green-600 text-white'
-                      : 'bg-gray-100 text-gray-900'
+                      ? ''
+                      : 'w-full'
                   }`}
                 >
-                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                  <p className={`text-xs mt-1 ${
-                    message.role === 'user' ? 'text-green-100' : 'text-gray-500'
-                  }`}>
-                    {message.timestamp.toLocaleTimeString('fr-FR', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
+                  <div
+                    className={`rounded-2xl px-4 py-2 ${
+                      message.role === 'user'
+                        ? 'bg-green-600 text-white'
+                        : 'bg-gray-100 text-gray-900'
+                    }`}
+                  >
+                    <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                    <p className={`text-xs mt-1 ${
+                      message.role === 'user' ? 'text-green-100' : 'text-gray-500'
+                    }`}>
+                      {message.timestamp.toLocaleTimeString('fr-FR', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
+                  </div>
+                  {/* Add feedback for assistant messages */}
+                  {message.role === 'assistant' && message.id && (
+                    <MessageFeedback
+                      messageId={message.id}
+                      currentFeedback={message.user_feedback}
+                      onFeedbackSubmitted={() => {
+                        // Optionally refresh message to show updated feedback
+                        console.log('Feedback submitted for message', message.id);
+                      }}
+                    />
+                  )}
                 </div>
               </div>
             ))}
@@ -156,14 +209,19 @@ const Chatbot: React.FC = () => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Posez votre question..."
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                disabled={isLoading}
+                placeholder={
+                  contextInfo?.is_over_limit
+                    ? "Limite de contexte atteinte"
+                    : "Posez votre question..."
+                }
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                disabled={isLoading || contextInfo?.is_over_limit}
               />
               <button
                 onClick={handleSend}
-                disabled={isLoading || !inputValue.trim()}
+                disabled={isLoading || !inputValue.trim() || contextInfo?.is_over_limit}
                 className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                title={contextInfo?.is_over_limit ? "Limite de contexte atteinte" : "Envoyer"}
               >
                 <Send size={20} />
               </button>

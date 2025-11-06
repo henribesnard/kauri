@@ -67,6 +67,11 @@ class Settings(BaseSettings):
     rag_rerank_top_k: int = Field(default=5, alias="RAG_RERANK_TOP_K")
     reranker_model: str = Field(default="BAAI/bge-reranker-base", alias="RERANKER_MODEL")
 
+    # Conversation Context Management
+    conversation_max_context_tokens: int = Field(default=8000, alias="CONVERSATION_MAX_CONTEXT_TOKENS")  # Maximum tokens for conversation context
+    conversation_context_warning_threshold: float = Field(default=0.80, alias="CONVERSATION_CONTEXT_WARNING_THRESHOLD")  # Warning at 80%
+    conversation_history_max_messages: int = Field(default=10, alias="CONVERSATION_HISTORY_MAX_MESSAGES")  # Max messages to include in context
+
     # BM25 Configuration
     bm25_k1: float = Field(default=1.5, alias="BM25_K1")  # BM25 term frequency saturation parameter
     bm25_b: float = Field(default=0.75, alias="BM25_B")  # BM25 length normalization parameter

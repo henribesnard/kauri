@@ -67,6 +67,11 @@ export interface ChatMessage {
     score: number;
   }>;
   metadata?: Record<string, any>;
+  user_feedback?: {
+    rating: 'positive' | 'negative';
+    comment?: string;
+    feedback_at: string;
+  };
 }
 
 export interface Conversation {
@@ -109,6 +114,7 @@ export interface ChatQueryRequest {
 export interface ChatQueryResponse {
   response: string;
   conversation_id: string;
+  message_id?: string;
   sources?: Array<{
     title: string;
     score: number;
@@ -130,4 +136,21 @@ export interface UpdateConversationRequest {
   title?: string;
   is_archived?: boolean;
   metadata?: Record<string, any>;
+}
+
+// Message Feedback types
+export interface MessageFeedbackRequest {
+  rating: 'positive' | 'negative';
+  comment?: string;
+}
+
+// Conversation Context Info types
+export interface ConversationContextInfo {
+  total_tokens: number;
+  max_tokens: number;
+  warning_threshold_tokens: number;
+  is_over_limit: boolean;
+  is_near_limit: boolean;
+  usage_percentage: number;
+  messages_included: number;
 }

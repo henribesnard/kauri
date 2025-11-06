@@ -6,6 +6,7 @@
 # Données sensibles et base de connaissances
 # ============================================
 base_connaissances/
+scraping/
 *.docx
 *.pdf
 !README.md

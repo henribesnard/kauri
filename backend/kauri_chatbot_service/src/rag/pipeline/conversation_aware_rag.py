@@ -168,6 +168,7 @@ Tu continues une conversation existante avec l'utilisateur. L'historique des mes
         result = await self.rag_pipeline.query(
             query=augmented_query,
             conversation_id=str(conversation.id),
+            db_session=db,
             temperature=temperature,
             max_tokens=max_tokens,
             use_reranking=use_reranking,
@@ -204,8 +205,9 @@ Tu continues une conversation existante avec l'utilisateur. L'historique des mes
                 user_id=user_id
             )
 
-        # Step 9: Update result with conversation_id
+        # Step 9: Update result with conversation_id and message_id
         result["conversation_id"] = str(conversation.id)
+        result["message_id"] = str(assistant_message.id)
 
         return result
 
@@ -290,6 +292,7 @@ Tu continues une conversation existante avec l'utilisateur. L'historique des mes
         async for chunk in self.rag_pipeline.query_stream(
             query=augmented_query,
             conversation_id=str(conversation.id),
+            db_session=db,
             temperature=temperature,
             max_tokens=max_tokens,
             use_reranking=use_reranking,
@@ -334,6 +337,12 @@ Tu continues une conversation existante avec l'utilisateur. L'historique des mes
 
         logger.info("assistant_message_saved_after_stream",
                    message_id=str(assistant_message.id))
+
+        # Yield final chunk with message_id
+        yield {
+            "type": "message_id",
+            "message_id": str(assistant_message.id)
+        }
 
         # Step 8: Auto-generate title if first user message
         if len(messages) == 0 and not conversation.title:

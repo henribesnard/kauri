@@ -216,6 +216,7 @@ Ne mentionne JAMAIS "les documents fournis" ou "selon les documents"."""
         self,
         query: str,
         conversation_id: Optional[str] = None,
+        db_session: Optional[Any] = None,
         temperature: Optional[float] = None,
         max_tokens: Optional[int] = None,
         use_reranking: bool = True,
@@ -232,6 +233,7 @@ Ne mentionne JAMAIS "les documents fournis" ou "selon les documents"."""
         Args:
             query: User question
             conversation_id: Optional conversation tracking ID
+            db_session: Optional database session for context loading
             temperature: LLM temperature (default from settings)
             max_tokens: Max tokens to generate (default from settings)
             use_reranking: Whether to use cross-encoder reranking
@@ -257,6 +259,7 @@ Ne mentionne JAMAIS "les documents fournis" ou "selon les documents"."""
                 result = await self.workflow.execute(
                     query=query,
                     conversation_id=conversation_id,
+                    db_session=db_session,
                     metadata={
                         "use_reranking": use_reranking,
                         "use_fallback": use_fallback
@@ -344,6 +347,7 @@ Ne mentionne JAMAIS "les documents fournis" ou "selon les documents"."""
         self,
         query: str,
         conversation_id: Optional[str] = None,
+        db_session: Optional[Any] = None,
         temperature: Optional[float] = None,
         max_tokens: Optional[int] = None,
         use_reranking: bool = True,
@@ -378,6 +382,7 @@ Ne mentionne JAMAIS "les documents fournis" ou "selon les documents"."""
                 async for chunk in self.workflow.execute_stream(
                     query=query,
                     conversation_id=conversation_id,
+                    db_session=db_session,
                     metadata={
                         "use_reranking": use_reranking,
                         "use_fallback": use_fallback,

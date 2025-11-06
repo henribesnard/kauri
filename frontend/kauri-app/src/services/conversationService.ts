@@ -6,6 +6,8 @@ import type {
   CreateConversationRequest,
   UpdateConversationRequest,
   ChatMessage,
+  MessageFeedbackRequest,
+  ConversationContextInfo,
 } from '../types';
 
 const CHATBOT_SERVICE_URL = import.meta.env.VITE_CHATBOT_SERVICE_URL || 'http://localhost:3202';
@@ -176,6 +178,39 @@ export const conversationService = {
   async getStats(): Promise<ConversationStatsResponse> {
     const response = await chatbotApiClient.get<ConversationStatsResponse>(
       `/api/v1/conversations/stats`
+    );
+
+    return response.data;
+  },
+
+  /**
+   * Add feedback to a message
+   */
+  async addMessageFeedback(
+    messageId: string,
+    feedback: MessageFeedbackRequest
+  ): Promise<void> {
+    await chatbotApiClient.post(
+      `/api/v1/conversations/messages/${messageId}/feedback`,
+      feedback
+    );
+  },
+
+  /**
+   * Get context information for a conversation
+   */
+  async getContextInfo(
+    conversationId: string,
+    includeCurrentQuery: boolean = false,
+    currentQuery?: string
+  ): Promise<ConversationContextInfo> {
+    const params = new URLSearchParams({
+      include_current_query: includeCurrentQuery.toString(),
+      ...(currentQuery && { current_query: currentQuery }),
+    });
+
+    const response = await chatbotApiClient.get<ConversationContextInfo>(
+      `/api/v1/conversations/${conversationId}/context-info?${params.toString()}`
     );
 
     return response.data;

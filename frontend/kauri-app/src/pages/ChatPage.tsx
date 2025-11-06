@@ -4,7 +4,9 @@ import { chatbotService } from '../services/chatbotService';
 import { conversationService } from '../services/conversationService';
 import { useAuth } from '../contexts/AuthContext';
 import ConversationSidebar from '../components/chat/ConversationSidebar';
-import type { ChatMessage, Conversation } from '../types';
+import { MessageFeedback } from '../components/chat/MessageFeedback';
+import { ContextWarningBanner } from '../components/chat/ContextWarningBanner';
+import type { ChatMessage, Conversation, ConversationContextInfo } from '../types';
 
 const ChatPage: React.FC = () => {
   const { user } = useAuth();
@@ -15,6 +17,7 @@ const ChatPage: React.FC = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loadingConversations, setLoadingConversations] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [contextInfo, setContextInfo] = useState<ConversationContextInfo | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -39,6 +42,15 @@ const ChatPage: React.FC = () => {
       console.error('Erreur lors du chargement des conversations:', error);
     } finally {
       setLoadingConversations(false);
+    }
+  };
+
+  const fetchContextInfo = async (convId: string) => {
+    try {
+      const info = await conversationService.getContextInfo(convId);
+      setContextInfo(info);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des infos de contexte:', error);
     }
   };
 
@@ -99,6 +111,12 @@ const ChatPage: React.FC = () => {
 
   const handleSend = async () => {
     if (!inputValue.trim() || isLoading) return;
+
+    // Check if context is over limit
+    if (contextInfo?.is_over_limit) {
+      alert('La limite de contexte est atteinte. Veuillez créer une nouvelle conversation.');
+      return;
+    }
 
     const query = inputValue;
     const userMessage: ChatMessage = {
@@ -207,6 +225,24 @@ const ChatPage: React.FC = () => {
                   loadConversations();
                 }
                 setIsLoading(false);
+              } else if (data.type === 'message_id') {
+                // Update message with message_id for feedback
+                setMessages((prev) => {
+                  const newMessages = [...prev];
+                  newMessages[assistantMessageIndex] = {
+                    ...newMessages[assistantMessageIndex],
+                    id: data.message_id,
+                  };
+                  return newMessages;
+                });
+
+                // Fetch context info after message is saved
+                const currentConvId = conversationId || (data.metadata && data.metadata.conversation_id);
+                if (currentConvId) {
+                  fetchContextInfo(currentConvId).catch(err => {
+                    console.error('Error fetching context info:', err);
+                  });
+                }
               } else if (data.type === 'error') {
                 console.error('Streaming error:', data.content);
                 setMessages((prev) => {
@@ -295,6 +331,11 @@ const ChatPage: React.FC = () => {
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col w-full md:w-auto">
+        {/* Context Warning Banner */}
+        {contextInfo && (contextInfo.is_near_limit || contextInfo.is_over_limit) && (
+          <ContextWarningBanner contextInfo={contextInfo} />
+        )}
+
         {/* Messages Container */}
         <div className="flex-1 overflow-y-auto px-2 md:px-4 pt-16 md:pt-8 pb-4 max-w-4xl mx-auto w-full flex flex-col scrollbar-hide">
         {messages.length === 0 && (
@@ -326,18 +367,23 @@ const ChatPage: React.FC = () => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Posez votre question..."
-                  className="w-full pl-3 md:pl-4 pr-12 py-3 bg-white border-0 rounded-xl focus:outline-none resize-none transition-all text-sm md:text-base"
+                  placeholder={
+                    contextInfo?.is_over_limit
+                      ? "Limite de contexte atteinte"
+                      : "Posez votre question..."
+                  }
+                  className="w-full pl-3 md:pl-4 pr-12 py-3 bg-white border-0 rounded-xl focus:outline-none resize-none transition-all text-sm md:text-base disabled:bg-gray-100 disabled:cursor-not-allowed"
                   rows={1}
-                  disabled={isLoading}
+                  disabled={isLoading || contextInfo?.is_over_limit}
                   style={{ minHeight: '48px', maxHeight: '120px' }}
                   onFocus={(e) => e.currentTarget.parentElement!.style.boxShadow = '0 0 0 2px #22c55e'}
                   onBlur={(e) => e.currentTarget.parentElement!.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)'}
                 />
                 <button
                   onClick={handleSend}
-                  disabled={isLoading || !inputValue.trim()}
+                  disabled={isLoading || !inputValue.trim() || contextInfo?.is_over_limit}
                   className="absolute right-2 bottom-2 bg-gray-200 hover:bg-green-600 text-gray-600 hover:text-white p-2 rounded-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                  title={contextInfo?.is_over_limit ? "Limite de contexte atteinte" : "Envoyer"}
                 >
                   <Send size={18} className="md:hidden" />
                   <Send size={20} className="hidden md:block" />
@@ -349,7 +395,7 @@ const ChatPage: React.FC = () => {
 
         {messages.map((message, index) => (
           <div
-            key={index}
+            key={message.id || `${message.role}-${index}-${message.timestamp.getTime()}`}
             className={`flex gap-2 md:gap-3 mb-4 md:mb-6 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {message.role === 'assistant' && (
@@ -398,6 +444,18 @@ const ChatPage: React.FC = () => {
                   })}
                 </p>
               </div>
+
+              {/* Add feedback for assistant messages */}
+              {message.role === 'assistant' && message.id && (
+                <MessageFeedback
+                  messageId={message.id}
+                  currentFeedback={message.user_feedback}
+                  onFeedbackSubmitted={() => {
+                    // Optionally refresh message to show updated feedback
+                    console.log('Feedback submitted for message', message.id);
+                  }}
+                />
+              )}
             </div>
           </div>
         ))}
@@ -428,18 +486,23 @@ const ChatPage: React.FC = () => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Posez votre question..."
-                  className="w-full pl-3 md:pl-4 pr-12 py-2.5 md:py-3 bg-white border-0 rounded-xl focus:outline-none resize-none transition-all text-sm md:text-base"
+                  placeholder={
+                    contextInfo?.is_over_limit
+                      ? "Limite de contexte atteinte"
+                      : "Posez votre question..."
+                  }
+                  className="w-full pl-3 md:pl-4 pr-12 py-2.5 md:py-3 bg-white border-0 rounded-xl focus:outline-none resize-none transition-all text-sm md:text-base disabled:bg-gray-100 disabled:cursor-not-allowed"
                   rows={1}
-                  disabled={isLoading}
+                  disabled={isLoading || contextInfo?.is_over_limit}
                   style={{ minHeight: '44px', maxHeight: '120px' }}
                   onFocus={(e) => e.currentTarget.parentElement!.style.boxShadow = '0 0 0 2px #22c55e'}
                   onBlur={(e) => e.currentTarget.parentElement!.style.boxShadow = '0 2px 12px rgba(0, 0, 0, 0.08)'}
                 />
                 <button
                   onClick={handleSend}
-                  disabled={isLoading || !inputValue.trim()}
+                  disabled={isLoading || !inputValue.trim() || contextInfo?.is_over_limit}
                   className="absolute right-2 bottom-2 bg-gray-200 hover:bg-green-600 text-gray-600 hover:text-white p-2 rounded-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                  title={contextInfo?.is_over_limit ? "Limite de contexte atteinte" : "Envoyer"}
                 >
                   <Send size={18} className="md:hidden" />
                   <Send size={20} className="hidden md:block" />

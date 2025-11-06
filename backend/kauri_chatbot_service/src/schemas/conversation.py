@@ -29,6 +29,7 @@ class MessageResponse(MessageBase):
     conversation_id: uuid.UUID = Field(..., description="Conversation ID")
     sources: List[Dict[str, Any]] = Field(default_factory=list, description="Source documents")
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Message metadata")
+    user_feedback: Optional[Dict[str, Any]] = Field(None, description="User feedback (rating and comment)")
     created_at: datetime = Field(..., description="Creation timestamp")
     deleted_at: Optional[datetime] = Field(None, description="Deletion timestamp (soft delete)")
 
@@ -116,3 +117,28 @@ class ConversationStats(BaseModel):
     active_conversations: int = Field(..., description="Number of active conversations")
     archived_conversations: int = Field(..., description="Number of archived conversations")
     total_messages: int = Field(..., description="Total number of messages")
+
+
+# ============================================
+# Feedback Schemas
+# ============================================
+
+class MessageFeedback(BaseModel):
+    """Schema for message feedback"""
+    rating: str = Field(..., description="Feedback rating: positive or negative", pattern="^(positive|negative)$")
+    comment: Optional[str] = Field(None, max_length=1000, description="Optional feedback comment")
+
+
+# ============================================
+# Context Management Schemas
+# ============================================
+
+class ConversationContextInfo(BaseModel):
+    """Schema for conversation context information"""
+    total_tokens: int = Field(..., description="Total tokens in conversation context")
+    max_tokens: int = Field(..., description="Maximum allowed tokens")
+    warning_threshold_tokens: int = Field(..., description="Warning threshold in tokens")
+    is_over_limit: bool = Field(..., description="Whether context is over limit")
+    is_near_limit: bool = Field(..., description="Whether context is near limit (warning)")
+    usage_percentage: float = Field(..., description="Percentage of context used")
+    messages_included: int = Field(..., description="Number of messages included in context")

@@ -21,6 +21,7 @@ class SourceDocument(BaseModel):
 class ChatResponse(BaseModel):
     """Response schema for chat query"""
     conversation_id: str = Field(..., description="Conversation ID")
+    message_id: Optional[str] = Field(None, description="Assistant message ID for feedback")
     query: str = Field(..., description="User query")
     answer: str = Field(..., description="Generated answer")
     sources: List[SourceDocument] = Field(default_factory=list, description="Source documents")

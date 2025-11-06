@@ -483,3 +483,47 @@ class ConversationService:
         db.refresh(conversation)
 
         return title
+
+    @staticmethod
+    def add_message_feedback(
+        db: Session,
+        message_id: uuid.UUID,
+        user_id: uuid.UUID,
+        rating: str,
+        comment: Optional[str] = None
+    ) -> bool:
+        """
+        Add user feedback to a message
+
+        Args:
+            db: Database session
+            message_id: UUID of the message
+            user_id: UUID of the user (for authorization)
+            rating: "positive" or "negative"
+            comment: Optional comment
+
+        Returns:
+            True if feedback added, False if not found or unauthorized
+        """
+        # Get message with conversation join for user validation
+        message = db.query(Message).join(Conversation).filter(
+            and_(
+                Message.id == message_id,
+                Conversation.user_id == user_id,
+                Message.role == "assistant"  # Only assistant messages can have feedback
+            )
+        ).first()
+
+        if not message:
+            return False
+
+        # Update feedback
+        feedback = {
+            "rating": rating,
+            "comment": comment,
+            "feedback_at": datetime.utcnow().isoformat()
+        }
+
+        message.user_feedback = feedback
+        db.commit()
+        return True
