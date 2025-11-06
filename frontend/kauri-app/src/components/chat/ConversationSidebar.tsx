@@ -65,10 +65,10 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
   };
 
   return (
-    <div className="w-64 bg-white border-r border-gray-200 flex flex-col h-full">
+    <div className="w-64 md:w-64 bg-white border-r border-gray-200 flex flex-col h-screen md:h-full">
       {/* Header */}
-      <div className="p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Kauri</h2>
+      <div className="p-4 md:p-6 flex-shrink-0">
+        <h2 className="text-xl font-bold text-gray-900 mb-3 md:mb-4">Kauri</h2>
         <button
           onClick={onNewConversation}
           className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition text-sm font-medium"
@@ -79,7 +79,7 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
       </div>
 
       {/* Conversations List */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto min-h-0">
         {loading ? (
           <div className="p-4 text-center text-gray-500">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto"></div>
@@ -155,24 +155,24 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
       </div>
 
       {/* User Menu */}
-      <div className="p-4">
+      <div className="p-3 md:p-4 border-t border-gray-200 flex-shrink-0">
         <button
           onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-          className="w-full flex items-center gap-3 hover:bg-gray-50 rounded-lg p-2 transition"
+          className="w-full flex items-center gap-2 md:gap-3 hover:bg-gray-50 rounded-lg p-2 transition"
         >
-          <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+          <div className="w-9 h-9 md:w-10 md:h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold text-xs md:text-sm">
             {user?.first_name?.[0]?.toUpperCase() || 'U'}{user?.last_name?.[0]?.toUpperCase() || ''}
           </div>
           <div className="flex-1 min-w-0 text-left">
-            <p className="text-sm font-medium text-gray-900 truncate">
+            <p className="text-xs md:text-sm font-medium text-gray-900 truncate">
               {user?.first_name} {user?.last_name}
             </p>
-            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            <p className="text-[10px] md:text-xs text-gray-500 truncate">{user?.email}</p>
           </div>
           {isUserMenuOpen ? (
-            <ChevronDown size={16} className="text-gray-400" />
+            <ChevronDown size={14} className="md:w-4 md:h-4 text-gray-400" />
           ) : (
-            <ChevronUp size={16} className="text-gray-400" />
+            <ChevronUp size={14} className="md:w-4 md:h-4 text-gray-400" />
           )}
         </button>
 
