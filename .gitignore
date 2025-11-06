@@ -192,3 +192,7 @@ service-account.json
 .loadpath
 .externalToolBuilders/
 *.launch
+# Tokens d'authentification temporaires
+*token*.json
+*token.txt
+temp_token*
