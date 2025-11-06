@@ -25,6 +25,7 @@ class WorkflowState(TypedDict):
     sources: list[Any] | None
     metadata: Dict[str, Any]
     error: str | None
+    requested_source_count: Optional[int]  # Explicitly requested number of sources
 
 
 class RAGWorkflow:
@@ -88,7 +89,7 @@ class RAGWorkflow:
         return workflow.compile()
 
     async def _load_context_node(self, state: WorkflowState) -> WorkflowState:
-        """Node: Load conversation context and check limits"""
+        """Node: Load conversation context, check limits, and extract requested source count"""
         logger.info("workflow_node_load_context",
                    query=state["query"][:100],
                    conversation_id=state["conversation_id"])
@@ -96,6 +97,12 @@ class RAGWorkflow:
         try:
             import uuid
             db = state.get("db_session")
+
+            # Extract requested source count from query
+            requested_count = self.rag_pipeline._extract_requested_source_count(state["query"])
+            if requested_count:
+                state["requested_source_count"] = requested_count
+                logger.info("user_requested_specific_source_count", count=requested_count)
 
             if db and state["conversation_id"]:
                 # Load context
@@ -246,10 +253,12 @@ class RAGWorkflow:
             if should_retrieve:
                 # Perform new retrieval
                 logger.info("workflow_performing_new_retrieval")
+                requested_count = state.get("requested_source_count")
                 documents = await self.rag_pipeline.hybrid_retriever.retrieve(
                     query=state["query"],
                     top_k=settings.rag_rerank_top_k,
-                    use_reranking=True
+                    use_reranking=True,
+                    requested_count=requested_count
                 )
 
                 state["documents"] = documents
@@ -384,7 +393,7 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
             for keyword in keywords:
                 documents = await self.rag_pipeline.hybrid_retriever.retrieve(
                     query=keyword,
-                    top_k=settings.rag_rerank_top_k * 3,  # Get more results
+                    top_k=settings.rag_rerank_top_k,  # Use same limit as regular RAG
                     use_reranking=True
                 )
                 all_documents.extend(documents)
@@ -409,8 +418,10 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
             unique_documents.sort(key=lambda x: x.get("score", 0.0), reverse=True)
 
             # Group by category for structured presentation
+            # Apply same max limit as regular RAG (respects dynamic filtering)
+            max_docs = getattr(settings, 'rag_max_documents', 8)
             docs_by_category = {}
-            for doc in unique_documents[:30]:  # Limit to 30 documents
+            for doc in unique_documents[:max_docs]:  # Respect max documents limit
                 metadata = doc.get("metadata", {})
                 category = metadata.get("category", "general")
 
@@ -675,10 +686,12 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
                 # Perform new retrieval
                 logger.info("workflow_stream_performing_new_retrieval")
                 retrieval_start = time.time()
+                requested_count = metadata.get("requested_source_count")
                 documents = await self.rag_pipeline.hybrid_retriever.retrieve(
                     query=query,
                     top_k=settings.rag_rerank_top_k,
-                    use_reranking=True
+                    use_reranking=True,
+                    requested_count=requested_count
                 )
                 retrieval_time = time.time() - retrieval_start
 

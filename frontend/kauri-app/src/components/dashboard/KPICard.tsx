@@ -11,7 +11,6 @@ interface KPICardProps {
 
 const KPICard: React.FC<KPICardProps> = ({ title, value, change, trend, icon }) => {
   const isPositive = trend === 'up';
-  const changeValue = parseFloat(change);
 
   return (
     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition">

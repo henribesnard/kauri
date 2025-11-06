@@ -5,6 +5,7 @@ Combines retrieval, context preparation, and LLM generation with intelligent int
 from typing import List, Dict, Any, Optional, AsyncGenerator
 import time
 import uuid
+import re
 import structlog
 from src.config import settings
 from src.rag.retriever.hybrid_retriever import get_hybrid_retriever
@@ -45,6 +46,42 @@ class RAGPipeline:
         else:
             self.workflow = None
             logger.info("rag_pipeline_initialized_legacy_mode")
+
+    def _extract_requested_source_count(self, query: str) -> Optional[int]:
+        """
+        Extract explicitly requested number of sources from user query
+
+        Patterns detected:
+        - "donne-moi 3 sources"
+        - "3 sources sur..."
+        - "peux-tu me donner 5 documents"
+        - "montre-moi 2 exemples"
+
+        Args:
+            query: User query text
+
+        Returns:
+            Number of sources requested, or None if not specified
+        """
+        patterns = [
+            r'(?:donne|donner|montrer|fournir|avoir|obtenir)(?:-moi| moi)?[\s]+(\d+)[\s]+(?:source|document|exemple|référence)',
+            r'(\d+)[\s]+(?:source|document|exemple|référence)',
+            r'(?:top|meilleur|premier)[\s]+(\d+)',
+        ]
+
+        query_lower = query.lower()
+
+        for pattern in patterns:
+            match = re.search(pattern, query_lower)
+            if match:
+                count = int(match.group(1))
+                if 1 <= count <= 20:  # Reasonable range
+                    logger.info("extracted_requested_source_count",
+                               query=query[:100],
+                               requested_count=count)
+                    return count
+
+        return None
 
     def _prepare_system_prompt(self) -> str:
         """Prepare system prompt for KAURI - OHADA accounting expert"""
@@ -110,7 +147,31 @@ Réponds de manière simple et directe en utilisant les informations ci-dessus.
 Ne commence PAS par "En tant qu'expert" ou "Je vous explique".
 Entre directement dans le vif du sujet.
 Cite les références (titres, chapitres, articles) pour appuyer tes explications.
-Ne mentionne JAMAIS "les documents fournis" ou "selon les documents"."""
+Ne mentionne JAMAIS "les documents fournis" ou "selon les documents".
+
+IMPORTANT - Nombre de sources/documents/références demandé:
+Si l'utilisateur demande explicitement un nombre spécifique de sources, documents ou références (ex: "donne-moi 3 sources", "peux-tu me donner 5 documents", "2 références"):
+1. Utilise UNIQUEMENT ce nombre exact de DOCUMENTS parmi ceux fournis ci-dessus (les plus pertinents)
+2. CITE EXPLICITEMENT le titre EXACT de chaque document tel qu'il apparaît ci-dessus dans [Document X]
+3. Ne JAMAIS inventer ou reformuler les titres - copie-les exactement
+
+EXEMPLE DE FORMAT À SUIVRE:
+
+Si les documents fournis sont:
+[Document 1] Plan Comptable / Partie 2 / chapitre_35 Contrat de franchise
+[Document 2] Actes Uniformes / Organisation Des Sûretés / Titre_5 Dispositions transitoires
+
+Et l'utilisateur demande "donne-moi 2 sources sur les contrats", réponds:
+
+Voici 2 sources sur les contrats :
+
+**1. Plan Comptable / Partie 2 / chapitre_35 Contrat de franchise**
+[Extrait pertinent du document...]
+
+**2. Actes Uniformes / Organisation Des Sûretés / Titre_5 Dispositions transitoires**
+[Extrait pertinent du document...]
+
+Note: "sources", "documents", et "références" signifient la même chose = les documents fournis ci-dessus avec leurs titres."""
 
     def _generate_title_from_path(self, file_path: str, metadata: Dict[str, Any] = None) -> str:
         """

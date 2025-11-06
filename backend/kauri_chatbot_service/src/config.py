@@ -64,8 +64,13 @@ class Settings(BaseSettings):
 
     # RAG Configuration
     rag_top_k: int = Field(default=10, alias="RAG_TOP_K")
-    rag_rerank_top_k: int = Field(default=5, alias="RAG_RERANK_TOP_K")
+    rag_rerank_top_k: int = Field(default=5, alias="RAG_RERANK_TOP_K")  # Still used as fallback
     reranker_model: str = Field(default="BAAI/bge-reranker-base", alias="RERANKER_MODEL")
+
+    # Dynamic source filtering based on quality
+    rag_min_score_threshold: float = Field(default=0.35, alias="RAG_MIN_SCORE_THRESHOLD")  # Minimum score to include a document
+    rag_min_documents: int = Field(default=3, alias="RAG_MIN_DOCUMENTS")  # Minimum documents to keep (even if below threshold)
+    rag_max_documents: int = Field(default=8, alias="RAG_MAX_DOCUMENTS")  # Maximum documents to avoid context overload
 
     # Conversation Context Management
     conversation_max_context_tokens: int = Field(default=8000, alias="CONVERSATION_MAX_CONTEXT_TOKENS")  # Maximum tokens for conversation context

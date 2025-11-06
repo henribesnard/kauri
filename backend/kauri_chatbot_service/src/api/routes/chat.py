@@ -159,6 +159,11 @@ async def chat_stream(
                         type="token",
                         content=chunk["content"]
                     )
+                elif chunk["type"] == "status":
+                    stream_chunk = StreamChunk(
+                        type="status",
+                        content=chunk["content"]
+                    )
                 elif chunk["type"] == "done":
                     stream_chunk = StreamChunk(
                         type="done",
@@ -168,6 +173,14 @@ async def chat_stream(
                                user_id=str(user_id),
                                conversation_id=chunk["metadata"].get("conversation_id"),
                                latency_ms=chunk["metadata"].get("latency_ms"))
+                elif chunk["type"] == "message_id":
+                    stream_chunk = StreamChunk(
+                        type="message_id",
+                        message_id=chunk["message_id"]
+                    )
+                    logger.debug("chat_stream_message_id",
+                                user_id=str(user_id),
+                                message_id=chunk["message_id"])
                 elif chunk["type"] == "error":
                     stream_chunk = StreamChunk(
                         type="error",

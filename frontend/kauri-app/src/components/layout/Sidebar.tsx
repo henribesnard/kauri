@@ -7,7 +7,6 @@ import {
   Building2,
   Package,
   BarChart3,
-  CheckCircle2,
   Plus,
   MessageSquare,
   Clock,
@@ -30,7 +29,6 @@ const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [showConversations, setShowConversations] = useState(false);
 
   // Extract initials from first and last name
   const getInitials = () => {
@@ -68,7 +66,7 @@ const Sidebar: React.FC = () => {
     <div className="w-64 bg-white h-screen border-r border-gray-200 flex flex-col">
       {/* Logo */}
       <div className="p-6">
-        <h1 className="text-2xl font-bold text-gray-900">Kauri</h1>
+        <h1 className="text-3xl font-bold text-green-600" style={{ fontFamily: "'Playfair Display', serif" }}>Kauri</h1>
       </div>
 
       {/* Bouton Nouvelle conversation (visible seulement sur /chat) */}

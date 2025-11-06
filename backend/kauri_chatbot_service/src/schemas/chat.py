@@ -40,10 +40,11 @@ class ChatResponse(BaseModel):
 
 class StreamChunk(BaseModel):
     """Streaming response chunk"""
-    type: str = Field(..., description="Chunk type: sources, token, done, error")
-    content: Optional[str] = Field(None, description="Content for token or error chunks")
+    type: str = Field(..., description="Chunk type: sources, token, status, done, message_id, error")
+    content: Optional[str] = Field(None, description="Content for token, status or error chunks")
     sources: Optional[List[SourceDocument]] = Field(None, description="Sources for sources chunk")
     metadata: Optional[Dict[str, Any]] = Field(None, description="Metadata for done chunk")
+    message_id: Optional[str] = Field(None, description="Message ID for message_id chunk")
 
 
 class HealthResponse(BaseModel):

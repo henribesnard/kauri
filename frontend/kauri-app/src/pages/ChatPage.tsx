@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, Menu, X } from 'lucide-react';
-import { chatbotService } from '../services/chatbotService';
 import { conversationService } from '../services/conversationService';
 import { useAuth } from '../contexts/AuthContext';
 import ConversationSidebar from '../components/chat/ConversationSidebar';
 import { MessageFeedback } from '../components/chat/MessageFeedback';
 import { ContextWarningBanner } from '../components/chat/ContextWarningBanner';
+import Footer from '../components/layout/Footer';
 import type { ChatMessage, Conversation, ConversationContextInfo } from '../types';
 
 const ChatPage: React.FC = () => {
@@ -18,6 +18,8 @@ const ChatPage: React.FC = () => {
   const [loadingConversations, setLoadingConversations] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [contextInfo, setContextInfo] = useState<ConversationContextInfo | null>(null);
+  const [loadingStatus, setLoadingStatus] = useState<string>('');
+  const [feedbackKey, setFeedbackKey] = useState<number>(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -194,6 +196,9 @@ const ChatPage: React.FC = () => {
                   setConversationId(data.conversation_id);
                   loadConversations();
                 }
+              } else if (data.type === 'status') {
+                // Update loading status
+                setLoadingStatus(data.content || '');
               } else if (data.type === 'sources') {
                 // Store sources temporarily, don't display yet
                 tempSources = data.sources;
@@ -211,10 +216,13 @@ const ChatPage: React.FC = () => {
                 // Now add sources and metadata when response is complete
                 setMessages((prev) => {
                   const newMessages = [...prev];
+                  const existingMessage = newMessages[assistantMessageIndex];
                   newMessages[assistantMessageIndex] = {
-                    ...newMessages[assistantMessageIndex],
+                    ...existingMessage,
                     sources: tempSources.length > 0 ? tempSources : undefined,
                     metadata: data.metadata,
+                    // Preserve id if it exists
+                    id: existingMessage.id,
                   };
                   return newMessages;
                 });
@@ -225,21 +233,28 @@ const ChatPage: React.FC = () => {
                   loadConversations();
                 }
                 setIsLoading(false);
+                setLoadingStatus(''); // Clear status
               } else if (data.type === 'message_id') {
-                // Update message with message_id for feedback
+                // Update message with message_id for feedback (preserve existing fields)
                 setMessages((prev) => {
                   const newMessages = [...prev];
+                  const existingMessage = newMessages[assistantMessageIndex];
                   newMessages[assistantMessageIndex] = {
-                    ...newMessages[assistantMessageIndex],
+                    ...existingMessage,
                     id: data.message_id,
+                    // Preserve sources if they exist
+                    sources: existingMessage.sources || (tempSources.length > 0 ? tempSources : undefined),
                   };
                   return newMessages;
                 });
 
+                // Force re-render of feedback component
+                setFeedbackKey(prev => prev + 1);
+
                 // Fetch context info after message is saved
-                const currentConvId = conversationId || (data.metadata && data.metadata.conversation_id);
-                if (currentConvId) {
-                  fetchContextInfo(currentConvId).catch(err => {
+                // conversationId should already be set from the 'done' event metadata
+                if (conversationId) {
+                  fetchContextInfo(conversationId).catch(err => {
                     console.error('Error fetching context info:', err);
                   });
                 }
@@ -395,7 +410,7 @@ const ChatPage: React.FC = () => {
 
         {messages.map((message, index) => (
           <div
-            key={message.id || `${message.role}-${index}-${message.timestamp.getTime()}`}
+            key={`message-${index}`}
             className={`flex gap-2 md:gap-3 mb-4 md:mb-6 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             {message.role === 'assistant' && (
@@ -448,10 +463,10 @@ const ChatPage: React.FC = () => {
               {/* Add feedback for assistant messages */}
               {message.role === 'assistant' && message.id && (
                 <MessageFeedback
+                  key={`feedback-${message.id}-${feedbackKey}`}
                   messageId={message.id}
                   currentFeedback={message.user_feedback}
                   onFeedbackSubmitted={() => {
-                    // Optionally refresh message to show updated feedback
                     console.log('Feedback submitted for message', message.id);
                   }}
                 />
@@ -466,10 +481,15 @@ const ChatPage: React.FC = () => {
               <Bot size={16} className="md:w-[18px] md:h-[18px] text-green-600" />
             </div>
             <div className="bg-gray-100 rounded-2xl px-3 md:px-4 py-2 md:py-3">
-              <div className="flex gap-1">
-                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+              <div className="flex items-center gap-2">
+                <div className="flex gap-1">
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                </div>
+                {loadingStatus && (
+                  <p className="text-xs md:text-sm text-gray-700 ml-1 italic">{loadingStatus}</p>
+                )}
               </div>
             </div>
           </div>
@@ -511,6 +531,9 @@ const ChatPage: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );

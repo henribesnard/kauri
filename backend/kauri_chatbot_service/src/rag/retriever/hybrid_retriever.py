@@ -41,24 +41,29 @@ class HybridRetriever:
         self,
         query: str,
         top_k: int = None,
-        use_reranking: bool = None
+        use_reranking: bool = None,
+        requested_count: int = None
     ) -> List[Dict[str, Any]]:
         """
         Hybrid retrieval pipeline
-        
+
         Args:
             query: Search query
             top_k: Final number of results (default: from settings)
             use_reranking: Whether to apply reranking (default: from settings)
-            
+            requested_count: Explicitly requested number of sources by user
+
         Returns:
             List of relevant documents with scores
         """
         top_k = top_k or settings.rag_top_k
         use_reranking = use_reranking if use_reranking is not None else settings.rag_enable_reranking
-        
-        logger.info("hybrid_retrieval_start", query_length=len(query), top_k=top_k)
-        
+
+        logger.info("hybrid_retrieval_start",
+                   query_length=len(query),
+                   top_k=top_k,
+                   requested_count=requested_count)
+
         # Step 1: Vector Search
         query_embedding = self.embedder.embed_text(query)
         vector_results = self.vector_store.search(
@@ -66,15 +71,15 @@ class HybridRetriever:
             top_k=top_k * 2  # Get more candidates
         )
         logger.info("vector_search_complete", results=len(vector_results))
-        
+
         # Step 2: BM25 Search
         bm25_results = self.bm25_retriever.search(query, top_k=top_k * 2)
         logger.info("bm25_search_complete", results=len(bm25_results))
-        
+
         # Step 3: Fusion
         fused_results = self._fuse_results(vector_results, bm25_results)
         logger.info("fusion_complete", results=len(fused_results))
-        
+
         # Step 4: Reranking (optional)
         if use_reranking and settings.rag_rerank_top_k > 0:
             # Take top candidates for reranking
@@ -82,14 +87,16 @@ class HybridRetriever:
             final_results = self.reranker.rerank(
                 query,
                 candidates,
-                top_k=settings.rag_rerank_top_k
+                top_k=settings.rag_rerank_top_k,
+                use_dynamic_filtering=(requested_count is None),  # Disable dynamic filtering if user requested specific count
+                requested_count=requested_count  # Pass user's explicit request
             )
             logger.info("reranking_complete", results=len(final_results))
         else:
             final_results = fused_results[:top_k]
-        
+
         logger.info("hybrid_retrieval_complete", final_results=len(final_results))
-        
+
         return final_results
     
     def _fuse_results(

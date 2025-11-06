@@ -243,6 +243,12 @@ Tu continues une conversation existante avec l'utilisateur. L'historique des mes
                    query=query[:100],
                    conversation_id=str(conversation_id) if conversation_id else None)
 
+        # Send initial status
+        yield {
+            "type": "status",
+            "content": "Je réfléchis"
+        }
+
         # Step 1: Get or create conversation
         conversation = ConversationService.get_or_create_conversation(
             db=db,
@@ -284,10 +290,17 @@ Tu continues une conversation existante avec l'utilisateur. L'historique des mes
         if conversation_context:
             augmented_query = f"{conversation_context}\nNOUVELLE QUESTION:\n{query}"
 
+        # Send searching status
+        yield {
+            "type": "status",
+            "content": "Je cherche des sources pour vous répondre"
+        }
+
         # Step 6: Stream RAG pipeline
         accumulated_response = []
         sources = []
         metadata = {}
+        sources_received = False
 
         async for chunk in self.rag_pipeline.query_stream(
             query=augmented_query,
@@ -301,7 +314,20 @@ Tu continues une conversation existante avec l'utilisateur. L'historique des mes
             # Capture sources and metadata for later persistence
             if chunk["type"] == "sources":
                 sources = chunk.get("sources", [])
+                sources_received = True
+
+                # Send status after receiving sources
+                yield {
+                    "type": "status",
+                    "content": "J'ai trouvé des sources concordantes"
+                }
             elif chunk["type"] == "token":
+                # Send formulating status before first token
+                if sources_received and len(accumulated_response) == 0:
+                    yield {
+                        "type": "status",
+                        "content": "Je formule la réponse"
+                    }
                 accumulated_response.append(chunk.get("content", ""))
             elif chunk["type"] == "done":
                 metadata = chunk.get("metadata", {})

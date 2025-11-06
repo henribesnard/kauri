@@ -79,6 +79,12 @@ Ton rôle est de classifier l'intention de l'utilisateur en 4 catégories :
      {"keywords": ["mot1", "mot2"], "category_filter": null}
    - category_filter peut être : "doctrine", "jurisprudence", "acte_uniforme", "plan_comptable" ou null
 
+   IMPORTANT : NE PAS classifier comme document_sourcing si l'utilisateur demande une RÉPONSE avec un nombre spécifique de sources :
+   - "Donne-moi 3 sources sur X" → rag_query (pas document_sourcing)
+   - "Explique avec 5 documents X" → rag_query (pas document_sourcing)
+   - "Peux-tu répondre avec 2 sources" → rag_query (pas document_sourcing)
+   Ces questions demandent une RÉPONSE utilisant des sources, pas juste un listing de documents.
+
 Règles de classification :
 - Questions hors OHADA (politique, sport, météo, etc.) → clarification + recadrage
 - Questions vagues sans contexte comptable → clarification + demande précision

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, MessageSquare, Archive, Trash2, User, Settings, LogOut, ChevronUp, ChevronDown } from 'lucide-react';
+import { Plus, MessageSquare, Archive, Trash2, User, LogOut, ChevronUp, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import type { Conversation } from '../../types';
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import Footer from './Footer';
 
 const DashboardLayout: React.FC = () => {
   const location = useLocation();
@@ -21,6 +22,9 @@ const DashboardLayout: React.FC = () => {
         <main className={`flex-1 overflow-y-auto ${isChat ? '' : 'p-6'}`}>
           <Outlet />
         </main>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );
