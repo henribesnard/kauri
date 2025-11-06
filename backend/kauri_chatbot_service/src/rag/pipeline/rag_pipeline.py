@@ -212,6 +212,41 @@ Ne mentionne JAMAIS "les documents fournis" ou "selon les documents"."""
             ))
         return sources
 
+    def _convert_to_source_documents_enriched(self, documents: List[Dict[str, Any]]) -> List[SourceDocument]:
+        """
+        Convert internal document format to API schema with ENRICHED metadata
+        Used for document sourcing mode to provide detailed document information
+
+        Args:
+            documents: List of retrieved documents with metadata
+
+        Returns:
+            List of SourceDocument with enriched fields (category, section, file_path, etc.)
+        """
+        sources = []
+        for doc in documents:
+            metadata = doc.get("metadata", {})
+
+            file_path = metadata.get("file_path", metadata.get("source", ""))
+            title = self._generate_title_from_path(file_path, metadata)
+
+            # Extract additional metadata for sourcing
+            metadata_summary = {}
+            for key in ["acte_uniforme", "livre", "titre", "article"]:
+                if metadata.get(key):
+                    metadata_summary[key] = metadata[key]
+
+            sources.append(SourceDocument(
+                title=title,
+                score=doc.get("score", 0.0),
+                category=metadata.get("category"),
+                section=metadata.get("section"),
+                file_path=file_path,
+                document_type=metadata.get("category"),  # Alias for category
+                metadata_summary=metadata_summary if metadata_summary else None
+            ))
+        return sources
+
     async def query(
         self,
         query: str,

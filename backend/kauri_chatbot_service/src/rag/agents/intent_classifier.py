@@ -14,7 +14,7 @@ logger = structlog.get_logger()
 
 class IntentClassification(BaseModel):
     """Classification d'intention structurée"""
-    intent_type: Literal["general_conversation", "rag_query", "clarification"] = Field(
+    intent_type: Literal["general_conversation", "rag_query", "clarification", "document_sourcing"] = Field(
         description="Type d'intention détecté"
     )
     confidence: float = Field(
@@ -24,9 +24,9 @@ class IntentClassification(BaseModel):
     reasoning: str = Field(
         description="Explication courte du raisonnement"
     )
-    direct_answer: str | None = Field(
+    direct_answer: str | dict | None = Field(
         default=None,
-        description="Réponse directe générée pour general_conversation (optionnel)"
+        description="Réponse directe (string pour general_conversation/clarification, dict pour document_sourcing, null pour rag_query)"
     )
 
 
@@ -44,7 +44,7 @@ class IntentClassifierAgent:
         # System prompt for classification
         self.system_prompt = """Tu es un agent de classification d'intention pour KAURI, un assistant spécialisé en comptabilité OHADA.
 
-Ton rôle est de classifier l'intention de l'utilisateur en 3 catégories :
+Ton rôle est de classifier l'intention de l'utilisateur en 4 catégories :
 
 1. **general_conversation** : Questions générales sur KAURI, salutations, remerciements
    - Exemples : "Bonjour", "Qui es-tu ?", "Merci", "Quel est ton rôle ?", "Que peux-tu faire ?"
@@ -67,19 +67,32 @@ Ton rôle est de classifier l'intention de l'utilisateur en 3 catégories :
    - Tu DOIS générer une réponse de recadrage dans "direct_answer"
    - Exemple : "Ma spécialité est la comptabilité OHADA. Peux-tu préciser ta question comptable ? Je peux t'aider sur les écritures, les comptes, les états financiers, etc."
 
+4. **document_sourcing** : Demandes de recherche ou listage de documents (NOUVEAU)
+   - Exemples :
+     * "Dans quels documents parle-t-on des amortissements ?"
+     * "Existe-t-il une jurisprudence sur la comptabilité des stocks ?"
+     * "Quels documents traitent de [sujet] ?"
+     * "Liste-moi les actes uniformes sur le droit commercial"
+     * "Où puis-je trouver des infos sur [concept comptable] ?"
+   - L'utilisateur cherche à connaître LES SOURCES plutôt qu'une réponse directe au concept
+   - Tu DOIS extraire les mots-clés et catégorie dans "direct_answer" au format JSON :
+     {"keywords": ["mot1", "mot2"], "category_filter": null}
+   - category_filter peut être : "doctrine", "jurisprudence", "acte_uniforme", "plan_comptable" ou null
+
 Règles de classification :
 - Questions hors OHADA (politique, sport, météo, etc.) → clarification + recadrage
 - Questions vagues sans contexte comptable → clarification + demande précision
-- Termes comptables/financiers → rag_query
+- Questions "où trouver", "quels documents", "existe-t-il" → document_sourcing
+- Termes comptables/financiers avec demande de définition/explication → rag_query
 - Questions sur KAURI lui-même → general_conversation + réponse courte
 - Évalue ta confiance objectivement (0.0 = incertain, 1.0 = très certain)
 
 Réponds UNIQUEMENT avec un objet JSON au format suivant (sans markdown, sans backticks) :
 {
-  "intent_type": "general_conversation" | "rag_query" | "clarification",
+  "intent_type": "general_conversation" | "rag_query" | "clarification" | "document_sourcing",
   "confidence": 0.95,
   "reasoning": "Explication courte",
-  "direct_answer": "Réponse courte et directe" (OBLIGATOIRE si general_conversation ou clarification, null si rag_query)
+  "direct_answer": "Réponse courte et directe" (OBLIGATOIRE si general_conversation ou clarification, JSON avec keywords si document_sourcing, null si rag_query)
 }"""
 
     async def classify_intent(self, query: str) -> tuple[IntentClassification, dict]:

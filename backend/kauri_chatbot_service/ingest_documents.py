@@ -24,19 +24,25 @@ logger = structlog.get_logger()
 
 
 def find_documents(base_path: Path) -> List[Path]:
-    """Find all .docx documents in base_connaissances/"""
-    files = list(base_path.glob("**/*.docx"))
+    """Find all .docx and .pdf documents in base_connaissances/"""
+    docx_files = list(base_path.glob("**/*.docx"))
+    pdf_files = list(base_path.glob("**/*.pdf"))
+    files = docx_files + pdf_files
+    logger.info("documents_found_by_type",
+               docx=len(docx_files),
+               pdf=len(pdf_files),
+               total=len(files))
     return files
 
 
-def chunk_text(text: str, chunk_size: int = 512, chunk_overlap: int = 50) -> List[str]:
+def chunk_text(text: str, chunk_size: int = 3500, chunk_overlap: int = 300) -> List[str]:
     """
     Split text into overlapping chunks
 
     Args:
         text: Text to chunk
-        chunk_size: Size of each chunk in characters
-        chunk_overlap: Overlap between chunks
+        chunk_size: Size of each chunk in characters (default: 3500 - universal size)
+        chunk_overlap: Overlap between chunks (default: 300 - secures transitions)
 
     Returns:
         List of text chunks
@@ -160,6 +166,45 @@ async def ingest_file(
         return "failed"
 
 
+def load_existing_hashes(chroma_store) -> set:
+    """
+    Load content hashes of already ingested documents from ChromaDB
+
+    Args:
+        chroma_store: ChromaDB store instance
+
+    Returns:
+        Set of content hashes already in the database
+    """
+    try:
+        logger.info("loading_existing_hashes_from_chromadb")
+
+        # Get all documents with their metadata
+        collection = chroma_store.collection
+        all_data = collection.get()
+
+        if not all_data or not all_data['metadatas']:
+            logger.info("no_existing_documents_in_chromadb")
+            return set()
+
+        # Extract content_hash from metadata
+        existing_hashes = set()
+        for metadata in all_data['metadatas']:
+            if metadata and 'content_hash' in metadata:
+                existing_hashes.add(metadata['content_hash'])
+
+        logger.info("existing_hashes_loaded",
+                   count=len(existing_hashes),
+                   total_chunks=len(all_data['metadatas']))
+
+        return existing_hashes
+
+    except Exception as e:
+        logger.error("failed_to_load_existing_hashes", error=str(e))
+        # Return empty set on error, will process all documents
+        return set()
+
+
 def build_bm25_index(chroma_store, bm25_retriever):
     """
     Build BM25 index from all documents in ChromaDB
@@ -220,11 +265,14 @@ async def main_async():
     logger.info("documents_found", count=len(files))
 
     if len(files) == 0:
-        print(f"\n⚠️  Aucun fichier .docx trouvé dans {base_path}")
+        print(f"\n⚠️  Aucun fichier .docx ou .pdf trouvé dans {base_path}")
         return
 
-    # Track processed hashes (for deduplication)
-    processed_hashes = set()
+    # Load existing hashes from ChromaDB for deduplication
+    processed_hashes = load_existing_hashes(chroma_store)
+    logger.info("deduplication_ready",
+               existing_documents=len(processed_hashes),
+               files_to_process=len(files))
 
     # Ingest
     stats = {"created": 0, "skipped": 0, "failed": 0}

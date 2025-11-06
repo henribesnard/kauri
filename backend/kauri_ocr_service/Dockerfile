@@ -13,6 +13,13 @@ RUN apt-get update && apt-get install -y \
     libxrender-dev \
     libgomp1 \
     poppler-utils \
+    tesseract-ocr \
+    tesseract-ocr-fra \
+    tesseract-ocr-eng \
+    ghostscript \
+    img2pdf \
+    pngquant \
+    unpaper \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
@@ -27,8 +34,8 @@ RUN python -m spacy download fr_core_news_md
 # Copy application code
 COPY . .
 
-# Create directories for models and data
-RUN mkdir -p /app/models /app/data /app/logs
+# Create directories for models, data, and processed PDFs
+RUN mkdir -p /app/models /app/data /app/logs /app/processed_pdfs
 
 # Expose port
 EXPOSE 8003

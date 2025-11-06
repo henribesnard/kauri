@@ -61,6 +61,7 @@ class RAGWorkflow:
         workflow.add_node("direct_response", self._direct_response_node)
         workflow.add_node("retrieve_and_generate", self._retrieve_and_generate_node)
         workflow.add_node("ask_clarification", self._ask_clarification_node)
+        workflow.add_node("document_sourcing", self._document_sourcing_node)
 
         # Edges
         workflow.set_entry_point("load_context")
@@ -73,7 +74,8 @@ class RAGWorkflow:
             {
                 "direct_response": "direct_response",
                 "retrieve_and_generate": "retrieve_and_generate",
-                "ask_clarification": "ask_clarification"
+                "ask_clarification": "ask_clarification",
+                "document_sourcing": "document_sourcing"
             }
         )
 
@@ -81,6 +83,7 @@ class RAGWorkflow:
         workflow.add_edge("direct_response", END)
         workflow.add_edge("retrieve_and_generate", END)
         workflow.add_edge("ask_clarification", END)
+        workflow.add_edge("document_sourcing", END)
 
         return workflow.compile()
 
@@ -160,7 +163,7 @@ class RAGWorkflow:
 
         return state
 
-    def _route_by_intent(self, state: WorkflowState) -> Literal["direct_response", "retrieve_and_generate", "ask_clarification"]:
+    def _route_by_intent(self, state: WorkflowState) -> Literal["direct_response", "retrieve_and_generate", "ask_clarification", "document_sourcing"]:
         """Conditional edge: Route based on intent"""
         intent = state.get("intent")
 
@@ -174,6 +177,8 @@ class RAGWorkflow:
             return "direct_response"
         elif intent.intent_type == "clarification":
             return "ask_clarification"
+        elif intent.intent_type == "document_sourcing":
+            return "document_sourcing"
         else:  # rag_query
             return "retrieve_and_generate"
 
@@ -337,10 +342,145 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
 
         return state
 
+    async def _document_sourcing_node(self, state: WorkflowState) -> WorkflowState:
+        """
+        Node: Document sourcing - Search and list documents by topic/keywords
+        Returns a structured list of sources without full RAG generation
+        """
+        logger.info("workflow_node_document_sourcing", query=state["query"][:100])
+
+        try:
+            from src.config import settings
+            import json
+
+            # Extract keywords from intent's direct_answer
+            intent = state.get("intent")
+            keywords = []
+            category_filter = None
+
+            if intent and intent.direct_answer:
+                try:
+                    # Handle both dict and JSON string for direct_answer
+                    if isinstance(intent.direct_answer, dict):
+                        sourcing_info = intent.direct_answer
+                    else:
+                        sourcing_info = json.loads(intent.direct_answer)
+
+                    keywords = sourcing_info.get("keywords", [])
+                    category_filter = sourcing_info.get("category_filter")
+                except (json.JSONDecodeError, TypeError, AttributeError) as e:
+                    # Fallback: use query directly if parsing fails
+                    logger.warning("workflow_sourcing_json_parse_failed",
+                                 direct_answer=str(intent.direct_answer)[:100],
+                                 error=str(e))
+                    keywords = [state["query"]]
+            else:
+                keywords = [state["query"]]
+
+            logger.info("workflow_sourcing_keywords_extracted", keywords=keywords, category_filter=category_filter)
+
+            # Retrieve documents for all keywords (more results for sourcing)
+            all_documents = []
+            for keyword in keywords:
+                documents = await self.rag_pipeline.hybrid_retriever.retrieve(
+                    query=keyword,
+                    top_k=settings.rag_rerank_top_k * 3,  # Get more results
+                    use_reranking=True
+                )
+                all_documents.extend(documents)
+
+            # Filter by category if specified
+            if category_filter:
+                all_documents = [
+                    doc for doc in all_documents
+                    if doc.get("metadata", {}).get("category") == category_filter
+                ]
+
+            # Deduplicate by file_path
+            seen_paths = set()
+            unique_documents = []
+            for doc in all_documents:
+                file_path = doc.get("metadata", {}).get("file_path")
+                if file_path and file_path not in seen_paths:
+                    seen_paths.add(file_path)
+                    unique_documents.append(doc)
+
+            # Sort by score
+            unique_documents.sort(key=lambda x: x.get("score", 0.0), reverse=True)
+
+            # Group by category for structured presentation
+            docs_by_category = {}
+            for doc in unique_documents[:30]:  # Limit to 30 documents
+                metadata = doc.get("metadata", {})
+                category = metadata.get("category", "general")
+
+                if category not in docs_by_category:
+                    docs_by_category[category] = []
+
+                docs_by_category[category].append(doc)
+
+            # Format sourcing response
+            answer_parts = [
+                f"J'ai trouvé **{len(unique_documents)} document(s)** pertinent(s) sur ce sujet :\n"
+            ]
+
+            # Category labels in French
+            category_labels = {
+                "acte_uniforme": "📜 Actes Uniformes",
+                "plan_comptable": "📊 Plan Comptable OHADA",
+                "doctrine": "📚 Doctrine",
+                "jurisprudence": "⚖️ Jurisprudence",
+                "general": "📄 Documents Généraux"
+            }
+
+            # Format documents by category
+            for category, docs in docs_by_category.items():
+                label = category_labels.get(category, category.replace("_", " ").title())
+                answer_parts.append(f"\n### {label} ({len(docs)} document(s))")
+
+                for i, doc in enumerate(docs[:10], 1):  # Max 10 per category
+                    title = self.rag_pipeline._generate_title_from_path(
+                        doc.get("metadata", {}).get("file_path", ""),
+                        doc.get("metadata", {})
+                    )
+                    score = doc.get("score", 0.0)
+                    answer_parts.append(f"{i}. **{title}** (pertinence: {score:.2f})")
+
+            answer_parts.append(
+                "\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*"
+            )
+
+            state["answer"] = "\n".join(answer_parts)
+
+            # Convert to enriched sources
+            sources = self.rag_pipeline._convert_to_source_documents_enriched(unique_documents[:30])
+            state["sources"] = sources
+
+            state["metadata"]["num_sources"] = len(unique_documents)
+            state["metadata"]["sourcing_mode"] = True
+            state["metadata"]["categories_found"] = list(docs_by_category.keys())
+            state["metadata"]["retrieval_performed"] = True
+            state["metadata"]["keywords_used"] = keywords
+
+            logger.info("workflow_document_sourcing_complete",
+                       num_documents=len(unique_documents),
+                       num_categories=len(docs_by_category))
+
+        except Exception as e:
+            logger.error("workflow_document_sourcing_failed", error=str(e))
+            state["error"] = f"Document sourcing failed: {str(e)}"
+            state["answer"] = "Désolé, je n'ai pas pu rechercher les documents sur ce sujet."
+            state["sources"] = []
+            state["metadata"]["sourcing_mode"] = True
+            state["metadata"]["num_sources"] = 0
+
+        return state
+
     async def execute(
         self,
         query: str,
         conversation_id: str,
+        db_session: Optional[Session] = None,
         metadata: Dict[str, Any] | None = None
     ) -> Dict[str, Any]:
         """
@@ -349,6 +489,7 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
         Args:
             query: User question
             conversation_id: Conversation ID
+            db_session: Optional database session for context retrieval
             metadata: Optional initial metadata
 
         Returns:
@@ -360,7 +501,10 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
         initial_state: WorkflowState = {
             "query": query,
             "conversation_id": conversation_id,
+            "db_session": db_session,
             "intent": None,
+            "conversation_context": None,
+            "context_info": None,
             "documents": None,
             "answer": None,
             "sources": None,
@@ -685,5 +829,60 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
                         "intent_type": "clarification"
                     }
                 }
+
+        elif intent.intent_type == "document_sourcing":
+            # Document sourcing mode
+            logger.info("workflow_document_sourcing_stream")
+
+            # Execute document_sourcing node
+            initial_state = {
+                "query": query,
+                "conversation_id": conversation_id,
+                "db_session": db_session,
+                "intent": intent,
+                "conversation_context": conversation_context,
+                "context_info": context_info.to_dict() if context_info else None,
+                "documents": None,
+                "answer": None,
+                "sources": None,
+                "metadata": metadata or {},
+                "error": None
+            }
+
+            sourcing_state = await self._document_sourcing_node(initial_state)
+
+            # Send enriched sources first
+            yield {
+                "type": "sources",
+                "sources": sourcing_state.get("sources", []),
+                "metadata": {
+                    "retrieval_time_ms": 0,
+                    "num_sources": len(sourcing_state.get("sources", [])),
+                    "sourcing_mode": True,
+                    "categories_found": sourcing_state.get("metadata", {}).get("categories_found", [])
+                }
+            }
+
+            # Stream the formatted answer
+            answer = sourcing_state.get("answer", "Aucun document trouvé.")
+            for char in answer:
+                yield {
+                    "type": "token",
+                    "content": char
+                }
+
+            total_time = time.time() - start_time
+            yield {
+                "type": "done",
+                "metadata": {
+                    "conversation_id": conversation_id,
+                    "latency_ms": int(total_time * 1000),
+                    "intent_type": "document_sourcing",
+                    "sourcing_mode": True,
+                    "num_documents_found": sourcing_state.get("metadata", {}).get("num_sources", 0),
+                    "keywords_used": sourcing_state.get("metadata", {}).get("keywords_used", []),
+                    "categories_found": sourcing_state.get("metadata", {}).get("categories_found", [])
+                }
+            }
 
         logger.info("workflow_execute_stream_complete", intent_type=intent.intent_type)

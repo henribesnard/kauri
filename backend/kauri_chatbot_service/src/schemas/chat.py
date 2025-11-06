@@ -13,9 +13,16 @@ class ChatRequest(BaseModel):
 
 
 class SourceDocument(BaseModel):
-    """Source document used in RAG"""
+    """Source document used in RAG - Enhanced for sourcing"""
     title: str = Field(..., description="Document title (structured path)")
     score: float = Field(..., description="Relevance score")
+
+    # Enhanced fields for document sourcing
+    category: Optional[str] = Field(None, description="Document category (doctrine, jurisprudence, etc.)")
+    section: Optional[str] = Field(None, description="Section/subsection")
+    file_path: Optional[str] = Field(None, description="Source file path")
+    document_type: Optional[str] = Field(None, description="Type: acte_uniforme, plan_comptable, etc.")
+    metadata_summary: Optional[Dict[str, str]] = Field(None, description="Additional metadata (livre, titre, article)")
 
 
 class ChatResponse(BaseModel):

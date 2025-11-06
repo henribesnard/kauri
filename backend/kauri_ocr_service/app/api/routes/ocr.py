@@ -2,11 +2,13 @@
 OCR processing endpoints
 """
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form
+from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, and_
 from typing import List, Optional
 from uuid import UUID
 import logging
+from pathlib import Path
 
 from app.core.database import get_db
 from app.models.ocr_document import OCRDocument, ProcessingStatus
@@ -18,6 +20,7 @@ from app.schemas.ocr_document import (
     DocumentSearchRequest,
     DocumentSearchResponse,
 )
+from app.services.pdf_generator import pdf_generator_service
 
 logger = logging.getLogger(__name__)
 
@@ -322,3 +325,141 @@ async def get_tenant_stats(
         "avg_quality_score": float(avg_quality) if avg_quality else None,
         "requires_review": requires_review
     }
+
+
+@router.get("/ocr/document/{document_id}/searchable-pdf")
+async def download_searchable_pdf(
+    document_id: UUID,
+    tenant_id: UUID,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Download the searchable PDF for a document
+
+    Returns the generated searchable PDF file
+    """
+    # Get document from database
+    query = select(OCRDocument).where(
+        and_(
+            OCRDocument.id == document_id,
+            OCRDocument.tenant_id == tenant_id,
+            OCRDocument.is_deleted == False
+        )
+    )
+    result = await db.execute(query)
+    document = result.scalar_one_or_none()
+
+    if not document:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found"
+        )
+
+    # Check if searchable PDF exists in metadata
+    if not document.metadata or 'searchable_pdf_path' not in document.metadata:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Searchable PDF not generated for this document"
+        )
+
+    pdf_path = Path(document.metadata['searchable_pdf_path'])
+
+    if not pdf_path.exists():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Searchable PDF file not found on disk"
+        )
+
+    # Return file
+    return FileResponse(
+        path=str(pdf_path),
+        media_type="application/pdf",
+        filename=f"{document.filename}_searchable.pdf"
+    )
+
+
+@router.post("/ocr/document/{document_id}/regenerate-pdf")
+async def regenerate_searchable_pdf(
+    document_id: UUID,
+    tenant_id: UUID,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Regenerate the searchable PDF for a document
+
+    Useful if the original generation failed or the file was deleted
+    """
+    # Get document from database
+    query = select(OCRDocument).where(
+        and_(
+            OCRDocument.id == document_id,
+            OCRDocument.tenant_id == tenant_id,
+            OCRDocument.is_deleted == False
+        )
+    )
+    result = await db.execute(query)
+    document = result.scalar_one_or_none()
+
+    if not document:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found"
+        )
+
+    # Check if original file exists
+    if not Path(document.file_path).exists():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Original document file not found"
+        )
+
+    # Check if it's a PDF
+    if not document.file_path.lower().endswith('.pdf'):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Only PDF documents can be converted to searchable PDFs"
+        )
+
+    try:
+        # Regenerate searchable PDF
+        logger.info(f"Regenerating searchable PDF for document: {document_id}")
+
+        pdf_result = await pdf_generator_service.generate_searchable_pdf(
+            input_pdf_path=document.file_path,
+            output_filename=f"{document.id}_searchable.pdf"
+        )
+
+        if not pdf_result.get('success'):
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=f"Failed to generate searchable PDF: {pdf_result.get('error')}"
+            )
+
+        # Update document metadata
+        if document.metadata is None:
+            document.metadata = {}
+
+        document.metadata['searchable_pdf_path'] = pdf_result['output_path']
+        document.metadata['searchable_pdf_size'] = pdf_result.get('file_size')
+        document.metadata['searchable_pdf_regenerated_at'] = func.now()
+
+        await db.commit()
+
+        logger.info(f"Searchable PDF regenerated successfully: {document_id}")
+
+        return {
+            "message": "Searchable PDF regenerated successfully",
+            "document_id": document_id,
+            "output_path": pdf_result['output_path'],
+            "file_size": pdf_result.get('file_size')
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error regenerating searchable PDF: {e}", exc_info=True)
+        await db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to regenerate searchable PDF: {str(e)}"
+        )

@@ -13,6 +13,7 @@ from app.core.config import settings
 from app.core.database import AsyncSessionLocal
 from app.models.ocr_document import OCRDocument, ProcessingStatus
 from app.services.ocr_engine import ocr_service
+from app.services.pdf_generator import pdf_generator_service
 from app.utils.ohada_validator import ohada_validator
 
 logging.basicConfig(
@@ -204,6 +205,28 @@ class OCRWorker:
                 # Extract structured data
                 structured_data = self._extract_structured_data(ocr_result, message)
                 document.structured_data = structured_data
+
+                # Generate searchable PDF (if input is PDF)
+                searchable_pdf_path = None
+                if file_path.lower().endswith('.pdf'):
+                    logger.info(f"Generating searchable PDF for: {file_path}")
+                    pdf_result = await pdf_generator_service.generate_searchable_pdf(
+                        input_pdf_path=file_path,
+                        output_filename=f"{document.id}_searchable.pdf",
+                        ocr_data=ocr_result
+                    )
+
+                    if pdf_result.get('success'):
+                        searchable_pdf_path = pdf_result['output_path']
+                        logger.info(f"Searchable PDF generated: {searchable_pdf_path}")
+
+                        # Store path in document metadata
+                        if document.metadata is None:
+                            document.metadata = {}
+                        document.metadata['searchable_pdf_path'] = searchable_pdf_path
+                        document.metadata['searchable_pdf_size'] = pdf_result.get('file_size')
+                    else:
+                        logger.warning(f"Failed to generate searchable PDF: {pdf_result.get('error')}")
 
                 # OHADA Validation if enabled
                 if settings.ENABLE_OHADA_VALIDATION and message.get('enable_ohada_validation', True):
