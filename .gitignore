@@ -67,6 +67,11 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# Alembic migrations
+alembic/
+alembic.ini
+alembic_migration_*.sql
+
 # Virtual environments
 venv/
 ENV/
