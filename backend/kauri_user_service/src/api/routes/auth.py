@@ -21,6 +21,8 @@ from ...schemas.user import (
 from ...auth.password import hash_password, verify_password
 from ...auth.jwt_manager import jwt_manager
 from ...utils.database import get_db
+from ...services.verification_service import verification_service
+from ...services.email_service import email_service
 
 logger = structlog.get_logger()
 
@@ -146,6 +148,41 @@ async def register(
 
     logger.info("user_registration_success", user_id=user_id, email=user_data.email)
 
+    # Generer et envoyer le token de verification d'email
+    try:
+        token = verification_service.create_verification_token(db, new_user)
+        verification_url = verification_service.get_verification_url(token)
+
+        user_name = f"{new_user.first_name} {new_user.last_name}".strip() if new_user.first_name or new_user.last_name else None
+
+        email_sent = email_service.send_verification_email(
+            to_email=new_user.email,
+            verification_url=verification_url,
+            user_name=user_name
+        )
+
+        if email_sent:
+            logger.info(
+                "verification_email_sent",
+                user_id=user_id,
+                email=user_data.email
+            )
+        else:
+            logger.warning(
+                "verification_email_not_sent",
+                user_id=user_id,
+                email=user_data.email,
+                message="SMTP not configured or email failed"
+            )
+    except Exception as e:
+        logger.error(
+            "verification_email_error",
+            user_id=user_id,
+            email=user_data.email,
+            error=str(e)
+        )
+        # Ne pas faire echouer l'inscription si l'email ne part pas
+
     return new_user
 
 
@@ -185,6 +222,14 @@ async def login(
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Compte désactivé"
+        )
+
+    # Vérifier si l'email est vérifié (sauf pour les utilisateurs OAuth)
+    if not user.is_verified and not user.oauth_provider:
+        logger.warning("user_login_failed_email_not_verified", user_id=user.user_id, email=user.email)
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Veuillez vérifier votre adresse email avant de vous connecter. Consultez votre boite de réception."
         )
 
     # Mettre à jour last_login

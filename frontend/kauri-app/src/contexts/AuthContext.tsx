@@ -9,6 +9,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string, fullName: string, companyName?: string) => Promise<void>;
+  oauthLogin: (token: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -57,14 +58,39 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const register = async (email: string, password: string, fullName: string, companyName?: string) => {
     try {
+      // Split fullName into first_name and last_name
+      const nameParts = fullName.trim().split(' ');
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || '';
+
       const response = await authService.register({
         email,
         password,
-        full_name: fullName,
-        company_name: companyName,
+        first_name: firstName,
+        last_name: lastName,
       });
       setUser(response.user);
     } catch (error) {
+      throw error;
+    }
+  };
+
+  const oauthLogin = async (token: string) => {
+    try {
+      // Store the token
+      localStorage.setItem('access_token', token);
+
+      // Fetch user info
+      const userInfo = await authService.getCurrentUser();
+      localStorage.setItem('user', JSON.stringify(userInfo));
+
+      // Update context state
+      setUser(userInfo);
+    } catch (error) {
+      // Clean up on error
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('user');
+      setUser(null);
       throw error;
     }
   };
@@ -80,6 +106,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isLoading,
     login,
     register,
+    oauthLogin,
     logout,
   };
 

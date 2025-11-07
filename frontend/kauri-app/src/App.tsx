@@ -4,6 +4,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import DashboardLayout from './components/layout/DashboardLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import OAuthCallbackPage from './pages/OAuthCallbackPage';
+import VerifyEmailPage from './pages/VerifyEmailPage';
 import DashboardPage from './pages/DashboardPage';
 import ChatPage from './pages/ChatPage';
 import PlaceholderPage from './pages/PlaceholderPage';
@@ -16,6 +18,8 @@ function App() {
           {/* Routes publiques */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/oauth/callback" element={<OAuthCallbackPage />} />
+          <Route path="/verify-email" element={<VerifyEmailPage />} />
 
           {/* Route Chat standalone (sans DashboardLayout) */}
           <Route

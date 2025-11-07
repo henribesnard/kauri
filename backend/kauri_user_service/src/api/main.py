@@ -5,12 +5,13 @@ Point d'entrée FastAPI pour le service utilisateur
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from starlette.middleware.sessions import SessionMiddleware
 import structlog
 import time
 
 from ..config import settings
 from ..utils.database import init_db, check_db_connection
-from .routes import auth
+from .routes import auth, oauth, verification
 
 # Configure structured logging
 logger = structlog.get_logger()
@@ -24,6 +25,16 @@ app = FastAPI(
     openapi_url=settings.openapi_url,
 )
 
+# Session Middleware (required for OAuth)
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=settings.oauth_state_secret,
+    session_cookie="kauri_session",
+    max_age=3600,  # 1 hour
+    same_site="lax",
+    https_only=False,  # Set to True in production with HTTPS
+)
+
 # CORS Middleware
 app.add_middleware(
     CORSMiddleware,
@@ -35,6 +46,8 @@ app.add_middleware(
 
 # Include routers
 app.include_router(auth.router)
+app.include_router(oauth.router)
+app.include_router(verification.router)
 
 
 # Middleware pour logging des requêtes

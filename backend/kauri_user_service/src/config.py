@@ -63,6 +63,34 @@ class Settings(BaseSettings):
     docs_url: str = Field(default="/api/v1/docs", alias="DOCS_URL")
     openapi_url: str = Field(default="/api/v1/openapi.json", alias="OPENAPI_URL")
 
+    # OAuth Configuration
+    oauth_state_secret: str = Field(default="change-this-secret-key", alias="OAUTH_STATE_SECRET")
+    frontend_url: str = Field(default="http://localhost:5173", alias="FRONTEND_URL")
+    backend_url: str = Field(default="http://localhost:3201", alias="BACKEND_URL")
+
+    # Google OAuth
+    google_client_id: str = Field(default="", alias="GOOGLE_CLIENT_ID")
+    google_client_secret: str = Field(default="", alias="GOOGLE_CLIENT_SECRET")
+
+    # Facebook OAuth
+    facebook_client_id: str = Field(default="", alias="FACEBOOK_CLIENT_ID")
+    facebook_client_secret: str = Field(default="", alias="FACEBOOK_CLIENT_SECRET")
+
+    # LinkedIn OAuth
+    linkedin_client_id: str = Field(default="", alias="LINKEDIN_CLIENT_ID")
+    linkedin_client_secret: str = Field(default="", alias="LINKEDIN_CLIENT_SECRET")
+
+    # Twitter OAuth
+    twitter_client_id: str = Field(default="", alias="TWITTER_CLIENT_ID")
+    twitter_client_secret: str = Field(default="", alias="TWITTER_CLIENT_SECRET")
+
+    # SMTP Configuration for Email Verification
+    smtp_host: str = Field(default="", alias="SMTP_HOST")
+    smtp_port: int = Field(default=587, alias="SMTP_PORT")
+    smtp_user: str = Field(default="", alias="SMTP_USER")
+    smtp_password: str = Field(default="", alias="SMTP_PASSWORD")
+    email_from: str = Field(default="noreply@kauri.com", alias="EMAIL_FROM")
+
     class Config:
         # Cherche d'abord dans .env du service, puis dans .env racine
         env_file = [".env", "../.env", "../../.env"]
@@ -73,3 +101,8 @@ class Settings(BaseSettings):
 
 # Singleton instance
 settings = Settings()
+
+
+def get_settings() -> Settings:
+    """Get settings instance"""
+    return settings
