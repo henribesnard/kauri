@@ -80,6 +80,14 @@ class UserResponse(UserBase):
     is_active: bool
     is_verified: bool
     is_superuser: bool
+
+    # Subscription fields
+    subscription_tier: str
+    subscription_status: str
+    subscription_start_date: Optional[datetime] = None
+    subscription_end_date: Optional[datetime] = None
+    trial_end_date: Optional[datetime] = None
+
     created_at: datetime
     updated_at: datetime
     last_login: Optional[datetime] = None
@@ -91,6 +99,11 @@ class UserResponse(UserBase):
 class UserLoginResponse(UserBase):
     """Schéma sécurisé pour la réponse login (sans is_superuser, is_verified)"""
     user_id: str
+
+    # Subscription fields (for frontend to know user's plan)
+    subscription_tier: str
+    subscription_status: str
+
     # Removed for security: is_superuser, is_verified, created_at, updated_at, last_login
 
     class Config:

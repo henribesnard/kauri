@@ -262,7 +262,13 @@ async def main_async():
         return
 
     files = find_documents(base_path)
-    logger.info("documents_found", count=len(files))
+
+    # Sort files by size (smallest first) to process small files first
+    files.sort(key=lambda f: f.stat().st_size)
+    logger.info("documents_found_and_sorted",
+               count=len(files),
+               smallest_kb=files[0].stat().st_size / 1024 if files else 0,
+               largest_kb=files[-1].stat().st_size / 1024 if files else 0)
 
     if len(files) == 0:
         print(f"\n⚠️  Aucun fichier .docx ou .pdf trouvé dans {base_path}")

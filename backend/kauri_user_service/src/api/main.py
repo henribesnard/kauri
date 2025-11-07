@@ -11,7 +11,7 @@ import time
 
 from ..config import settings
 from ..utils.database import init_db, check_db_connection
-from .routes import auth, oauth, verification
+from .routes import auth, oauth, verification, subscription, users
 
 # Configure structured logging
 logger = structlog.get_logger()
@@ -48,6 +48,8 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(oauth.router)
 app.include_router(verification.router)
+app.include_router(subscription.router)  # Subscription/quota routes
+app.include_router(users.router)  # User profile routes
 
 
 # Middleware pour logging des requêtes

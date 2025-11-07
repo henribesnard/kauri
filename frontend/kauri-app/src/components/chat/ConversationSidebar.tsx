@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, MessageSquare, Archive, Trash2, User, LogOut, ChevronUp, ChevronDown } from 'lucide-react';
+import { Plus, MessageSquare, Archive, Trash2, Settings, LogOut, ChevronUp, ChevronDown } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import type { Conversation } from '../../types';
 
@@ -180,13 +180,13 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
           <div className="mt-2 space-y-1">
             <button
               onClick={() => {
-                navigate('/dashboard');
+                navigate('/settings');
                 setIsUserMenuOpen(false);
               }}
               className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition"
             >
-              <User size={16} />
-              Tableau de bord
+              <Settings size={16} />
+              Paramètres
             </button>
             <button
               onClick={logout}

@@ -129,6 +129,10 @@ async def get_or_create_oauth_user(
         is_verified=user_info.get('email_verified', True),  # OAuth emails are verified
         is_superuser=False,
         oauth_provider=provider,
+        # IMPORTANT: Assign default FREE plan to all new OAuth users
+        subscription_tier='free',
+        subscription_status='active',
+        subscription_start_date=datetime.utcnow()
     )
 
     # Définir le provider_id
@@ -138,7 +142,11 @@ async def get_or_create_oauth_user(
     db.commit()
     db.refresh(new_user)
 
-    logger.info("oauth_user_created", user_id=user_id, provider=provider, email=email)
+    logger.info("oauth_user_created",
+                user_id=user_id,
+                provider=provider,
+                email=email,
+                subscription_tier=new_user.subscription_tier)
     return new_user
 
 

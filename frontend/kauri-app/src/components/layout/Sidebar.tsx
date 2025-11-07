@@ -39,7 +39,6 @@ const Sidebar: React.FC = () => {
   };
 
   const navItems: NavItem[] = [
-    { name: 'Tableau de bord', path: '/dashboard', icon: <Home size={20} /> },
     { name: 'Achats', path: '/achats', icon: <ShoppingCart size={20} />, badge: 3 },
     { name: 'Ventes', path: '/ventes', icon: <TrendingUp size={20} />, badge: 5 },
     { name: 'Banque', path: '/banque', icon: <Building2 size={20} />, badge: 12 },
@@ -158,13 +157,15 @@ const Sidebar: React.FC = () => {
         {/* Dropdown menu */}
         {showUserMenu && (
           <div className="mt-2 border border-gray-200 rounded-lg overflow-hidden">
-            <button className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
-              <User size={16} />
-              Tableau de bord
-            </button>
-            <button className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+            <button
+              onClick={() => {
+                navigate('/settings');
+                setShowUserMenu(false);
+              }}
+              className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+            >
               <Settings size={16} />
-              Configuration
+              Paramètres
             </button>
             <button
               onClick={handleLogout}

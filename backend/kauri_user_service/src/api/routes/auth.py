@@ -23,6 +23,7 @@ from ...auth.jwt_manager import jwt_manager
 from ...utils.database import get_db
 from ...services.verification_service import verification_service
 from ...services.email_service import email_service
+from ...services.subscription_service import SubscriptionService
 
 logger = structlog.get_logger()
 
@@ -140,13 +141,20 @@ async def register(
         is_active=True,
         is_verified=False,
         is_superuser=False,
+        # IMPORTANT: Assign default FREE plan to all new users
+        subscription_tier='free',
+        subscription_status='active',
+        subscription_start_date=datetime.utcnow()
     )
 
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
 
-    logger.info("user_registration_success", user_id=user_id, email=user_data.email)
+    logger.info("user_registration_success",
+                user_id=user_id,
+                email=user_data.email,
+                subscription_tier=new_user.subscription_tier)
 
     # Generer et envoyer le token de verification d'email
     try:
