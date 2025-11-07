@@ -6,6 +6,7 @@
 # Données sensibles et base de connaissances
 # ============================================
 base_connaissances/
+traitement_ocr/
 scraping/
 *.docx
 *.pdf
