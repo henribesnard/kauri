@@ -21,15 +21,15 @@ celery==5.3.6
 
 # OCR Engines
 paddleocr==2.7.3
-paddlepaddle==2.6.0
+paddlepaddle==2.6.1
 ocrmypdf==16.0.0
 pytesseract==0.3.10
 # surya-ocr==0.4.0  # Alternative OCR
 # transformers==4.36.0  # For Qwen2.5-VL in production
 
 # Image Processing
-opencv-python==4.9.0.80
-opencv-python-headless==4.9.0.80
+opencv-python==4.6.0.66
+opencv-python-headless==4.6.0.66
 pillow==10.2.0
 pdf2image==1.17.0
 pypdf2==3.0.1

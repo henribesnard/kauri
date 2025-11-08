@@ -110,6 +110,10 @@ class Settings(BaseSettings):
     docs_url: str = Field(default="/api/v1/docs", alias="DOCS_URL")
     openapi_url: str = Field(default="/api/v1/openapi.json", alias="OPENAPI_URL")
 
+    # Legal Report Generation (Phase 2)
+    enable_legal_reports: bool = Field(default=False, alias="ENABLE_LEGAL_REPORTS")  # Disabled by default for performance
+    report_auto_generate_threshold: int = Field(default=3, alias="REPORT_AUTO_GENERATE_THRESHOLD")  # Min sources to auto-generate
+
     class Config:
         # Cherche d'abord dans .env.local (pour dev local), puis .env du service, puis .env racine
         env_file = [".env.local", ".env", "../.env", "../../.env"]

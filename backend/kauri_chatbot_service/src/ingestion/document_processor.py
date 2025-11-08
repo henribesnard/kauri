@@ -1,6 +1,6 @@
 """
 Document Processor - Parse and extract content from files
-Supports both .docx and .pdf files
+Supports both .docx and .pdf files with automatic legal metadata extraction
 """
 import hashlib
 from typing import Dict, Any
@@ -8,6 +8,7 @@ from pathlib import Path
 import structlog
 import pdfplumber
 from .document_reader import get_document_reader
+from .metadata_extractor import get_metadata_extractor
 
 logger = structlog.get_logger()
 
@@ -16,11 +17,13 @@ class DocumentProcessor:
     """
     Process documents from base_connaissances
     Supports .docx (with tables) and .pdf files
+    Now with automatic legal metadata extraction
     """
     SUPPORTED_FORMATS = [".docx", ".pdf"]  # Support both formats
 
     def __init__(self):
         self.document_reader = get_document_reader()
+        self.metadata_extractor = get_metadata_extractor()  # NEW: metadata extraction
 
     @staticmethod
     def compute_hash(content: str) -> str:
@@ -59,21 +62,31 @@ class DocumentProcessor:
 
             content = "\n\n".join(text_parts)
 
-            # Extract metadata
-            metadata = {
+            # Extract basic metadata
+            basic_metadata = {
                 "category": self._infer_category_from_path(file_path),
                 "section": "",
                 "title": file_path.stem
             }
 
+            # Enrich with legal metadata extraction (NEW)
+            enriched_metadata = self.metadata_extractor.extract_metadata(
+                file_path=str(file_path),
+                content=content,
+                existing_metadata=basic_metadata
+            )
+
             logger.info("pdf_processed",
                        path=str(file_path),
                        length=len(content),
-                       has_tables=has_tables)
+                       has_tables=has_tables,
+                       category=enriched_metadata.get("category"),
+                       num_articles=len(enriched_metadata.get("articles_references", [])),
+                       num_topics=len(enriched_metadata.get("legal_topics", [])))
 
             return {
                 "content": content,
-                "metadata": metadata,
+                "metadata": enriched_metadata,  # Now enriched with legal metadata
                 "has_tables": has_tables
             }
 

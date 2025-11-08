@@ -50,10 +50,15 @@ class RAGWorkflow:
         """
         self.intent_classifier = get_intent_classifier()
         self.rag_pipeline = rag_pipeline
+
+        # Import legal retriever for enhanced legal searches
+        from src.rag.retriever.legal_retriever import get_legal_retriever
+        self.legal_retriever = get_legal_retriever()
+
         self.graph = self._build_graph()
 
     def _build_graph(self) -> StateGraph:
-        """Construct LangGraph workflow"""
+        """Construct LangGraph workflow with enhanced legal intents"""
         workflow = StateGraph(WorkflowState)
 
         # Nodes
@@ -63,12 +68,14 @@ class RAGWorkflow:
         workflow.add_node("retrieve_and_generate", self._retrieve_and_generate_node)
         workflow.add_node("ask_clarification", self._ask_clarification_node)
         workflow.add_node("document_sourcing", self._document_sourcing_node)
+        workflow.add_node("legal_reference_search", self._legal_reference_search_node)  # NOUVEAU
+        workflow.add_node("case_law_research", self._case_law_research_node)  # NOUVEAU
 
         # Edges
         workflow.set_entry_point("load_context")
         workflow.add_edge("load_context", "classify_intent")
 
-        # Conditional routing basé sur l'intention
+        # Conditional routing basé sur l'intention (enrichi avec nouveaux intents)
         workflow.add_conditional_edges(
             "classify_intent",
             self._route_by_intent,
@@ -76,7 +83,9 @@ class RAGWorkflow:
                 "direct_response": "direct_response",
                 "retrieve_and_generate": "retrieve_and_generate",
                 "ask_clarification": "ask_clarification",
-                "document_sourcing": "document_sourcing"
+                "document_sourcing": "document_sourcing",
+                "legal_reference_search": "legal_reference_search",  # NOUVEAU
+                "case_law_research": "case_law_research"  # NOUVEAU
             }
         )
 
@@ -85,6 +94,8 @@ class RAGWorkflow:
         workflow.add_edge("retrieve_and_generate", END)
         workflow.add_edge("ask_clarification", END)
         workflow.add_edge("document_sourcing", END)
+        workflow.add_edge("legal_reference_search", END)  # NOUVEAU
+        workflow.add_edge("case_law_research", END)  # NOUVEAU
 
         return workflow.compile()
 
@@ -170,8 +181,8 @@ class RAGWorkflow:
 
         return state
 
-    def _route_by_intent(self, state: WorkflowState) -> Literal["direct_response", "retrieve_and_generate", "ask_clarification", "document_sourcing"]:
-        """Conditional edge: Route based on intent"""
+    def _route_by_intent(self, state: WorkflowState) -> Literal["direct_response", "retrieve_and_generate", "ask_clarification", "document_sourcing", "legal_reference_search", "case_law_research"]:
+        """Conditional edge: Route based on intent (enriched with legal intents)"""
         intent = state.get("intent")
 
         if not intent:
@@ -186,7 +197,11 @@ class RAGWorkflow:
             return "ask_clarification"
         elif intent.intent_type == "document_sourcing":
             return "document_sourcing"
-        else:  # rag_query
+        elif intent.intent_type == "legal_reference_search":  # NOUVEAU
+            return "legal_reference_search"
+        elif intent.intent_type == "case_law_research":  # NOUVEAU
+            return "case_law_research"
+        else:  # rag_query (default)
             return "retrieve_and_generate"
 
     async def _direct_response_node(self, state: WorkflowState) -> WorkflowState:
@@ -267,7 +282,7 @@ class RAGWorkflow:
 
                 # Format document context
                 doc_context = self.rag_pipeline._format_context(documents)
-                sources = self.rag_pipeline._convert_to_source_documents(documents)
+                sources = self.rag_pipeline._convert_to_source_documents_enriched(documents)
             else:
                 # Use existing context without new retrieval
                 logger.info("workflow_using_existing_context")
@@ -487,6 +502,190 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
 
         return state
 
+    async def _legal_reference_search_node(self, state: WorkflowState) -> WorkflowState:
+        """
+        Node: Recherche par référence juridique précise
+        Utilise LegalRetriever pour recherche ciblée
+        """
+        logger.info("workflow_node_legal_reference_search", query=state["query"][:100])
+
+        try:
+            from src.config import settings
+
+            intent = state.get("intent")
+            legal_metadata = intent.legal_metadata if intent else None
+
+            if not legal_metadata or not legal_metadata.legal_references:
+                # Fallback to standard RAG if no references found
+                logger.warning("legal_reference_search_no_references_fallback_to_rag")
+                return await self._retrieve_and_generate_node(state)
+
+            # Extract first legal reference
+            ref_text = legal_metadata.legal_references[0]
+            logger.info("legal_reference_search_targeting", reference=ref_text)
+
+            # Parse reference
+            from src.rag.agents.reference_parser import get_reference_parser
+            parser = get_reference_parser()
+            parsed_refs = parser.parse(ref_text)
+
+            if not parsed_refs:
+                # Fallback if parsing fails
+                logger.warning("legal_reference_search_parse_failed_fallback")
+                return await self._retrieve_and_generate_node(state)
+
+            # Retrieve by reference
+            documents = await self.legal_retriever.retrieve_by_reference(
+                reference=parsed_refs[0],
+                top_k=settings.rag_rerank_top_k
+            )
+
+            state["documents"] = documents
+            state["metadata"]["num_sources"] = len(documents)
+            state["metadata"]["retrieval_performed"] = True
+            state["metadata"]["retrieval_type"] = "legal_reference_search"
+            state["metadata"]["target_reference"] = ref_text
+
+            # Format document context
+            doc_context = self.rag_pipeline._format_context(documents)
+            sources = self.rag_pipeline._convert_to_source_documents_enriched(documents)
+
+            # Generate response
+            system_prompt = self.rag_pipeline._prepare_system_prompt()
+            user_prompt = self.rag_pipeline._build_user_prompt(state["query"], doc_context)
+
+            llm_response = await self.rag_pipeline.llm_client.generate(
+                prompt=user_prompt,
+                system_prompt=system_prompt,
+                temperature=0.3,
+                max_tokens=2000
+            )
+
+            state["answer"] = llm_response["content"]
+            state["sources"] = sources
+            state["metadata"]["model_used"] = llm_response["model"]
+            state["metadata"]["tokens_used"] = llm_response["tokens_used"]
+
+            logger.info("workflow_legal_reference_search_complete",
+                       num_documents=len(documents))
+
+        except Exception as e:
+            logger.error("workflow_legal_reference_search_failed", error=str(e))
+            state["error"] = f"Legal reference search failed: {str(e)}"
+            state["answer"] = "Désolé, je n'ai pas trouvé cette référence juridique dans ma base."
+            state["sources"] = []
+
+        return state
+
+    async def _case_law_research_node(self, state: WorkflowState) -> WorkflowState:
+        """
+        Node: Recherche jurisprudentielle approfondie
+        Filtre par type "jurisprudence" et juridiction si spécifiée
+        """
+        logger.info("workflow_node_case_law_research", query=state["query"][:100])
+
+        try:
+            from src.config import settings
+
+            intent = state.get("intent")
+            legal_metadata = intent.legal_metadata if intent else None
+
+            jurisdiction = legal_metadata.jurisdiction if legal_metadata else None
+
+            logger.info("case_law_research_filtering",
+                       jurisdiction=jurisdiction)
+
+            # Retrieve case law
+            documents = await self.legal_retriever.retrieve_case_law(
+                topic=state["query"],
+                jurisdiction=jurisdiction,
+                top_k=settings.rag_rerank_top_k
+            )
+
+            state["documents"] = documents
+            state["metadata"]["num_sources"] = len(documents)
+            state["metadata"]["retrieval_performed"] = True
+            state["metadata"]["retrieval_type"] = "case_law_research"
+            state["metadata"]["jurisdiction_filter"] = jurisdiction
+
+            if not documents:
+                state["answer"] = f"Je n'ai pas trouvé de jurisprudence{' de la ' + jurisdiction if jurisdiction else ''} sur ce sujet dans ma base de données."
+                state["sources"] = []
+                state["metadata"]["no_results"] = True
+                return state
+
+            # Format document context
+            doc_context = self.rag_pipeline._format_context(documents)
+            sources = self.rag_pipeline._convert_to_source_documents_enriched(documents)
+
+            # Generate response with case law focus
+            system_prompt = self.rag_pipeline._prepare_system_prompt()
+            user_prompt = f"""{doc_context}
+
+QUESTION DE L'UTILISATEUR:
+{state["query"]}
+
+INSTRUCTIONS SPÉCIALES POUR RECHERCHE JURISPRUDENTIELLE:
+Tu réponds à une demande de recherche jurisprudentielle. Structure ta réponse ainsi :
+
+1. **Résumé** : Nombre et types de jurisprudences trouvées
+2. **Analyse par décision** : Pour chaque jurisprudence importante, indique :
+   - Le titre exact (juridiction, date, référence)
+   - Le principe juridique dégagé
+   - L'extrait pertinent
+3. **Synthèse** : Tendance jurisprudentielle générale sur le sujet
+
+Utilise UNIQUEMENT les titres exacts des sources (pas de [Document X]).
+"""
+
+            # Check if legal report generation is enabled (Phase 2)
+            if settings.enable_legal_reports and len(documents) >= settings.report_auto_generate_threshold:
+                # Generate structured legal report
+                logger.info("generating_legal_report", num_documents=len(documents))
+
+                from src.rag.agents.legal_report_generator import get_report_generator
+                report_generator = get_report_generator()
+
+                report = await report_generator.generate_jurisprudence_report(
+                    query=state["query"],
+                    documents=documents,
+                    jurisdiction=jurisdiction
+                )
+
+                # Format report as text
+                state["answer"] = report_generator.format_report_as_text(report)
+                state["metadata"]["report_generated"] = True
+                state["metadata"]["report_type"] = report.report_type
+                state["metadata"]["model_used"] = report.metadata.get("model_used")
+                state["metadata"]["tokens_used"] = report.metadata.get("tokens_used")
+            else:
+                # Standard generation (existing logic)
+                llm_response = await self.rag_pipeline.llm_client.generate(
+                    prompt=user_prompt,
+                    system_prompt=system_prompt,
+                    temperature=0.3,
+                    max_tokens=2500
+                )
+
+                state["answer"] = llm_response["content"]
+                state["metadata"]["model_used"] = llm_response["model"]
+                state["metadata"]["tokens_used"] = llm_response["tokens_used"]
+                state["metadata"]["report_generated"] = False
+
+            state["sources"] = sources
+
+            logger.info("workflow_case_law_research_complete",
+                       num_jurisprudences=len(documents),
+                       report_generated=state["metadata"].get("report_generated", False))
+
+        except Exception as e:
+            logger.error("workflow_case_law_research_failed", error=str(e))
+            state["error"] = f"Case law research failed: {str(e)}"
+            state["answer"] = "Désolé, je n'ai pas pu effectuer la recherche jurisprudentielle."
+            state["sources"] = []
+
+        return state
+
     async def execute(
         self,
         query: str,
@@ -696,7 +895,7 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
                 retrieval_time = time.time() - retrieval_start
 
                 # Send sources first
-                sources = self.rag_pipeline._convert_to_source_documents(documents)
+                sources = self.rag_pipeline._convert_to_source_documents_enriched(documents)
                 yield {
                     "type": "sources",
                     "sources": sources,

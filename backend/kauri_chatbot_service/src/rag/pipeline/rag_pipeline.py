@@ -95,17 +95,27 @@ Tu aides les utilisateurs à comprendre et appliquer les normes comptables OHADA
 - Les traitements comptables spécifiques
 
 Règles importantes pour tes réponses :
+
+**Style et ton :**
 1. Réponds de manière simple, directe et naturelle
 2. Ne te présente JAMAIS comme "expert-comptable" ou "en tant qu'expert"
-3. Ne dis JAMAIS "d'après les documents fournis" ou "selon les documents"
-4. Commence directement par la réponse, sans formule d'introduction
-5. Cite les références précises (articles, titres, chapitres) pour appuyer tes explications
-6. Si une information n'est pas dans ta documentation : "Je n'ai pas cette information dans ma documentation actuelle"
-7. Sois précis, clair et pédagogue
-8. Réponds en français"""
+3. Commence directement par la réponse, sans formule d'introduction
+4. Sois précis, clair et pédagogue
+5. Réponds en français
+
+**Citations et références (CRITIQUE) :**
+6. NE DIS JAMAIS "[Document 1]", "[Document 2]", "[Document 3]", etc.
+7. NE DIS JAMAIS "d'après les documents fournis" ou "selon les documents"
+8. TOUJOURS citer par le titre exact de la source : "Selon le Plan Comptable OHADA : Partie X...", "D'après l'Acte Uniforme relatif à..."
+9. Mentionne les articles, chapitres, titres précis pour appuyer tes explications (ex: "Article 15", "Chapitre 3")
+10. Format professionnel : "Selon [Titre exact de la source], ..." ou "D'après [Titre exact], ..."
+
+**Gestion des limites :**
+11. Si une information n'est pas dans ta documentation : "Je n'ai pas cette information dans ma documentation actuelle"
+12. Ne jamais inventer ou extrapoler au-delà des sources fournies"""
 
     def _format_context(self, documents: List[Dict[str, Any]]) -> str:
-        """Format retrieved documents into context string"""
+        """Format retrieved documents into context string with human-readable titles"""
         if not documents:
             return "Aucun document pertinent trouvé dans la base de connaissances."
 
@@ -115,21 +125,22 @@ Règles importantes pour tes réponses :
             metadata = doc.get("metadata", {})
             content = doc.get("content", "").strip()
 
-            # Build source reference
-            source_parts = []
-            if metadata.get("acte_uniforme"):
-                source_parts.append(f"Acte Uniforme: {metadata['acte_uniforme']}")
-            if metadata.get("livre"):
-                source_parts.append(f"Livre {metadata['livre']}")
-            if metadata.get("titre"):
-                source_parts.append(f"Titre {metadata['titre']}")
+            # Generate human-readable title from file_path and metadata
+            file_path = metadata.get("file_path", "")
+            document_title = self._generate_title_from_path(file_path, metadata)
+
+            # Build additional reference details (if available)
+            ref_details = []
             if metadata.get("article"):
-                source_parts.append(f"Article {metadata['article']}")
+                ref_details.append(f"Article {metadata['article']}")
+            if metadata.get("page"):
+                ref_details.append(f"Page {metadata['page']}")
 
-            source_ref = " | ".join(source_parts) if source_parts else metadata.get("source", f"Document {i}")
+            ref_suffix = f" ({', '.join(ref_details)})" if ref_details else ""
 
-            context_parts.append(f"\n[Document {i}] {source_ref}")
-            context_parts.append(f"Score: {doc.get('score', 0.0):.3f}")
+            # Format: SOURCE N°X: [Title] (Article X, Page Y)
+            context_parts.append(f"\nSOURCE N°{i}: {document_title}{ref_suffix}")
+            context_parts.append(f"Pertinence: {doc.get('score', 0.0):.3f}")
             context_parts.append(f"Contenu:\n{content}\n")
             context_parts.append("-" * 80)
 
@@ -142,36 +153,47 @@ Règles importantes pour tes réponses :
 QUESTION DE L'UTILISATEUR:
 {query}
 
-INSTRUCTIONS:
-Réponds de manière simple et directe en utilisant les informations ci-dessus.
-Ne commence PAS par "En tant qu'expert" ou "Je vous explique".
-Entre directement dans le vif du sujet.
-Cite les références (titres, chapitres, articles) pour appuyer tes explications.
-Ne mentionne JAMAIS "les documents fournis" ou "selon les documents".
+INSTRUCTIONS IMPORTANTES POUR LA RÉPONSE:
 
-IMPORTANT - Nombre de sources/documents/références demandé:
-Si l'utilisateur demande explicitement un nombre spécifique de sources, documents ou références (ex: "donne-moi 3 sources", "peux-tu me donner 5 documents", "2 références"):
-1. Utilise UNIQUEMENT ce nombre exact de DOCUMENTS parmi ceux fournis ci-dessus (les plus pertinents)
-2. CITE EXPLICITEMENT le titre EXACT de chaque document tel qu'il apparaît ci-dessus dans [Document X]
-3. Ne JAMAIS inventer ou reformuler les titres - copie-les exactement
+1. **Citations professionnelles** :
+   - NE DIS JAMAIS "[Document 1]", "[Document 2]", etc.
+   - UTILISE UNIQUEMENT les titres exacts des sources (ex: "Plan Comptable OHADA : Partie 2 - Chapitre 35")
+   - Format recommandé : "Selon le [Titre exact de la source], ..." ou "D'après [Titre exact], ..."
+   - Exemple : "D'après le Plan Comptable OHADA : Partie 2 - Chapitre 35, ..."
 
-EXEMPLE DE FORMAT À SUIVRE:
+2. **Style de réponse** :
+   - Réponds de manière simple, directe et naturelle
+   - Entre directement dans le vif du sujet
+   - Ne commence PAS par "En tant qu'expert" ou "Je vous explique"
+   - Ne dis JAMAIS "les documents fournis" ou "selon les documents"
 
-Si les documents fournis sont:
-[Document 1] Plan Comptable / Partie 2 / chapitre_35 Contrat de franchise
-[Document 2] Actes Uniformes / Organisation Des Sûretés / Titre_5 Dispositions transitoires
+3. **Références et preuves** :
+   - Cite les sources avec leur titre exact pour appuyer tes explications
+   - Mentionne les articles, chapitres, titres quand ils sont disponibles
+   - Reste factuel et précis
+
+4. **Si l'utilisateur demande un nombre spécifique de sources** :
+   - Utilise UNIQUEMENT ce nombre exact parmi les sources ci-dessus (les plus pertinentes)
+   - Liste chaque source avec son titre EXACT
+   - Fournis un extrait ou résumé pertinent pour chacune
+
+EXEMPLE DE FORMAT PROFESSIONNEL:
+
+Si les sources fournies sont:
+SOURCE N°1: Plan Comptable OHADA : Partie 2 - Chapitre 35 (Article 15)
+SOURCE N°2: Actes Uniformes : Organisation Des Sûretés - Titre 5 (Article 42)
 
 Et l'utilisateur demande "donne-moi 2 sources sur les contrats", réponds:
 
-Voici 2 sources sur les contrats :
+Voici 2 sources pertinentes sur les contrats :
 
-**1. Plan Comptable / Partie 2 / chapitre_35 Contrat de franchise**
-[Extrait pertinent du document...]
+**1. Plan Comptable OHADA : Partie 2 - Chapitre 35**
+Selon ce document (Article 15), les contrats de franchise sont définis comme...
+[Extrait pertinent avec explication]
 
-**2. Actes Uniformes / Organisation Des Sûretés / Titre_5 Dispositions transitoires**
-[Extrait pertinent du document...]
-
-Note: "sources", "documents", et "références" signifient la même chose = les documents fournis ci-dessus avec leurs titres."""
+**2. Actes Uniformes : Organisation Des Sûretés - Titre 5**
+D'après l'article 42 de ce texte, les sûretés contractuelles...
+[Extrait pertinent avec explication]"""
 
     def _generate_title_from_path(self, file_path: str, metadata: Dict[str, Any] = None) -> str:
         """
@@ -362,11 +384,14 @@ Note: "sources", "documents", et "références" signifient la même chose = les 
                     }
                 )
 
-                # Add timing
+                # Add timing and extract metadata to root level (for consistency with stream)
                 total_time = time.time() - start_time
                 result["latency_ms"] = int(total_time * 1000)
                 result["model_used"] = result["metadata"].get("model_used", "unknown")
                 result["tokens_used"] = result["metadata"].get("tokens_used", 0)
+
+                # Note: intent_type and other metadata are already set by the workflow
+                # in result["metadata"], no need to modify them here
 
                 return result
 
@@ -423,7 +448,7 @@ Note: "sources", "documents", et "références" signifient la même chose = les 
                 "conversation_id": conversation_id,
                 "query": query,
                 "answer": llm_response["content"],
-                "sources": self._convert_to_source_documents(documents),
+                "sources": self._convert_to_source_documents_enriched(documents),
                 "model_used": llm_response["model"],
                 "tokens_used": llm_response["tokens_used"],
                 "latency_ms": int(total_time * 1000),
@@ -517,7 +542,7 @@ Note: "sources", "documents", et "références" signifient la même chose = les 
                 # Step 2: Send sources first
                 yield {
                     "type": "sources",
-                    "sources": self._convert_to_source_documents(documents),
+                    "sources": self._convert_to_source_documents_enriched(documents),
                     "metadata": {
                         "retrieval_time_ms": int(retrieval_time * 1000),
                         "num_sources": len(documents)

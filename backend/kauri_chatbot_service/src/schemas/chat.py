@@ -35,6 +35,7 @@ class ChatResponse(BaseModel):
     model_used: str = Field(..., description="LLM model used")
     tokens_used: Optional[int] = Field(None, description="Tokens used")
     latency_ms: float = Field(..., description="Response latency in milliseconds")
+    metadata: Dict[str, Any] = Field(default_factory=dict, description="Additional metadata (intent_type, retrieval_type, etc.)")
     timestamp: datetime = Field(default_factory=datetime.utcnow, description="Response timestamp")
 
 
