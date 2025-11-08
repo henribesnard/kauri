@@ -1,5 +1,21 @@
-data "aws_ssm_parameter" "ubuntu_arm64" {
-  name = "/aws/service/canonical/ubuntu/server/22.04/stable/current/arm64/hvm/ebs-gp3/ami-id"
+data "aws_ami" "ubuntu_arm64" {
+  most_recent = true
+  owners      = ["099720109477"] # Canonical
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 resource "aws_iam_role" "ec2" {
@@ -86,7 +102,7 @@ resource "aws_iam_instance_profile" "ec2" {
 }
 
 resource "aws_instance" "kauri" {
-  ami                    = data.aws_ssm_parameter.ubuntu_arm64.value
+  ami                    = data.aws_ami.ubuntu_arm64.id
   instance_type          = var.ec2_instance_type
   key_name               = var.ssh_key_name
   subnet_id              = aws_subnet.public_a.id

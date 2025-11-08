@@ -193,6 +193,17 @@ credentials.json
 service-account.json
 
 # ============================================
+# Terraform
+# ============================================
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+terraform.tfvars.json
+tfplan
+plan.txt
+
+# ============================================
 # Fichiers IDE et éditeurs
 # ============================================
 *.swp

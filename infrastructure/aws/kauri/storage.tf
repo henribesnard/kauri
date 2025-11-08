@@ -5,9 +5,7 @@ resource "random_string" "bucket_suffix" {
 }
 
 locals {
-  base_bucket_name = var.base_knowledge_bucket_name != "" ?
-    var.base_knowledge_bucket_name :
-    "${var.project_name}-${var.environment}-knowledge-${random_string.bucket_suffix.result}"
+  base_bucket_name = var.base_knowledge_bucket_name != "" ? var.base_knowledge_bucket_name : "${var.project_name}-${var.environment}-knowledge-${random_string.bucket_suffix.result}"
 }
 
 resource "aws_s3_bucket" "base_connaissances" {
