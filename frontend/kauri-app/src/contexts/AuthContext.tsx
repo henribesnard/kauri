@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { User } from '../types';
+import type { User, RegisterData } from '../types';
 import { authService } from '../services/authService';
 
 interface AuthContextType {
@@ -58,17 +58,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const register = async (email: string, password: string, fullName: string, companyName?: string) => {
     try {
-      // Split fullName into first_name and last_name
-      const nameParts = fullName.trim().split(' ');
-      const firstName = nameParts[0] || '';
-      const lastName = nameParts.slice(1).join(' ') || '';
-
-      const response = await authService.register({
+      const payload: RegisterData = {
         email,
         password,
-        first_name: firstName,
-        last_name: lastName,
-      });
+        full_name: fullName.trim(),
+      };
+
+      if (companyName?.trim()) {
+        payload.company_name = companyName.trim();
+      }
+
+      const response = await authService.register(payload);
       setUser(response.user);
     } catch (error) {
       throw error;

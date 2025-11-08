@@ -6,6 +6,7 @@ import json
 import logging
 import sys
 from typing import Dict, Any
+import threading
 import pika
 from sqlalchemy import select
 
@@ -30,6 +31,15 @@ class OCRWorker:
         self.connection = None
         self.channel = None
         self.running = False
+        self.loop = asyncio.new_event_loop()
+        self.loop_thread = threading.Thread(
+            target=self._run_loop, name="ocr-worker-loop", daemon=True
+        )
+
+    def _run_loop(self):
+        """Background event loop that processes async tasks."""
+        asyncio.set_event_loop(self.loop)
+        self.loop.run_forever()
 
     def connect(self):
         """Connect to RabbitMQ"""
@@ -80,6 +90,8 @@ class OCRWorker:
         try:
             logger.info("Starting OCR worker...")
             self.running = True
+            if not self.loop_thread.is_alive():
+                self.loop_thread.start()
 
             # Consume from both queues (priority queue first)
             self.channel.basic_consume(
@@ -116,6 +128,11 @@ class OCRWorker:
         if self.connection:
             self.connection.close()
 
+        if self.loop.is_running():
+            self.loop.call_soon_threadsafe(self.loop.stop)
+        if self.loop_thread.is_alive():
+            self.loop_thread.join(timeout=2)
+
         logger.info("Worker stopped")
 
     def on_message(self, channel, method, properties, body):
@@ -130,7 +147,10 @@ class OCRWorker:
             logger.info(f"Received OCR job for document: {document_id}")
 
             # Process document
-            asyncio.run(self.process_document(message))
+            future = asyncio.run_coroutine_threadsafe(
+                self.process_document(message), self.loop
+            )
+            future.result()
 
             # Acknowledge message
             channel.basic_ack(delivery_tag=method.delivery_tag)
@@ -152,7 +172,11 @@ class OCRWorker:
                 channel.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
 
                 # Update document status to failed
-                asyncio.run(self.mark_failed(message.get('document_id'), str(e)))
+                future = asyncio.run_coroutine_threadsafe(
+                    self.mark_failed(message.get('document_id'), str(e)),
+                    self.loop
+                )
+                future.result()
 
     async def process_document(self, message: Dict[str, Any]):
         """
@@ -221,10 +245,10 @@ class OCRWorker:
                         logger.info(f"Searchable PDF generated: {searchable_pdf_path}")
 
                         # Store path in document metadata
-                        if document.metadata is None:
-                            document.metadata = {}
-                        document.metadata['searchable_pdf_path'] = searchable_pdf_path
-                        document.metadata['searchable_pdf_size'] = pdf_result.get('file_size')
+                        if document.metadata_json is None:
+                            document.metadata_json = {}
+                        document.metadata_json['searchable_pdf_path'] = searchable_pdf_path
+                        document.metadata_json['searchable_pdf_size'] = pdf_result.get('file_size')
                     else:
                         logger.warning(f"Failed to generate searchable PDF: {pdf_result.get('error')}")
 

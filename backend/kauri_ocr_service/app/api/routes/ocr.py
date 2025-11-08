@@ -21,10 +21,21 @@ from app.schemas.ocr_document import (
     DocumentSearchResponse,
 )
 from app.services.pdf_generator import pdf_generator_service
+from app.services.queue_publisher import ocr_queue_publisher
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+
+def _serialize_document(document: OCRDocument) -> OCRDocumentResponse:
+    """Convert ORM document to API schema."""
+    doc_data = {}
+    mapper = OCRDocument.__mapper__
+    for column in OCRDocument.__table__.columns:
+        attr_key = mapper.get_property_by_column(column).key
+        doc_data[column.name] = getattr(document, attr_key)
+    return OCRDocumentResponse(**doc_data)
 
 
 @router.post("/ocr/process", response_model=OCRProcessResponse)
@@ -47,15 +58,40 @@ async def process_document(
             file_size=0,  # TODO: Get actual file size
             mime_type=request.mime_type,
             status=ProcessingStatus.QUEUED,
-            metadata=request.metadata or {}
+            metadata_json=request.metadata or {}
         )
 
         db.add(ocr_doc)
         await db.commit()
         await db.refresh(ocr_doc)
 
-        # TODO: Enqueue job to RabbitMQ
-        # TODO: Estimate processing time based on file size and queue
+        # Publish job to worker queue
+        job_message = {
+            "document_id": str(ocr_doc.id),
+            "tenant_id": str(ocr_doc.tenant_id),
+            "user_id": str(ocr_doc.user_id),
+            "source_document_id": str(ocr_doc.source_document_id),
+            "file_path": ocr_doc.file_path,
+            "filename": ocr_doc.filename,
+            "mime_type": ocr_doc.mime_type,
+            "priority": request.priority,
+            "ocr_engine": request.ocr_engine.value if request.ocr_engine else None,
+            "languages": request.languages,
+            "enable_table_detection": request.enable_table_detection,
+            "enable_entity_extraction": request.enable_entity_extraction,
+            "enable_ohada_validation": request.enable_ohada_validation,
+            "country_code": request.country_code,
+            "metadata": request.metadata or {},
+        }
+
+        try:
+            ocr_queue_publisher.publish_job(job_message, priority=request.priority)
+        except Exception as exc:
+            logger.error("Failed to enqueue OCR job %s: %s", ocr_doc.id, exc)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Failed to enqueue document for processing",
+            ) from exc
 
         logger.info(f"Document queued for OCR processing: {ocr_doc.id}")
 
@@ -101,7 +137,7 @@ async def get_document(
             detail="Document not found"
         )
 
-    return document
+    return _serialize_document(document)
 
 
 @router.get("/ocr/document/{document_id}/status")
@@ -356,13 +392,13 @@ async def download_searchable_pdf(
         )
 
     # Check if searchable PDF exists in metadata
-    if not document.metadata or 'searchable_pdf_path' not in document.metadata:
+    if not document.metadata_json or 'searchable_pdf_path' not in document.metadata_json:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Searchable PDF not generated for this document"
         )
 
-    pdf_path = Path(document.metadata['searchable_pdf_path'])
+    pdf_path = Path(document.metadata_json['searchable_pdf_path'])
 
     if not pdf_path.exists():
         raise HTTPException(
@@ -436,12 +472,12 @@ async def regenerate_searchable_pdf(
             )
 
         # Update document metadata
-        if document.metadata is None:
-            document.metadata = {}
+        if document.metadata_json is None:
+            document.metadata_json = {}
 
-        document.metadata['searchable_pdf_path'] = pdf_result['output_path']
-        document.metadata['searchable_pdf_size'] = pdf_result.get('file_size')
-        document.metadata['searchable_pdf_regenerated_at'] = func.now()
+        document.metadata_json['searchable_pdf_path'] = pdf_result['output_path']
+        document.metadata_json['searchable_pdf_size'] = pdf_result.get('file_size')
+        document.metadata_json['searchable_pdf_regenerated_at'] = func.now()
 
         await db.commit()
 

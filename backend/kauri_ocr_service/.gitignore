@@ -43,14 +43,15 @@ env/
 *.log
 logs/
 *.log.*
+processed_pdfs/
 
 # Database
 *.db
 *.sqlite
 *.sqlite3
 
-# OCR Models cache
-models/
+# OCR Models cache (top-level)
+/models/
 *.pkl
 *.bin
 *.pt

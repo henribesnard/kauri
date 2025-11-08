@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
-  Home,
   ShoppingCart,
   TrendingUp,
   Building2,
@@ -13,7 +12,6 @@ import {
   ChevronDown,
   Settings,
   LogOut,
-  User
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 

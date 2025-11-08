@@ -29,7 +29,8 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Download spaCy French model (for entity extraction)
-RUN python -m spacy download fr_core_news_md
+# Using pip install instead of spacy download to avoid 404 errors
+RUN pip install https://github.com/explosion/spacy-models/releases/download/fr_core_news_md-3.7.0/fr_core_news_md-3.7.0-py3-none-any.whl
 
 # Copy application code
 COPY . .

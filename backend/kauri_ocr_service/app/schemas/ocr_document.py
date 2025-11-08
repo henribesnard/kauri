@@ -23,7 +23,11 @@ class OCRDocumentCreate(OCRDocumentBase):
     tenant_id: UUID
     user_id: UUID
     source_document_id: UUID
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = Field(
+        default=None,
+        validation_alias="metadata_json",
+        serialization_alias="metadata"
+    )
 
 
 class OCRDocumentUpdate(BaseModel):
@@ -113,11 +117,11 @@ class OCRDocumentResponse(OCRDocumentBase):
 
     class Config:
         from_attributes = True
+        populate_by_name = True
 
 
 class OCRProcessRequest(BaseModel):
     """Schema for OCR processing request"""
-    document_id: UUID
     tenant_id: UUID
     user_id: UUID
     source_document_id: UUID

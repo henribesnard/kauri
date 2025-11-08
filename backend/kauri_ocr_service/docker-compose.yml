@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: kauri_ocr_service
     ports:
-      - "8003:8003"
+      - "8013:8003"
     environment:
       - DATABASE_URL=postgresql+asyncpg://kauri_user:kauri_password@postgres:5432/kauri_ocr
       - REDIS_HOST=redis
@@ -26,6 +26,7 @@ services:
       - ./models:/app/models
       - ./data:/app/data
       - ./logs:/app/logs
+      - ./processed_pdfs:/app/processed_pdfs
       - ../../traitement_ocr:/app/traitement_ocr
     depends_on:
       - postgres
@@ -45,7 +46,7 @@ services:
       - POSTGRES_PASSWORD=kauri_password
       - POSTGRES_DB=kauri_ocr
     ports:
-      - "5433:5432"
+      - "5434:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -57,7 +58,7 @@ services:
     image: redis:7-alpine
     container_name: kauri_ocr_redis
     ports:
-      - "6380:6379"
+      - "6390:6379"
     volumes:
       - redis_data:/data
     command: redis-server --appendonly yes
@@ -74,8 +75,8 @@ services:
       - RABBITMQ_DEFAULT_PASS=kauri_password
       - RABBITMQ_DEFAULT_VHOST=/kauri
     ports:
-      - "5673:5672"   # AMQP
-      - "15673:15672" # Management UI
+      - "5683:5672"   # AMQP
+      - "15683:15672" # Management UI
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     networks:
@@ -90,8 +91,8 @@ services:
       - MINIO_ROOT_USER=minioadmin
       - MINIO_ROOT_PASSWORD=minioadmin
     ports:
-      - "9001:9000"      # API
-      - "9091:9090"      # Console
+      - "9002:9000"      # API
+      - "9092:9090"      # Console
     volumes:
       - minio_data:/data
     command: server /data --console-address ":9090"
@@ -124,6 +125,7 @@ services:
       - ./models:/app/models
       - ./data:/app/data
       - ./logs:/app/logs
+      - ./processed_pdfs:/app/processed_pdfs
       - ../../traitement_ocr:/app/traitement_ocr
     depends_on:
       - postgres

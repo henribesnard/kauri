@@ -156,7 +156,7 @@ const SettingsPage: React.FC = () => {
 
   const handleArchiveConversation = async (convId: string) => {
     try {
-      await conversationService.archiveConversation(convId);
+      await conversationService.updateConversation(convId, { is_archived: true });
       loadConversations();
     } catch (error) {
       console.error('Error archiving conversation:', error);
@@ -522,7 +522,6 @@ Pour activer cette formule dès maintenant, veuillez nous contacter à support@k
                 {tiers.map((tier) => {
                   const isCurrentPlan = tier.tier_id === quotaInfo?.subscription_tier;
                   const isEnterprise = tier.tier_id === 'enterprise';
-                  const isMax = tier.tier_id === 'max';
 
                   return (
                     <div

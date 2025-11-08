@@ -7,6 +7,7 @@ import { MessageFeedback } from '../components/chat/MessageFeedback';
 import { ContextWarningBanner } from '../components/chat/ContextWarningBanner';
 import Footer from '../components/layout/Footer';
 import type { ChatMessage, Conversation, ConversationContextInfo } from '../types';
+import { getRandomSuggestedQuestions } from '../data/suggestedQuestions';
 
 const ChatPage: React.FC = () => {
   const { user } = useAuth();
@@ -20,6 +21,7 @@ const ChatPage: React.FC = () => {
   const [contextInfo, setContextInfo] = useState<ConversationContextInfo | null>(null);
   const [loadingStatus, setLoadingStatus] = useState<string>('');
   const [feedbackKey, setFeedbackKey] = useState<number>(0);
+  const [suggestions, setSuggestions] = useState<string[]>(() => getRandomSuggestedQuestions(4));
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -29,6 +31,12 @@ const ChatPage: React.FC = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    if (messages.length === 0) {
+      setSuggestions(getRandomSuggestedQuestions(4));
+    }
+  }, [messages.length]);
 
   // Load conversations on mount
   useEffect(() => {
@@ -298,15 +306,6 @@ const ChatPage: React.FC = () => {
       handleSend();
     }
   };
-
-  const suggestions = [
-    "Explique-moi le plan comptable OHADA",
-    "Comment enregistrer une facture d'achat ?",
-    "Quels sont les comptes de classe 6 ?",
-    "Comment faire un rapprochement bancaire ?",
-    "Qu'est-ce qu'un acte uniforme OHADA ?",
-    "Comment comptabiliser un amortissement ?"
-  ];
 
   return (
     <div className="h-screen flex bg-gray-50 relative">

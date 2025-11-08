@@ -7,8 +7,10 @@
 # ============================================
 base_connaissances/
 traitement_ocr/
+Tests/
 .claude/
 scraping/
+documentation/
 *.docx
 *.pdf
 !README.md
@@ -142,7 +144,9 @@ $RECYCLE.BIN/
 # ============================================
 # Modèles ML et cache
 # ============================================
-models/
+/models/
+!backend/kauri_ocr_service/app/models/
+!backend/kauri_ocr_service/app/models/**
 *.h5
 *.pkl
 *.pth
