@@ -1,0 +1,28 @@
+# Rename this file to terraform.tfvars and fill with your real values.
+
+aws_region   = "eu-west-1"
+project_name = "kauri"
+environment  = "demo"
+
+ssh_key_name      = "kauri-demo-key"
+allowed_ssh_cidr  = "1.2.3.4/32"
+budget_notification_emails = [
+  "alerts@example.com"
+]
+
+ssm_parameters = {
+  "OPENAI_API_KEY" = {
+    value = "replace-with-real-secret"
+  }
+  "DEEPSEEK_API_KEY" = {
+    value = "replace-with-real-secret"
+  }
+}
+
+enable_scheduler             = true
+scheduler_start_expression   = "cron(0 7 ? * MON-FRI *)"
+scheduler_stop_expression    = "cron(0 21 ? * MON-FRI *)"
+scheduler_timezone           = "Europe/Paris"
+
+global_budget_monthly_limit = 30
+kauri_budget_monthly_limit  = 18
