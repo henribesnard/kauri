@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-11-08T12:49:43.580552+00:00",
+  "question_id": 20,
+  "question": "Quel acte uniforme traite des contrats de transport ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "1457bf4c-13b8-4cfe-85ba-9b0f54e59623",
+    "latency_ms": 6645,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "contrats",
+      "transport"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 6645,
+  "elapsed_ms": 6401.28,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:49:37.178888+00:00"
+}

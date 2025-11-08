@@ -1,0 +1,87 @@
+{
+  "generated_at": "2025-11-08T12:54:14.766975+00:00",
+  "question_id": 43,
+  "question": "À quoi sert le compte 512 ?",
+  "answer": "Je n'ai pas cette information dans ma documentation actuelle concernant la fonction spécifique du compte 512.\n\nMa documentation couvre principalement les principes comptables fondamentaux de l'OHADA, l'organisation générale du système comptable, et les états financiers, mais ne contient pas le détail de la nomenclature des comptes et de leur utilisation spécifique.\n\nPour obtenir des informations précises sur le compte 512 et sa fonction dans le plan comptable OHADA, je vous recommande de consulter directement le Plan Comptable OHADA (SYSCOHADA) qui détaille la classification complète des comptes et leurs utilisations.",
+  "sources": [
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.6634790897369385,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.1474905014038086,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 1.8724218606948853,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 3 / chapitre_1 Préparation des états financiers",
+      "score": 1.5073940753936768,
+      "category": "plan_comptable",
+      "section": "partie_3",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_3/chapitre_1 Préparation des états financiers.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Actes Uniformes / Droit Comptable Et Information Financière / Titre_1_Chapitre_2  Organisation comptable",
+      "score": 1.3305118083953857,
+      "category": "actes_uniformes",
+      "section": "droit comptable et information financière",
+      "file_path": "/app/base_connaissances/actes_uniformes/droit comptable et information financière/Titre_1_Chapitre_2  Organisation comptable.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "a8c83126-bb1d-43e3-9d9b-521833d65ea5",
+    "latency_ms": 14944,
+    "intent_type": "legal_reference_search",
+    "num_sources": 5,
+    "target_reference": "Compte 512",
+    "retrieval_type": "legal_reference_search",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 5736
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 14944,
+  "elapsed_ms": 14317.72,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:54:00.449822+00:00"
+}

@@ -1,0 +1,107 @@
+{
+  "generated_at": "2025-11-08T12:44:57.133806+00:00",
+  "question_id": 2,
+  "question": "Quels sont les pays membres de l'OHADA ?",
+  "answer": "L'OHADA compte actuellement 17 États membres :\n\nSelon la \"Présentation de l'OHADA\", les pays membres sont : le Bénin, le Burkina-Faso, le Cameroun, les Comores, le Congo, la Côte d'Ivoire, le Gabon, la Guinée, la Guinée Bissau, la Guinée Équatoriale, le Mali, le Niger, la République Centrafricaine, la République Démocratique du Congo, le Sénégal, le Tchad et le Togo.\n\nD'après le document \"LE TRAITÉ OHADA ET LES JURIDICTIONS\", l'organisation regroupe effectivement ces 17 pays africains francophones qui ont harmonisé leur droit des affaires à travers les Actes Uniformes.\n\nLa \"Présentation de l'OHADA\" précise également que l'adhésion reste ouverte à tout État membre de l'Union Africaine selon l'article 53 du Traité, et que l'organisation dispose aujourd'hui de dix Actes uniformes entrés en vigueur dans l'ensemble des États membres.",
+  "sources": [
+    {
+      "title": "Doctrine / D-14-19_202014_Ohadata_D-14-19_LE_TRAITÉ_OHADA_ET_LES_JURIDICTIONS",
+      "score": 4.5353169441223145,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-14-19_202014_Ohadata_D-14-19_LE_TRAITÉ_OHADA_ET_LES_JURIDICTIONS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Présentation OHADA / Présentation De L'Ohada.Docx / Présentation de l'OHADA",
+      "score": 4.398114204406738,
+      "category": "presentation_ohada",
+      "section": "Présentation de l'OHADA.docx",
+      "file_path": "/app/base_connaissances/presentation_ohada/Présentation de l'OHADA.docx",
+      "document_type": "presentation_ohada",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-05-37_171993_Ohadata_D-05-37_L'OHADA,_SES_INSTITUTIONS_ET_SES_MECANISMES_DE",
+      "score": 3.7790377140045166,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-05-37_171993_Ohadata_D-05-37_L'OHADA,_SES_INSTITUTIONS_ET_SES_MECANISMES_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-22-31_262021_Ohadata_D-22-31_LA_SOLUTION_OHADA_POUR_L’AMELIORATION_DU",
+      "score": 3.5755982398986816,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-22-31_262021_Ohadata_D-22-31_LA_SOLUTION_OHADA_POUR_L’AMELIORATION_DU.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Présentation OHADA / Présentation De L'Ohada.Docx / Présentation de l'OHADA",
+      "score": 3.1270511150360107,
+      "category": "presentation_ohada",
+      "section": "Présentation de l'OHADA.docx",
+      "file_path": "/app/base_connaissances/presentation_ohada/Présentation de l'OHADA.docx",
+      "document_type": "presentation_ohada",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-02-24_171993_Ohadata_D-02-24_Ecodroit,_n°_11_–_Mai_2002,_Pp._10_-_20.",
+      "score": 2.6327500343322754,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-24_171993_Ohadata_D-02-24_Ecodroit,_n°_11_–_Mai_2002,_Pp._10_-_20..pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-07-04_1082003_Ohadata_D-07-4_L'élargissement_du_code_CIMA___un_impératif_économique_pour_l'Afrique_en",
+      "score": 1.3850789070129395,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-07-04_1082003_Ohadata_D-07-4_L'élargissement_du_code_CIMA___un_impératif_économique_pour_l'Afrique_en.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "d311fe7e-21a6-4041-898b-c0ee819ca80d",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 244,
+    "latency_ms": 16161,
+    "retrieval_time_ms": 1569,
+    "generation_time_ms": 11060,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 16161,
+  "elapsed_ms": 16883.28,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:44:40.249918+00:00"
+}

@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:57:19.083477+00:00",
+  "question_id": 58,
+  "question": "Comment enregistrer une hypothèque selon l'acte uniforme sur les sûretés ?",
+  "answer": "Pour enregistrer une hypothèque selon l'Acte uniforme sur les sûretés, la procédure dépend du type d'hypothèque concernée.\n\n**Pour l'hypothèque conventionnelle :**\nSelon l'Acte uniforme portant organisation des Sûretés - Titre 3 Hypothèques, l'article 127 alinéa 1 précise que \"L'hypothèque conventionnelle ne peut être consentie que par celui qui est titulaire du droit réel immobilier régulièrement inscrit et capable d'en disposer.\" Le constituant doit donc être propriétaire du droit réel immobilier.\n\nL'article 129 ajoute que \"Tant que l'inscription n'est pas faite, l'acte d'hypothèque est inopposable aux tiers et constitue, entre les parties, une promesse synallagmatique qui les oblige à procéder à la publicité.\" La publicité par inscription est donc essentielle pour l'opposabilité aux tiers.\n\n**Pour l'hypothèque forcée :**\nL'article 209 définit l'hypothèque forcée comme celle \"conférée, sans le consentement du débiteur, soit par la loi, soit par une décision de justice.\"\n\nL'article 216 précise les formalités d'inscription provisoire d'hypothèque judiciaire, qui nécessite la présentation d'une décision contenant :\n- La désignation du créancier et son élection de domicile\n- Le nom du débiteur\n- La date de la décision\n- La cause et le montant de la créance garantie\n- La désignation des immeubles par numéro de titre foncier\n\nL'article 217 impose au créancier de notifier la décision ordonnant l'hypothèque judiciaire et d'élire domicile dans le ressort de la juridiction compétente ou de la conservation foncière.\n\nL'inscription doit être effectuée à la conservation de la propriété foncière compétente pour que l'hypothèque soit opposable aux tiers.",
+  "sources": [
+    {
+      "title": "Jurisprudence / J-14-106_132013_Ohadata_J-14-106_SURETES_–_HYPOTHQUE_–_PROMESSE_SYNALLAGMATIQUE_D’HYPOTHEQUE",
+      "score": 3.51643443107605,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-14-106_132013_Ohadata_J-14-106_SURETES_–_HYPOTHQUE_–_PROMESSE_SYNALLAGMATIQUE_D’HYPOTHEQUE.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    },
+    {
+      "title": "Actes Uniformes / Organisation Des Sûretés / Titre_3 Hypothèques",
+      "score": 0.39655619859695435,
+      "category": "actes_uniformes",
+      "section": "organisation des sûretés",
+      "file_path": "/app/base_connaissances/actes_uniformes/organisation des sûretés/Titre_3 Hypothèques.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Actes Uniformes / Organisation Des Sûretés / Titre_3 Hypothèques",
+      "score": 0.3334020674228668,
+      "category": "actes_uniformes",
+      "section": "organisation des sûretés",
+      "file_path": "/app/base_connaissances/actes_uniformes/organisation des sûretés/Titre_3 Hypothèques.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "27d73a8d-32f6-47de-9c75-9cd8f3b1229a",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 459,
+    "latency_ms": 21636,
+    "retrieval_time_ms": 976,
+    "generation_time_ms": 16176,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 21636,
+  "elapsed_ms": 22031.2,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:56:57.051742+00:00"
+}

@@ -1,0 +1,98 @@
+{
+  "generated_at": "2025-11-08T12:46:18.813785+00:00",
+  "question_id": 6,
+  "question": "Quel est le rôle de la CCJA dans l'espace OHADA ?",
+  "answer": "La CCJA (Cour Commune de Justice et d'Arbitrage) joue trois rôles fondamentaux dans l'espace OHADA :\n\n**Fonction juridictionnelle** : Selon \"L'ETAT ACTUEL DE L'OHADA\", la CCJA est \"la clef de voûte du système OHADA\" et assure \"l'interprétation et l'application communes des actes uniformes\". Elle agit comme juridiction supranationale et juge de cassation des décisions rendues en matière de droit harmonisé.\n\n**Fonction consultative** : D'après \"L'ETAT ACTUEL DE L'OHADA\", la CCJA peut être consultée \"par tout Etat partie, par le Conseil des Ministres, par les juridictions nationales et par le Secrétaire Permanent sur toutes les questions mettant en cause le droit OHADA\". Elle émet des avis qui font autorité dans l'interprétation du droit OHADA.\n\n**Fonction d'arbitrage** : Selon \"Plaidoyer pour un espace OHADA plus attractif\", la CCJA dispose d'un \"Centre d'arbitrage\" qui constitue un mode alternatif de règlement des litiges commerciaux. Elle administre les procédures arbitrales en nommant ou confirmant les arbitres.\n\nLa CCJA assure ainsi l'unification jurisprudentielle et garantit la sécurité juridique dans l'espace OHADA, exerçant une compétence exclusive pour connaître des pourvois en cassation relatifs à l'application des actes uniformes.",
+  "sources": [
+    {
+      "title": "Doctrine / D-14-08_172008_Ohadata_D-14-08_L’OHADA,_LE_TEMPS_ET_LE_DIABLE,_REFLEXIONS_SUR_LE",
+      "score": 5.081509113311768,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-14-08_172008_Ohadata_D-14-08_L’OHADA,_LE_TEMPS_ET_LE_DIABLE,_REFLEXIONS_SUR_LE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-03-20_41997_Ohadata_D-03-20_L’ETAT_ACTUEL_DE_L’OHADA",
+      "score": 3.5826239585876465,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-03-20_41997_Ohadata_D-03-20_L’ETAT_ACTUEL_DE_L’OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-03-20_41997_Ohadata_D-03-20_L’ETAT_ACTUEL_DE_L’OHADA",
+      "score": 3.423374652862549,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-03-20_41997_Ohadata_D-03-20_L’ETAT_ACTUEL_DE_L’OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-10-13_202009_Ohadata_D-10-13_Plaidoyer_pour_un_espace_OHADA_plus_attractif_pour_les",
+      "score": 2.383824586868286,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-10-13_202009_Ohadata_D-10-13_Plaidoyer_pour_un_espace_OHADA_plus_attractif_pour_les.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / Doctrines / D-21-06 282021 Ohadata D-21-06 Arret 3Eme Chambre Civile De La Ccja Du 28",
+      "score": 1.881594181060791,
+      "category": "jurisprudence",
+      "section": "Doctrines",
+      "file_path": "/app/base_connaissances/doctrines/D-21-06_282021_Ohadata_D-21-06_ARRET_3EME_CHAMBRE_CIVILE_DE_LA_CCJA_DU_28.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-07-29_71993_Ohadata_D-07-29_L’OHADA___LE_DROIT_AU_SERVICE_DU_DÉVELOPPEMENT",
+      "score": 1.8104538917541504,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-07-29_71993_Ohadata_D-07-29_L’OHADA___LE_DROIT_AU_SERVICE_DU_DÉVELOPPEMENT.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "6585ccb7-1c05-498b-a9cb-3e8000faaad2",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 346,
+    "latency_ms": 19167,
+    "retrieval_time_ms": 1595,
+    "generation_time_ms": 13217,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 19167,
+  "elapsed_ms": 19869.57,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:45:58.943590+00:00"
+}

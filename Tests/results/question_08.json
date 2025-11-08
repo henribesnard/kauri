@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:46:50.275216+00:00",
+  "question_id": 8,
+  "question": "Pourquoi l'OHADA a-t-elle été créée ?",
+  "answer": "L'OHADA a été créée pour répondre à plusieurs enjeux économiques et juridiques majeurs en Afrique.\n\nSelon le document \"L'OHADA, SES INSTITUTIONS ET SES MECANISMES DE FONCTIONNEMENT\", l'idée de création est partie du constat d'un \"ralentissement des investissements et un manque de confiance des opérateurs économiques occidentaux vis-à-vis de l'Afrique\". L'organisation vise à élaborer \"une politique juridique et judiciaire commune à travers l'harmonisation du droit des affaires\".\n\nD'après \"POLITIQUE DE LA CONCURRENCE DANS L'ESPACE OHADA : NÉCESSITÉ NORMATIVE OU INFLATION LÉGISLATIVE ?\", l'OHADA représente \"la manifestation de la volonté des Etats d'instaurer une zone unifiée, apte à attirer les investisseurs qui se faisaient de plus en plus rare dû à la complexité et la pléthore de lois en vigueur\".\n\nL'objectif principal était donc de créer un environnement juridique sécurisé et harmonisé pour relancer les investissements et renforcer la confiance des opérateurs économiques, en remédiant à la complexité des législations nationales qui freinait le développement des affaires en Afrique.",
+  "sources": [
+    {
+      "title": "Doctrine / D-05-37_171993_Ohadata_D-05-37_L'OHADA,_SES_INSTITUTIONS_ET_SES_MECANISMES_DE",
+      "score": 1.5075676441192627,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-05-37_171993_Ohadata_D-05-37_L'OHADA,_SES_INSTITUTIONS_ET_SES_MECANISMES_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-11-50_Ohadata_D-11-50_L’arbitrage_en_Afrique___questions_d’actualité",
+      "score": 0.4338773787021637,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-11-50_Ohadata_D-11-50_L’arbitrage_en_Afrique___questions_d’actualité.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-22-10_171993_Ohadata_D-22-10_POLITIQUE_DE_LA_CONCURRENCE_DANS_L’ESPACE",
+      "score": -0.9050973653793335,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-22-10_171993_Ohadata_D-22-10_POLITIQUE_DE_LA_CONCURRENCE_DANS_L’ESPACE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "646d5387-21ea-42a1-98b4-a9feb453cc32",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 305,
+    "latency_ms": 16983,
+    "retrieval_time_ms": 1423,
+    "generation_time_ms": 11099,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 16983,
+  "elapsed_ms": 17645.37,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:46:32.627902+00:00"
+}

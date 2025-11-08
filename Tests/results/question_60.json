@@ -1,0 +1,80 @@
+{
+  "generated_at": "2025-11-08T12:58:07.689469+00:00",
+  "question_id": 60,
+  "question": "Comment comptabiliser un achat de marchandises selon le SYSCOHADA ?",
+  "answer": "Pour comptabiliser un achat de marchandises selon le SYSCOHADA, voici la procédure :\n\nSelon le Plan Comptable OHADA : Partie 1 - Chapitre 2 Achats et ventes de biens et de services, les achats de marchandises sont enregistrés au compte 601 \"Achats de marchandises\" pour le montant net de taxes récupérables. Les marchandises sont définies comme des biens destinés à être revendus sans transformation.\n\nL'écriture comptable standard est :\n- Débit : 6011 Achats de marchandises dans la région (montant HT)\n- Débit : 4451 État, TVA récupérable (montant TVA)\n- Crédit : 4011 Fournisseurs d'exploitation (montant TTC)\n\nD'après le Plan Comptable OHADA : Partie 2 - Chapitre 29 Inventaire permanent en comptabilité financière, les frais accessoires d'achats comme les frais de transport peuvent être enregistrés soit directement dans le compte 601, soit dans un compte spécifique 6015 \"Frais sur achats - Transports\".\n\nLe coût d'acquisition comprend :\n- Le prix d'achat net des remises et rabais commercaux\n- Les frais accessoires directement rattachables (transport, assurance, droits de douane)\n- Les frais d'installation nécessaires\n\nLes escomptes de règlement sont traités séparément et ne font pas partie du coût d'acquisition des marchandises.",
+  "sources": [
+    {
+      "title": "Plan Comptable / Partie 1 / chapitre_2 Achats et ventes de biens et de services",
+      "score": 2.1814236640930176,
+      "category": "plan_comptable",
+      "section": "partie_1",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_1/chapitre_2 Achats et ventes de biens et de services.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 2 / chapitre_29 Inventaire permanent en comptabilité financière",
+      "score": 1.8941211700439453,
+      "category": "plan_comptable",
+      "section": "partie_2",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_2/chapitre_29 Inventaire permanent en comptabilité financière.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 1 / chapitre_5 Opérations d’investissement et de désinvestissement",
+      "score": 1.7368768453598022,
+      "category": "plan_comptable",
+      "section": "partie_1",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_1/chapitre_5 Opérations d’investissement et de désinvestissement.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 2 / chapitre_36 Comptabilité pluri monétaire",
+      "score": 0.3593674302101135,
+      "category": "plan_comptable",
+      "section": "partie_2",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_2/chapitre_36 Comptabilité pluri monétaire.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "87795d2e-68db-48fc-807c-8aff7957930e",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 350,
+    "latency_ms": 20725,
+    "retrieval_time_ms": 938,
+    "generation_time_ms": 14375,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 20725,
+  "elapsed_ms": 21173.5,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:57:46.515199+00:00"
+}

@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-11-08T12:55:04.861263+00:00",
+  "question_id": 47,
+  "question": "Quelles decisions CCJA portent sur les suretes ?",
+  "answer": "Je n'ai pas trouvé de jurisprudence de la CCJA sur ce sujet dans ma base de données.",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "b5fec2e2-e6e5-4a55-9cc0-f81d7920313d",
+    "latency_ms": 9171,
+    "intent_type": "case_law_research",
+    "num_sources": 0,
+    "retrieval_type": "case_law_research",
+    "jurisdiction_filter": "CCJA",
+    "model_used": null,
+    "tokens_used": null,
+    "report_generated": false,
+    "report_type": null
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 9171,
+  "elapsed_ms": 8803.01,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:54:56.057922+00:00"
+}

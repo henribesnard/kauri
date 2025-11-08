@@ -1,0 +1,87 @@
+{
+  "generated_at": "2025-11-08T12:54:31.473570+00:00",
+  "question_id": 44,
+  "question": "Que comprend la classe 7 du plan comptable ?",
+  "answer": "Je n'ai pas cette information dans ma documentation actuelle concernant le contenu spécifique de la classe 7 du plan comptable OHADA.\n\nLes sources disponibles que je consulte mentionnent l'existence du plan de comptes normalisé selon le Système Comptable OHADA, mais ne détaillent pas le contenu spécifique de chaque classe de comptes.\n\nSelon l'Acte Uniforme relatif au Droit Comptable et à l'Information Financière, les comptes du Système Comptable OHADA sont regroupés par catégories homogènes appelées classes, comprenant des classes de comptes de situation et des classes de comptes de gestion. Chaque classe est subdivisée en comptes identifiés par des numéros à deux chiffres ou plus selon une codification décimale.\n\nPour obtenir le détail précis du contenu de la classe 7, il serait nécessaire de consulter directement le Plan Comptable OHADA dans son intégralité.",
+  "sources": [
+    {
+      "title": "Actes Uniformes / Droit Comptable Et Information Financière / Titre_1_Chapitre_2  Organisation comptable",
+      "score": 3.249253749847412,
+      "category": "actes_uniformes",
+      "section": "droit comptable et information financière",
+      "file_path": "/app/base_connaissances/actes_uniformes/droit comptable et information financière/Titre_1_Chapitre_2  Organisation comptable.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.0024912357330322,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 1.5924336910247803,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 1.4180340766906738,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 1.3211175203323364,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "6b9479e0-d01d-4a7f-af21-445660c5372a",
+    "latency_ms": 16071,
+    "intent_type": "legal_reference_search",
+    "num_sources": 5,
+    "target_reference": "Classe 7",
+    "retrieval_type": "legal_reference_search",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 6387
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 16071,
+  "elapsed_ms": 16703.96,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:54:14.769104+00:00"
+}

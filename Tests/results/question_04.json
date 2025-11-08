@@ -1,0 +1,116 @@
+{
+  "generated_at": "2025-11-08T12:45:36.650187+00:00",
+  "question_id": 4,
+  "question": "Quelle est la différence entre un acte uniforme et un règlement OHADA ?",
+  "answer": "La différence principale entre un acte uniforme et un règlement OHADA réside dans leur nature juridique et leur portée.\n\n**Acte uniforme** : Selon la \"Présentation du Traité de l'OHADA\", un acte uniforme est \"en quelque sorte un code portant sur un domaine juridique précis\". Il s'agit d'un texte législatif directement applicable qui remplace les dispositions nationales contraires. D'après l'article 10 du Traité OHADA, \"les Actes uniformes sont directement applicables et obligatoires dans les Etats Parties nonobstant toute disposition contraire de droit interne, antérieure ou postérieure\". Ils couvrent des domaines fondamentaux comme le droit commercial, le droit des sociétés, ou le droit comptable.\n\n**Règlement** : D'après \"Quelques aspects techniques de l'intégration juridique\", les règlements concernent plutôt le fonctionnement des institutions de l'OHADA. Par exemple, l'UEMOA a adopté \"un Règlement portant système comptable ouest africain (SYSCOA)\". Les règlements peuvent également porter sur l'organisation interne comme le \"règlement d'arbitrage de la Cour Commune de Justice et d'Arbitrage\" mentionné dans \"Analyse commentée de l'Acte uniforme sur les procédures\".\n\nEn résumé, les actes uniformes constituent le droit substantiel des affaires applicable directement dans tous les États membres, tandis que les règlements concernent davantage l'organisation institutionnelle ou des aspects procéduraux spécifiques.",
+  "sources": [
+    {
+      "title": "Doctrine / D-02-11_171993_OHADATA_D-02-11_QUELQUES_ASPECTS_TECHNIQUES_DE_L’INTEGRATION_JURIDIQUE__",
+      "score": 3.8833141326904297,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-11_171993_OHADATA_D-02-11_QUELQUES_ASPECTS_TECHNIQUES_DE_L’INTEGRATION_JURIDIQUE__.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-03-15_171993_Ohadata_D-03-15_ANALYSE_COMMENTEE_DE_L’ACTE_UNIFORME_SUR_LES_PROCÉDURES",
+      "score": 3.798875570297241,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-03-15_171993_Ohadata_D-03-15_ANALYSE_COMMENTEE_DE_L’ACTE_UNIFORME_SUR_LES_PROCÉDURES.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-11-19_112010_Ohadata_D-11-19_PRESENTATION_DU_TRAITE_DE_L’OHADA",
+      "score": 3.6168932914733887,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-11-19_112010_Ohadata_D-11-19_PRESENTATION_DU_TRAITE_DE_L’OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-26_071998_Ohadata_D-02-26_LA_DELIMITATION_DE_LA_COMPETENCE_ENTRE_LA_COUR_COMMUNE_DE",
+      "score": 3.402517318725586,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-26_071998_Ohadata_D-02-26_LA_DELIMITATION_DE_LA_COMPETENCE_ENTRE_LA_COUR_COMMUNE_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-02-24_171993_Ohadata_D-02-24_Ecodroit,_n°_11_–_Mai_2002,_Pp._10_-_20.",
+      "score": 2.2749996185302734,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-24_171993_Ohadata_D-02-24_Ecodroit,_n°_11_–_Mai_2002,_Pp._10_-_20..pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-56_302001_Ohadata_D-06-57_DROIT_ET_PRATIQUE_DE_LA_COMMON_LAW",
+      "score": 2.1820950508117676,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-56_302001_Ohadata_D-06-57_DROIT_ET_PRATIQUE_DE_LA_COMMON_LAW.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-11-65_171993_Ohadata_D-11-65_LES_TENDANCES_JURISPRUDENTIELLES_DE_LA_COUR_COMMUNE_DE_JUSTICE",
+      "score": 1.5607619285583496,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-11-65_171993_Ohadata_D-11-65_LES_TENDANCES_JURISPRUDENTIELLES_DE_LA_COUR_COMMUNE_DE_JUSTICE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / Doctrines / D-05-05 131972 Ohadata D-05-05 La Notion De L'Independance Et De L'Impartialite",
+      "score": 0.7731438279151917,
+      "category": "jurisprudence",
+      "section": "Doctrines",
+      "file_path": "/app/base_connaissances/doctrines/D-05-05_131972_Ohadata_D-05-05_LA_NOTION_DE_L'INDEPENDANCE_ET_DE_L'IMPARTIALITE.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "f474ba03-75e3-44ba-978b-387b0e5dee0a",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 345,
+    "latency_ms": 20940,
+    "retrieval_time_ms": 1595,
+    "generation_time_ms": 14540,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 20940,
+  "elapsed_ms": 20177.51,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:45:16.470146+00:00"
+}

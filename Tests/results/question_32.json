@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-11-08T12:51:47.874578+00:00",
+  "question_id": 32,
+  "question": "Quels documents presentent les modalites de dissolution d'une societe ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "dc3bc4bd-d423-4706-a04b-4a00cfaf61c8",
+    "latency_ms": 8196,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "dissolution",
+      "société"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 8196,
+  "elapsed_ms": 7879.56,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:51:39.994211+00:00"
+}

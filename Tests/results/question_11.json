@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:47:50.727621+00:00",
+  "question_id": 11,
+  "question": "Qu'est-ce que l'AUDCG ?",
+  "answer": "L'AUDCG est l'Acte Uniforme relatif au Droit Commercial Général de l'OHADA.\n\nSelon la Doctrine sur l'équilibre contractuel dans l'avant-projet d'Acte uniforme sur le droit des contrats, l'AUDCG constitue le livre V du droit commercial général OHADA et reprend l'esprit et la lettre de la Convention de Vienne sur la vente internationale de marchandises.\n\nD'après cette même source, l'AUDCG consacre expressément la résolution judiciaire de la vente commerciale et contient des dispositions spécifiques sur les obligations des parties, notamment les articles 245, 246, 247, 254 et 259 qui traitent des modalités de résolution des contrats.\n\nL'AUDCG impose également aux sociétés commerciales des obligations formelles, comme l'indication de la dénomination sociale sur tous les documents commerciaux selon l'article 17 du titre 3.",
+  "sources": [
+    {
+      "title": "Doctrine / D-09-31_172007_Communication___L’équilibre_contractuel_dans_l’avant-projet_d’Acte_uniforme_sur_le_droit_des_contrat",
+      "score": 1.137101650238037,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-09-31_172007_Communication___L’équilibre_contractuel_dans_l’avant-projet_d’Acte_uniforme_sur_le_droit_des_contrat.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / J-12-108_202007_Ohadata_J-12-108_VENTE_COMMERCIALE_-_LIVRAISON_DE_MATERIEL_ET_CONSOMMABLES",
+      "score": -0.6841576099395752,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-12-108_202007_Ohadata_J-12-108_VENTE_COMMERCIALE_-_LIVRAISON_DE_MATERIEL_ET_CONSOMMABLES.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / J-09-385_232007_Ohadata_J-09-385_DROIT_COMMERCIAL_GENERAL_-_VENTE_COMMERCIALE_-_CONTRAT_DE",
+      "score": -2.053825616836548,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-09-385_232007_Ohadata_J-09-385_DROIT_COMMERCIAL_GENERAL_-_VENTE_COMMERCIALE_-_CONTRAT_DE.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "af8988a1-24d6-4ee8-b9f6-886d08e687d1",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 211,
+    "latency_ms": 13907,
+    "retrieval_time_ms": 927,
+    "generation_time_ms": 9052,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 13907,
+  "elapsed_ms": 13533.49,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:47:37.193736+00:00"
+}

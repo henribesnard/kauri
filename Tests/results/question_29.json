@@ -1,0 +1,44 @@
+{
+  "generated_at": "2025-11-08T12:51:23.863242+00:00",
+  "question_id": 29,
+  "question": "Dans quels supports est detaillee la procedure d'arbitrage OHADA ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "1fc37e39-0393-4246-958d-1c16014a7915",
+    "latency_ms": 9596,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "procédure d'arbitrage",
+      "arbitrage",
+      "règlement arbitral"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 9596,
+  "elapsed_ms": 9226.71,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:51:14.635731+00:00"
+}

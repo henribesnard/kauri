@@ -1,0 +1,55 @@
+{
+  "generated_at": "2025-11-08T12:50:20.032280+00:00",
+  "question_id": 23,
+  "question": "Qu'est-ce que l'acte uniforme sur le droit commercial général ?",
+  "answer": "J'ai trouvé **1 document(s)** pertinent(s) sur ce sujet :\n\n\n### 📜 Actes Uniformes (1 document(s))\n1. **Acte Uniforme / Jurisprudences / J-07-51 082003 Ohadata J-07-51 Droit Commercial General – Bail – Expulsion Du Locataire –** (pertinence: 4.03)\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [
+    {
+      "title": "Acte Uniforme / Jurisprudences / J-07-51 082003 Ohadata J-07-51 Droit Commercial General – Bail – Expulsion Du Locataire –",
+      "score": 4.0266594886779785,
+      "category": "acte_uniforme",
+      "section": "Jurisprudences",
+      "file_path": "/app/base_connaissances/jurisprudences/J-07-51_082003_Ohadata_J-07-51_DROIT_COMMERCIAL_GENERAL_–_BAIL_–_EXPULSION_DU_LOCATAIRE_–.pdf",
+      "document_type": "acte_uniforme",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "e58fd903-69a1-4260-9c8e-8097c3f012ff",
+    "latency_ms": 6664,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 1,
+    "keywords_used": [
+      "acte uniforme",
+      "droit commercial général"
+    ],
+    "categories_found": [
+      "acte_uniforme"
+    ]
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 6664,
+  "elapsed_ms": 6421.47,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:50:13.610985+00:00"
+}

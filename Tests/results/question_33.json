@@ -1,0 +1,111 @@
+{
+  "generated_at": "2025-11-08T12:51:54.366505+00:00",
+  "question_id": 33,
+  "question": "Dans quels referentiels est decrite la mediation OHADA ?",
+  "answer": "J'ai trouvé **7 document(s)** pertinent(s) sur ce sujet :\n\n\n### 📚 Doctrine (5 document(s))\n1. **Doctrine / D-04-22_Ohadata_D-04-22_The_OHADA_Legal_Harmonisation_Process_** (pertinence: 5.25)\n2. **Doctrine / D-07-27_Ohadata_D-07-27_OOHHAADDAA__** (pertinence: 4.67)\n3. **Doctrine / D-10-20_Ohadata_D-10-20_Le_droit_de_l’OHADA___une_source_d’inspiration_pour_les** (pertinence: 2.00)\n4. **Doctrine / D-04-01_222003_Ohadata_D-04-01_SUGGESTIONS_EN_VUE_D’ACCROITRE_L’EFFICACITE_DE_L’OHADA** (pertinence: 1.94)\n5. **Doctrine / D-18-18_232017_Ohadata_D-18-18_LA_MÉDIATION_DU_DROIT_OHADA_DANS_LA** (pertinence: 1.40)\n\n### Presentation Ohada (1 document(s))\n1. **Présentation OHADA / Présentation De L'Ohada.Docx / Présentation de l'OHADA** (pertinence: 1.87)\n\n### Actes Uniformes (1 document(s))\n1. **Actes Uniformes / Médiation / ACTE UNIFORME RELATIF À LA MÉDIATION_ORGANISATION POUR L'HARMONISATION EN AFRIQUE DU DROIT DES AFFAIRES** (pertinence: 0.80)\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [
+    {
+      "title": "Doctrine / D-04-22_Ohadata_D-04-22_The_OHADA_Legal_Harmonisation_Process_",
+      "score": 5.25308895111084,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-04-22_Ohadata_D-04-22_The_OHADA_Legal_Harmonisation_Process_.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-07-27_Ohadata_D-07-27_OOHHAADDAA__",
+      "score": 4.665671348571777,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-07-27_Ohadata_D-07-27_OOHHAADDAA__.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-10-20_Ohadata_D-10-20_Le_droit_de_l’OHADA___une_source_d’inspiration_pour_les",
+      "score": 1.9999884366989136,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-10-20_Ohadata_D-10-20_Le_droit_de_l’OHADA___une_source_d’inspiration_pour_les.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-04-01_222003_Ohadata_D-04-01_SUGGESTIONS_EN_VUE_D’ACCROITRE_L’EFFICACITE_DE_L’OHADA",
+      "score": 1.9443074464797974,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-04-01_222003_Ohadata_D-04-01_SUGGESTIONS_EN_VUE_D’ACCROITRE_L’EFFICACITE_DE_L’OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Présentation OHADA / Présentation De L'Ohada.Docx / Présentation de l'OHADA",
+      "score": 1.8702828884124756,
+      "category": "presentation_ohada",
+      "section": "Présentation de l'OHADA.docx",
+      "file_path": "/app/base_connaissances/presentation_ohada/Présentation de l'OHADA.docx",
+      "document_type": "presentation_ohada",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-18-18_232017_Ohadata_D-18-18_LA_MÉDIATION_DU_DROIT_OHADA_DANS_LA",
+      "score": 1.3994410037994385,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-18-18_232017_Ohadata_D-18-18_LA_MÉDIATION_DU_DROIT_OHADA_DANS_LA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Actes Uniformes / Médiation / ACTE UNIFORME RELATIF À LA MÉDIATION_ORGANISATION POUR L'HARMONISATION EN AFRIQUE DU DROIT DES AFFAIRES",
+      "score": 0.7959092855453491,
+      "category": "actes_uniformes",
+      "section": "médiation",
+      "file_path": "/app/base_connaissances/actes_uniformes/médiation/ACTE UNIFORME RELATIF À LA MÉDIATION_ORGANISATION POUR L'HARMONISATION EN AFRIQUE DU DROIT DES AFFAIRES.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "c6761ecf-af3e-487a-a12d-ef6e48d5d8c6",
+    "latency_ms": 5349,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 7,
+    "keywords_used": [
+      "médiation",
+      "OHADA"
+    ],
+    "categories_found": [
+      "doctrine",
+      "presentation_ohada",
+      "actes_uniformes"
+    ]
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 5349,
+  "elapsed_ms": 6490.44,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:51:47.874578+00:00"
+}

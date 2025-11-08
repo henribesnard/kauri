@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-11-08T12:50:13.609799+00:00",
+  "question_id": 22,
+  "question": "Quel acte uniforme régit les garanties ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "ad5a6fc8-d5e1-465e-ac0e-3f676c29892e",
+    "latency_ms": 7008,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "garanties",
+      "sûretés"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 7008,
+  "elapsed_ms": 6759.06,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:50:06.850871+00:00"
+}

@@ -1,0 +1,98 @@
+{
+  "generated_at": "2025-11-08T12:54:00.448759+00:00",
+  "question_id": 42,
+  "question": "Que sont les comptes de gestion ?",
+  "answer": "Les comptes de gestion sont les comptes qui enregistrent les charges et produits d'une entité pour déterminer son résultat.\n\nSelon le Plan Comptable OHADA : Partie 1 - Chapitre 1, les comptes de gestion (ou de résultat) sont recensés dans les classes 6, 7 et 8. Ils se distinguent des comptes de situation (classes 1 à 5) qui représentent le patrimoine de l'entreprise.\n\nD'après le Système Comptable des Entités à But Non Lucratif : Livre 2 - Partie 2 - Chapitre 1, la structure des comptes de gestion est la suivante :\n- Classe 6 : comptes de charges des activités ordinaires (charges d'exploitation et charges financières)\n- Classe 7 : comptes de produits des activités ordinaires (produits d'exploitation et produits financiers) \n- Classe 8 : comptes des autres charges et des autres produits\n\nCes comptes permettent de suivre l'activité de l'entreprise et de calculer le résultat de l'exercice, qui sera ensuite intégré au bilan dans les ressources propres.",
+  "sources": [
+    {
+      "title": "Jurisprudence / J-09-252_212007_Ohadata_J-09-252_SOCIETES_COMMERCIALES_–_SOCIETE_COOPERATIVE_-_GESTION_-",
+      "score": 4.297125816345215,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-09-252_212007_Ohadata_J-09-252_SOCIETES_COMMERCIALES_–_SOCIETE_COOPERATIVE_-_GESTION_-.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / J-09-252_212007_Ohadata_J-09-252_SOCIETES_COMMERCIALES_–_SOCIETE_COOPERATIVE_-_GESTION_-",
+      "score": 4.11983585357666,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-09-252_212007_Ohadata_J-09-252_SOCIETES_COMMERCIALES_–_SOCIETE_COOPERATIVE_-_GESTION_-.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / J-09-252_212007_Ohadata_J-09-252_SOCIETES_COMMERCIALES_–_SOCIETE_COOPERATIVE_-_GESTION_-",
+      "score": 2.973306655883789,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-09-252_212007_Ohadata_J-09-252_SOCIETES_COMMERCIALES_–_SOCIETE_COOPERATIVE_-_GESTION_-.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    },
+    {
+      "title": "Actes Uniformes / Système Comptable Des Entités À But Non Lucratif / Livre_2 _Partie_2 _Chapitre_1  STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES",
+      "score": 1.554689645767212,
+      "category": "actes_uniformes",
+      "section": "système comptable des entités à but non lucratif",
+      "file_path": "/app/base_connaissances/actes_uniformes/système comptable des entités à but non lucratif/Livre_2 _Partie_2 _Chapitre_1  STRUCTURE, CONTENU ET FONCTIONNEMENT DES COMPTES.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-08-12_Ohadata_D-08-12_ETUDE_SYNTHETIQUE_DES_COMPTES_CONSOLIDES_ET_COMPTES_COMBINES",
+      "score": 1.5038737058639526,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-08-12_Ohadata_D-08-12_ETUDE_SYNTHETIQUE_DES_COMPTES_CONSOLIDES_ET_COMPTES_COMBINES.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 1 / chapitre_1 Plan de comptes - subdivisions",
+      "score": 0.5632765293121338,
+      "category": "plan_comptable",
+      "section": "partie_1",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_1/chapitre_1 Plan de comptes - subdivisions.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "0727abfe-0c56-4cb2-bc03-0a94492929c0",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 259,
+    "latency_ms": 14543,
+    "retrieval_time_ms": 943,
+    "generation_time_ms": 10824,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 14543,
+  "elapsed_ms": 15228.82,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:53:45.219142+00:00"
+}

@@ -1,0 +1,42 @@
+{
+  "generated_at": "2025-11-08T12:48:49.386181+00:00",
+  "question_id": 16,
+  "question": "Quel acte uniforme traite de l'arbitrage ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "70c7a515-c127-4d57-8c42-00d4055dc728",
+    "latency_ms": 7258,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "arbitrage"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 7258,
+  "elapsed_ms": 7011.16,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:48:42.375111+00:00"
+}

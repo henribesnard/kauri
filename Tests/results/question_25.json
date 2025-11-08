@@ -1,0 +1,98 @@
+{
+  "generated_at": "2025-11-08T12:50:49.858274+00:00",
+  "question_id": 25,
+  "question": "Que prévoit l'OHADA sur la médiation ?",
+  "answer": "L'OHADA a adopté un Acte Uniforme relatif à la médiation le 23 novembre 2017 à Conakry, créant ainsi un cadre juridique pour ce mode alternatif de règlement des différends.\n\nSelon l'Acte Uniforme relatif à la Médiation, la médiation est définie comme \"tout processus, quelle que soit son appellation, dans lequel les parties demandent à un tiers de les aider à parvenir à un règlement amiable d'un litige\" (Article 1). \n\n**Principales dispositions :**\n\n**Champ d'application** : L'Acte s'applique à la médiation mais exclut les cas où \"un juge ou un arbitre, pendant une instance judiciaire ou arbitrale, tente de faciliter un règlement amiable directement avec les parties\" (Article 2).\n\n**Types de médiation** : La médiation peut être conventionnelle (initiée par les parties), judiciaire (sur demande d'une juridiction) ou institutionnelle (Article 1).\n\n**Procédure** : La médiation débute par la mise en œuvre d'une convention écrite ou non. En l'absence de convention, une invitation écrite doit être acceptée dans les 15 jours (Article 4).\n\n**Effets** : Le début de la médiation suspend le délai de prescription. Si la médiation échoue, le délai recommence à courir pour au moins 6 mois (Article 4).\n\nD'après la doctrine \"L'ACTE UNIFORME OHADA RELATIF À LA MÉDIATION : LA FACULTÉ D'ÉVOLUER DE L'ADJUDICATION À LA COLLABORATION\", cet acte représente une diversification de l'offre de justice dans l'espace OHADA, qui reposait auparavant uniquement sur les modes adjudicatifs (tribunaux étatiques et arbitrage).\n\nLa médiation OHADA se distingue donc des autres mécanismes comme la conciliation en matière de divorce ou la transaction, car elle place les parties au cœur du processus de résolution du différend avec l'assistance d'un médiateur neutre.",
+  "sources": [
+    {
+      "title": "Doctrine / D-17-24_28112017_Ohadata_D-17-24_L'ACTE_UNIFORME_OHADA_RELATIF_À_LA",
+      "score": 4.646339416503906,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-17-24_28112017_Ohadata_D-17-24_L'ACTE_UNIFORME_OHADA_RELATIF_À_LA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Présentation OHADA / Présentation De L'Ohada.Docx / Présentation de l'OHADA",
+      "score": 4.609957695007324,
+      "category": "presentation_ohada",
+      "section": "Présentation de l'OHADA.docx",
+      "file_path": "/app/base_connaissances/presentation_ohada/Présentation de l'OHADA.docx",
+      "document_type": "presentation_ohada",
+      "metadata_summary": null
+    },
+    {
+      "title": "Actes Uniformes / Médiation / ACTE UNIFORME RELATIF À LA MÉDIATION_ORGANISATION POUR L'HARMONISATION EN AFRIQUE DU DROIT DES AFFAIRES",
+      "score": 3.8993544578552246,
+      "category": "actes_uniformes",
+      "section": "médiation",
+      "file_path": "/app/base_connaissances/actes_uniformes/médiation/ACTE UNIFORME RELATIF À LA MÉDIATION_ORGANISATION POUR L'HARMONISATION EN AFRIQUE DU DROIT DES AFFAIRES.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-18-18_232017_Ohadata_D-18-18_LA_MÉDIATION_DU_DROIT_OHADA_DANS_LA",
+      "score": 3.8127243518829346,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-18-18_232017_Ohadata_D-18-18_LA_MÉDIATION_DU_DROIT_OHADA_DANS_LA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-18-18_232017_Ohadata_D-18-18_LA_MÉDIATION_DU_DROIT_OHADA_DANS_LA",
+      "score": 2.05464243888855,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-18-18_232017_Ohadata_D-18-18_LA_MÉDIATION_DU_DROIT_OHADA_DANS_LA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-09-34_111999_Communication___Quelle_place_pour_les_MARC_dans_l’harmonisation_du_droit_OHADA_des_contrats__",
+      "score": 1.9966959953308105,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-09-34_111999_Communication___Quelle_place_pour_les_MARC_dans_l’harmonisation_du_droit_OHADA_des_contrats__.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "4c517ee5-bb94-4d5b-b741-ca3af7fd58d4",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 474,
+    "latency_ms": 22003,
+    "retrieval_time_ms": 968,
+    "generation_time_ms": 18462,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 22003,
+  "elapsed_ms": 22395.61,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:50:27.462052+00:00"
+}

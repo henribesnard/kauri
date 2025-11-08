@@ -1,0 +1,87 @@
+{
+  "generated_at": "2025-11-08T12:54:47.869240+00:00",
+  "question_id": 45,
+  "question": "Qu'est-ce que le compte 601 ?",
+  "answer": "Selon le Plan Comptable OHADA : Partie 3 - Chapitre 1, le compte 601 correspond au poste \"RA\" qui représente les achats de marchandises.\n\nDans la structure du compte de résultat OHADA, le compte 601 fait partie des postes d'achats (RA, RC, RE) utilisés pour calculer la marge commerciale. La marge commerciale est déterminée par la différence entre les ventes (poste TA - compte 701) et les achats de marchandises (poste RA - compte 601), ajustée par les variations de stocks (poste RB - compte 6031).\n\nLe compte 601 est donc un compte de charges qui enregistre les achats de marchandises destinées à la revente en l'état, sans transformation. Il constitue un élément essentiel dans le calcul des soldes intermédiaires de gestion, notamment pour les entreprises commerciales.",
+  "sources": [
+    {
+      "title": "Plan Comptable / Partie 3 / chapitre_1 Préparation des états financiers",
+      "score": 5.025928497314453,
+      "category": "plan_comptable",
+      "section": "partie_3",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_3/chapitre_1 Préparation des états financiers.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.687030553817749,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.572505235671997,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.3194360733032227,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 1.7898311614990234,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "f276e9f7-edbd-4782-912d-46677b93fa75",
+    "latency_ms": 15753,
+    "intent_type": "legal_reference_search",
+    "num_sources": 5,
+    "target_reference": "Compte 601",
+    "retrieval_type": "legal_reference_search",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 6436
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 15753,
+  "elapsed_ms": 16394.72,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:54:31.474570+00:00"
+}

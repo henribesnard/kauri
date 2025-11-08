@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:53:45.218067+00:00",
+  "question_id": 41,
+  "question": "Qu'est-ce qu'un compte de bilan ?",
+  "answer": "Un compte de bilan est un compte qui décrit la situation patrimoniale d'une entité à une date donnée. Il présente ce que l'entité possède (l'actif) et ce qu'elle doit (le passif).\n\nSelon l'Acte Uniforme relatif au Système Comptable Des Entités À But Non Lucratif, le bilan d'ouverture d'un exercice doit correspondre au bilan de clôture de l'exercice précédent, ce qui montre la continuité des comptes de bilan d'un exercice à l'autre.\n\nD'après l'Acte Uniforme relatif au Droit Comptable Et Information Financière, les comptes de bilan incluent des éléments comme les provisions à inscrire au passif externe du bilan, les créances et dettes libellées en monnaies étrangères, ainsi que les écarts de conversion qui sont inscrits directement au bilan dans des comptes spécifiques.\n\nLes comptes de bilan se distinguent des comptes de gestion (charges et produits) qui, eux, sont soldés à chaque clôture d'exercice. Les comptes de bilan conservent leur solde d'un exercice à l'autre et permettent de mesurer la valeur patrimoniale de l'entité à un moment précis.",
+  "sources": [
+    {
+      "title": "Actes Uniformes / Système Comptable Des Entités À But Non Lucratif / Livre_1_Chapitre_2 États financiers annuels",
+      "score": -0.07962168753147125,
+      "category": "actes_uniformes",
+      "section": "système comptable des entités à but non lucratif",
+      "file_path": "/app/base_connaissances/actes_uniformes/système comptable des entités à but non lucratif/Livre_1_Chapitre_2 États financiers annuels.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Actes Uniformes / Droit Comptable Et Information Financière / Titre_1_Chapitre_4 Règles d'évaluation et de détermination du résultat",
+      "score": -0.12471068650484085,
+      "category": "actes_uniformes",
+      "section": "droit comptable et information financière",
+      "file_path": "/app/base_connaissances/actes_uniformes/droit comptable et information financière/Titre_1_Chapitre_4 Règles d'évaluation et de détermination du résultat.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 2 / chapitre_15 Abandons de créances, Operations d’affacturage et de titrisation",
+      "score": -0.3215489983558655,
+      "category": "plan_comptable",
+      "section": "partie_2",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_2/chapitre_15 Abandons de créances, Operations d’affacturage et de titrisation.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "db377e5f-d4dd-4454-a983-6d16ec78f748",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 283,
+    "latency_ms": 17221,
+    "retrieval_time_ms": 1082,
+    "generation_time_ms": 11707,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 17221,
+  "elapsed_ms": 16505.22,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:53:28.712628+00:00"
+}

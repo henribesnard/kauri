@@ -1,0 +1,44 @@
+{
+  "generated_at": "2025-11-08T12:52:11.249610+00:00",
+  "question_id": 35,
+  "question": "Ou sont regroupes les textes sur les suretes OHADA ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "253c22ba-c691-4be1-b5c8-e8ef2467cb69",
+    "latency_ms": 9176,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "sûretés",
+      "garanties",
+      "sécurité juridique"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 9176,
+  "elapsed_ms": 8833.51,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:52:02.415191+00:00"
+}

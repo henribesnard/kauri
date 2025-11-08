@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:52:27.302945+00:00",
+  "question_id": 36,
+  "question": "Qu'est-ce que le SYSCOHADA ?",
+  "answer": "Le SYSCOHADA est le Système Comptable OHADA, qui constitue le cadre comptable harmonisé pour les pays membres de l'Organisation pour l'Harmonisation en Afrique du Droit des Affaires.\n\nSelon le Plan Comptable OHADA : Partie 1 - Chapitre 5, le SYSCOHADA définit notamment les immobilisations comme \"les éléments corporels et incorporels destinés à servir de façon durable à l'activité de l'entité\". Il précise que le terme \"durable\" s'entend au sens \"qui dure plus d'une année\".\n\nD'après la Doctrine D-02-13 sur l'OHADA, le SYSCOHADA s'inscrit dans le cadre plus large de l'intégration juridique des pays africains et constitue l'instrument d'harmonisation comptable qui s'applique directement aux États membres de l'OHADA.\n\nLe SYSCOHADA organise la comptabilité selon un plan de comptes structuré en classes, avec notamment la classe 2 pour les comptes d'actif immobilisé, comprenant les immobilisations incorporelles (21..), corporelles (22.. à 24..) et financières (25.. à 27..).",
+  "sources": [
+    {
+      "title": "Plan Comptable / Partie 1 / chapitre_5 Opérations d’investissement et de désinvestissement",
+      "score": -3.169822931289673,
+      "category": "plan_comptable",
+      "section": "partie_1",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_1/chapitre_5 Opérations d’investissement et de désinvestissement.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-02-13_Ohadata_D-02-_13_L’OHADA,_INSTRUMENT_D’INTEGRATION_JURIDIQUE_DES_PAYS_AFRICAINS_DE",
+      "score": -4.1945905685424805,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-13_Ohadata_D-02-_13_L’OHADA,_INSTRUMENT_D’INTEGRATION_JURIDIQUE_DES_PAYS_AFRICAINS_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-04-33_101958_Ohadata_D-04-33_LA_COOPERATION_DU_JUGE_ETATIQUE_DANS_LE_DEROULEMENT_DE_LA",
+      "score": -7.561401844024658,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-04-33_101958_Ohadata_D-04-33_LA_COOPERATION_DU_JUGE_ETATIQUE_DANS_LE_DEROULEMENT_DE_LA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "25a31acf-399d-4cd0-a82b-52d53b6b82c1",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 283,
+    "latency_ms": 15400,
+    "retrieval_time_ms": 992,
+    "generation_time_ms": 10093,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 15400,
+  "elapsed_ms": 16053.23,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:52:11.250608+00:00"
+}

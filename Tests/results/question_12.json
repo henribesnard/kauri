@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-11-08T12:47:57.790081+00:00",
+  "question_id": 12,
+  "question": "Quel acte uniforme traite du droit des sociétés commerciales ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "5db1e7d1-f401-4d9d-812a-b1cfbe0e5c81",
+    "latency_ms": 7333,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "droit des sociétés commerciales",
+      "sociétés commerciales"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 7333,
+  "elapsed_ms": 7060.02,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:47:50.729132+00:00"
+}

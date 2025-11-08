@@ -1097,4 +1097,115 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
                 }
             }
 
+        elif intent.intent_type == "legal_reference_search":
+            logger.info("workflow_legal_reference_stream")
+
+            initial_state = {
+                "query": query,
+                "conversation_id": conversation_id,
+                "db_session": db_session,
+                "intent": intent,
+                "conversation_context": conversation_context,
+                "context_info": context_info.to_dict() if context_info else None,
+                "documents": None,
+                "answer": None,
+                "sources": None,
+                "metadata": metadata or {},
+                "error": None
+            }
+
+            reference_state = await self._legal_reference_search_node(initial_state)
+
+            sources = reference_state.get("sources", [])
+            meta = reference_state.get("metadata", {})
+
+            yield {
+                "type": "sources",
+                "sources": sources,
+                "metadata": {
+                    "retrieval_time_ms": meta.get("retrieval_time_ms", 0),
+                    "num_sources": len(sources),
+                    "retrieval_type": meta.get("retrieval_type", "legal_reference_search"),
+                    "target_reference": meta.get("target_reference")
+                }
+            }
+
+            answer = reference_state.get("answer", "Aucune référence trouvée.")
+            for char in answer:
+                yield {
+                    "type": "token",
+                    "content": char
+                }
+
+            total_time = time.time() - start_time
+            yield {
+                "type": "done",
+                "metadata": {
+                    "conversation_id": conversation_id,
+                    "latency_ms": int(total_time * 1000),
+                    "intent_type": "legal_reference_search",
+                    "num_sources": meta.get("num_sources", len(sources)),
+                    "target_reference": meta.get("target_reference"),
+                    "retrieval_type": meta.get("retrieval_type", "legal_reference_search"),
+                    "model_used": meta.get("model_used"),
+                    "tokens_used": meta.get("tokens_used")
+                }
+            }
+
+        elif intent.intent_type == "case_law_research":
+            logger.info("workflow_case_law_stream")
+
+            initial_state = {
+                "query": query,
+                "conversation_id": conversation_id,
+                "db_session": db_session,
+                "intent": intent,
+                "conversation_context": conversation_context,
+                "context_info": context_info.to_dict() if context_info else None,
+                "documents": None,
+                "answer": None,
+                "sources": None,
+                "metadata": metadata or {},
+                "error": None
+            }
+
+            case_law_state = await self._case_law_research_node(initial_state)
+            sources = case_law_state.get("sources", [])
+            meta = case_law_state.get("metadata", {})
+
+            yield {
+                "type": "sources",
+                "sources": sources,
+                "metadata": {
+                    "retrieval_time_ms": meta.get("retrieval_time_ms", 0),
+                    "num_sources": len(sources),
+                    "retrieval_type": meta.get("retrieval_type", "case_law_research"),
+                    "jurisdiction_filter": meta.get("jurisdiction_filter")
+                }
+            }
+
+            answer = case_law_state.get("answer", "Je n'ai trouvé aucune jurisprudence correspondante.")
+            for char in answer:
+                yield {
+                    "type": "token",
+                    "content": char
+                }
+
+            total_time = time.time() - start_time
+            yield {
+                "type": "done",
+                "metadata": {
+                    "conversation_id": conversation_id,
+                    "latency_ms": int(total_time * 1000),
+                    "intent_type": "case_law_research",
+                    "num_sources": meta.get("num_sources", len(sources)),
+                    "retrieval_type": meta.get("retrieval_type", "case_law_research"),
+                    "jurisdiction_filter": meta.get("jurisdiction_filter"),
+                    "model_used": meta.get("model_used"),
+                    "tokens_used": meta.get("tokens_used"),
+                    "report_generated": meta.get("report_generated", False),
+                    "report_type": meta.get("report_type")
+                }
+            }
+
         logger.info("workflow_execute_stream_complete", intent_type=intent.intent_type)

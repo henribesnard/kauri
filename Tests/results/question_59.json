@@ -1,0 +1,107 @@
+{
+  "generated_at": "2025-11-08T12:57:46.514137+00:00",
+  "question_id": 59,
+  "question": "Quelle est la procédure d'arbitrage selon l'OHADA ?",
+  "answer": "La procédure d'arbitrage selon l'OHADA repose sur un système institutionnel administré par la Cour Commune de Justice et d'Arbitrage (CCJA).\n\n**Initiation de la procédure**\n\nSelon le Traité OHADA, l'arbitrage peut être engagé soit par une clause compromissoire insérée dans le contrat initial, soit par un compromis d'arbitrage conclu après la naissance du litige. D'après \"LA CONVENTION D'ARBITRAGE DANS L'ESPACE DU DROIT OHADA\", la convention d'arbitrage doit être faite par écrit ou par tout moyen permettant d'en administrer la preuve.\n\n**Compétence de l'arbitrage OHADA**\n\nD'après \"La Cour Commune de Justice et d'Arbitrage (CCJA)\", l'arbitrage OHADA s'applique lorsque l'une des parties a son domicile ou sa résidence habituelle dans un État partie, ou lorsque le contrat est exécuté en tout ou partie sur le territoire d'un ou plusieurs États parties.\n\n**Constitution du tribunal arbitral**\n\nSelon \"L'incidence du système OHADA sur le droit camerounais\", la CCJA ne tranche pas elle-même les litiges mais constitue des tribunaux arbitraux. Les arbitres désignés par les parties doivent être confirmés par la CCJA, qui tient une liste d'arbitres mise à jour annuellement.\n\n**Déroulement de la procédure**\n\nD'après \"La Cour Commune de Justice et d'Arbitrage (CCJA)\", la CCJA est informée du déroulement de l'instance et examine les projets de sentence, pouvant proposer des modifications de forme. Les arbitres doivent demeurer indépendants et impartiaux vis-à-vis des parties, comme le précise \"LA NOTION DE L'INDEPENDANCE ET DE L'IMPARTIALITE DE L'ARBITRAGE DANS LE DROIT OHADA\".\n\n**Sentence arbitrale et exequatur**\n\nSelon le Traité OHADA, les sentences arbitrales ont l'autorité définitive de la chose jugée et peuvent faire l'objet d'une exécution forcée par décision d'exequatur. La CCJA est seule compétente pour rendre cette décision, qui ne peut être refusée que dans quatre cas limitatifs : absence de convention d'arbitrage, non-conformité à la mission confiée, non-respect de la procédure contradictoire, ou contrariété à l'ordre public international.\n\nCe système d'arbitrage institutionnel vise à offrir une procédure simplifiée, rapide et efficace pour le règlement des différends contractuels dans l'espace OHADA.",
+  "sources": [
+    {
+      "title": "Doctrine / D-11-24_112010_Ohadata_D-11-24_La_Cour_Commune_de_Justice_et_d’Arbitrage_(CCJA)_de",
+      "score": 5.478320598602295,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-11-24_112010_Ohadata_D-11-24_La_Cour_Commune_de_Justice_et_d’Arbitrage_(CCJA)_de.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-17-13_101958_Ohadata_D-17-13_LA_CONCEPTION_DU_STATUT_D’ARBITRE_AU_SEIN_DE",
+      "score": 4.430275917053223,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-17-13_101958_Ohadata_D-17-13_LA_CONCEPTION_DU_STATUT_D’ARBITRE_AU_SEIN_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-08-80_111999_Ohadata_D-08-80_Le_Règlement_d’Arbitrage_de_la_Cour_Commune_de_Justice_et",
+      "score": 3.988959312438965,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-08-80_111999_Ohadata_D-08-80_Le_Règlement_d’Arbitrage_de_la_Cour_Commune_de_Justice_et.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-08-75_191993_Ohadata_D-08-75_L’incidence_du_système_OHADA_sur_le_droit_camerounais",
+      "score": 3.4034805297851562,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-08-75_191993_Ohadata_D-08-75_L’incidence_du_système_OHADA_sur_le_droit_camerounais.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-19-16_17101993_Ohadata_D-19-16_LA_CONVENTION_D’ARBITRAGE_DANS_L’ESPACE_DU",
+      "score": 3.1176748275756836,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-19-16_17101993_Ohadata_D-19-16_LA_CONVENTION_D’ARBITRAGE_DANS_L’ESPACE_DU.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / Doctrines / D-05-05 131972 Ohadata D-05-05 La Notion De L'Independance Et De L'Impartialite",
+      "score": 2.6318955421447754,
+      "category": "jurisprudence",
+      "section": "Doctrines",
+      "file_path": "/app/base_connaissances/doctrines/D-05-05_131972_Ohadata_D-05-05_LA_NOTION_DE_L'INDEPENDANCE_ET_DE_L'IMPARTIALITE.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-02-12_Ohadata_D-02-12_L'INTEGRATION_JURIDIQUE_DES_ETATS",
+      "score": 2.195511817932129,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-12_Ohadata_D-02-12_L'INTEGRATION_JURIDIQUE_DES_ETATS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "dfb704e4-4e30-4cf1-83c8-2ae975cf40a8",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 610,
+    "latency_ms": 27299,
+    "retrieval_time_ms": 875,
+    "generation_time_ms": 22483,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 27299,
+  "elapsed_ms": 27429.81,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:57:19.084001+00:00"
+}

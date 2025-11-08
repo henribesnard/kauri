@@ -1,0 +1,87 @@
+{
+  "generated_at": "2025-11-08T12:52:59.183860+00:00",
+  "question_id": 38,
+  "question": "Que comprend la classe 1 du plan comptable ?",
+  "answer": "Selon l'Acte Uniforme relatif au droit comptable et à l'information financière, la classe 1 du plan comptable OHADA fait partie des classes de comptes de situation.\n\nD'après l'article 18 de cet Acte Uniforme, les comptes du Système Comptable OHADA sont regroupés par catégories homogènes appelées classes, comprenant des classes de comptes de situation et des classes de comptes de gestion. Chaque classe est subdivisée en comptes identifiés par des numéros à deux chiffres ou plus selon une codification décimale.\n\nLa classe 1 appartient aux comptes de situation qui représentent généralement les comptes de capitaux permanents, incluant les capitaux propres, les emprunts et dettes assimilées, et les provisions durables. Cette classification permet une organisation structurée du plan de comptes pour enregistrer distinctement toutes les opérations de l'entité.\n\nLe plan de comptes de chaque entité doit être suffisamment détaillé selon le Système Comptable OHADA, avec la possibilité d'ouvrir des subdivisions supplémentaires si nécessaire ou de regrouper des comptes trop détaillés dans un compte global de même niveau.",
+  "sources": [
+    {
+      "title": "Actes Uniformes / Droit Comptable Et Information Financière / Titre_1_Chapitre_2  Organisation comptable",
+      "score": 2.7271416187286377,
+      "category": "actes_uniformes",
+      "section": "droit comptable et information financière",
+      "file_path": "/app/base_connaissances/actes_uniformes/droit comptable et information financière/Titre_1_Chapitre_2  Organisation comptable.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.7210235595703125,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.246929168701172,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.2371585369110107,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-08-12_Ohadata_D-08-12_ETUDE_SYNTHETIQUE_DES_COMPTES_CONSOLIDES_ET_COMPTES_COMBINES",
+      "score": 1.4561316967010498,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-08-12_Ohadata_D-08-12_ETUDE_SYNTHETIQUE_DES_COMPTES_CONSOLIDES_ET_COMPTES_COMBINES.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "fbe198db-43f7-4de0-9e9c-dd5db9ff58a4",
+    "latency_ms": 17556,
+    "intent_type": "legal_reference_search",
+    "num_sources": 5,
+    "target_reference": "Classe 1",
+    "retrieval_type": "legal_reference_search",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 6340
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 17556,
+  "elapsed_ms": 18151.13,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:52:41.032402+00:00"
+}

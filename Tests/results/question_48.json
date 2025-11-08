@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-11-08T12:55:12.898798+00:00",
+  "question_id": 48,
+  "question": "Y a-t-il une jurisprudence concernant l'arbitrage OHADA ?",
+  "answer": "Je n'ai pas trouvé de jurisprudence de la CCJA sur ce sujet dans ma base de données.",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "83d8e4dc-9e69-44ad-951c-67322dc6cc29",
+    "latency_ms": 8358,
+    "intent_type": "case_law_research",
+    "num_sources": 0,
+    "retrieval_type": "case_law_research",
+    "jurisdiction_filter": "CCJA",
+    "model_used": null,
+    "tokens_used": null,
+    "report_generated": false,
+    "report_type": null
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 8358,
+  "elapsed_ms": 8036.25,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:55:04.861263+00:00"
+}

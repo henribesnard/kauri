@@ -1,0 +1,116 @@
+{
+  "generated_at": "2025-11-08T12:47:37.188582+00:00",
+  "question_id": 10,
+  "question": "Quelle est la hiérarchie des normes dans l'espace OHADA ?",
+  "answer": "La hiérarchie des normes dans l'espace OHADA repose sur plusieurs niveaux avec des relations complexes entre les différentes sources de droit.\n\n**Selon \"L'ORDRE JURIDIQUE OHADA\"**, le caractère supranational des normes OHADA est établi par l'article 10 du Traité qui dispose que \"Les Actes uniformes sont directement applicables dans les Etats parties nonobstant toute disposition contraire de droit interne, antérieure ou postérieure\". Cette disposition consacre la primauté du droit OHADA sur les droits nationaux.\n\n**D'après \"Conflits de juridictions\"**, l'OHADA a opté pour un système de \"hiérarchie juridictionnelle\" avec la CCJA (Cour Commune de Justice et d'Arbitrage) qui agit comme une juridiction de cassation et \"confisque aux juridictions de cassation nationales leurs compétences normales\". La CCJA constitue ainsi le troisième degré de juridiction dans l'espace OHADA.\n\n**Selon \"L'informatisation du Registre du Commerce et du Crédit Mobilier\"**, l'OHADA a introduit une nouvelle source de droit avec les \"normes techniques uniformes relatives aux procédures électroniques\" qui doivent faire l'objet d'homologation par le Conseil des Ministres ou le Secrétariat permanent. Ces normes deviennent exécutoires dans tout l'espace OHADA après homologation.\n\nLa hiérarchie se présente ainsi :\n1. **Droit OHADA** (Actes Uniformes) qui prime sur le droit national\n2. **Juridiction suprême** : CCJA qui contrôle l'interprétation et l'application uniforme\n3. **Nouvelles sources** : normes techniques homologuées\n4. **Droits nationaux** des États parties, dans la mesure où ils ne contredisent pas le droit OHADA\n\nCette structure rencontre cependant des défis de coordination avec d'autres organisations régionales comme l'UEMOA et la CEDEAO, créant des situations de \"conflits de normes et de compétences\" qui nécessitent une mise en cohérence des différents traités.",
+  "sources": [
+    {
+      "title": "Doctrine / D-12-14_Ohadata_D-12-14_L’informatisation_du_Registre_du_Commerce_et_du_Crédit",
+      "score": 5.024590492248535,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-12-14_Ohadata_D-12-14_L’informatisation_du_Registre_du_Commerce_et_du_Crédit.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-11-96_101994_Ohadata_D-11-96_Conflits_de_juridictions",
+      "score": 4.249729156494141,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-11-96_101994_Ohadata_D-11-96_Conflits_de_juridictions.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-12-14_Ohadata_D-12-14_L’informatisation_du_Registre_du_Commerce_et_du_Crédit",
+      "score": 3.46761417388916,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-12-14_Ohadata_D-12-14_L’informatisation_du_Registre_du_Commerce_et_du_Crédit.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-11-96_101994_Ohadata_D-11-96_Conflits_de_juridictions",
+      "score": 3.308579444885254,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-11-96_101994_Ohadata_D-11-96_Conflits_de_juridictions.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-22-10_171993_Ohadata_D-22-10_POLITIQUE_DE_LA_CONCURRENCE_DANS_L’ESPACE",
+      "score": 2.53932523727417,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-22-10_171993_Ohadata_D-22-10_POLITIQUE_DE_LA_CONCURRENCE_DANS_L’ESPACE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-04-02_52004_Ohadata_D-04-02_L’ORDRE_JURIDIQUE_OHADA",
+      "score": 2.5052826404571533,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-04-02_52004_Ohadata_D-04-02_L’ORDRE_JURIDIQUE_OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-04-02_52004_Ohadata_D-04-02_L’ORDRE_JURIDIQUE_OHADA",
+      "score": 1.1105821132659912,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-04-02_52004_Ohadata_D-04-02_L’ORDRE_JURIDIQUE_OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-22-10_171993_Ohadata_D-22-10_POLITIQUE_DE_LA_CONCURRENCE_DANS_L’ESPACE",
+      "score": 1.0983837842941284,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-22-10_171993_Ohadata_D-22-10_POLITIQUE_DE_LA_CONCURRENCE_DANS_L’ESPACE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "90988994-c881-4687-8132-f2bf12079560",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 476,
+    "latency_ms": 23975,
+    "retrieval_time_ms": 1485,
+    "generation_time_ms": 17955,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 23975,
+  "elapsed_ms": 24330.69,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:47:12.859395+00:00"
+}

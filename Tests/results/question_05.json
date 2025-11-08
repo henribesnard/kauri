@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:45:58.940657+00:00",
+  "question_id": 5,
+  "question": "Qu'est-ce que la CCJA ?",
+  "answer": "La CCJA (Cour Commune de Justice et d'Arbitrage) est l'institution judiciaire suprême de l'OHADA qui exerce deux fonctions principales.\n\nSelon l'analyse \"INTRODUCTION AU TRAITE ET AUX ACTES UNIFORMES\", la CCJA est \"l'institution la plus originale de l'intégration juridique et judiciaire en Afrique\" qui se substitue aux cours nationales de cassation pour unifier l'interprétation du droit uniforme. Elle agit comme une juridiction supranationale où les États parties renoncent à leur souveraineté au sommet de l'organisation judiciaire.\n\nD'après l'étude sur \"Modernité et spécificités de l'arbitrage OHADA\", la CCJA exerce deux rôles distincts :\n- **Fonction d'arbitrage** : Elle administre les arbitrages en nommant les arbitres, confirmant ceux nommés par les parties et statuant sur les demandes de récusation\n- **Fonction juridictionnelle** : Elle contrôle la validité des sentences arbitrales et accorde l'exequatur\n\nSelon l'analyse du \"CONTENTIEUX DES ACTES UNIFORMES\", la CCJA est compétente pour connaître des recours en cassation contre les décisions rendues en dernier ressort par les juridictions nationales dans les affaires soulevant des questions relatives à l'application des Actes Uniformes. Sa compétence couvre notamment le droit commercial général, les sûretés, les sociétés commerciales, les procédures collectives, l'arbitrage et le droit comptable.\n\nLa CCJA est composée de sept juges élus pour sept ans renouvelables une fois, avec un président élu pour trois ans et demi non renouvelable.",
+  "sources": [
+    {
+      "title": "Doctrine / D-13-64_171993_Ohadata_D-13-64_Modernité_et_spécificités_de_l’arbitrage_OHADA",
+      "score": 2.1211137771606445,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-13-64_171993_Ohadata_D-13-64_Modernité_et_spécificités_de_l’arbitrage_OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-02-17_201993_Ohadata_D-02-17_INTRODUCTION_AU_TRAITE_ET_AUX_ACTES_UNIFORMES_DE",
+      "score": 1.4931292533874512,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-17_201993_Ohadata_D-02-17_INTRODUCTION_AU_TRAITE_ET_AUX_ACTES_UNIFORMES_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-03-19_242003_Ohadata_D-03-19_LE_CONTENTIEUX_DES_ACTES_UNIFORMES__",
+      "score": 0.525269627571106,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-03-19_242003_Ohadata_D-03-19_LE_CONTENTIEUX_DES_ACTES_UNIFORMES__.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "4d9951bf-c4a6-470d-bff4-7cd630575142",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 401,
+    "latency_ms": 21586,
+    "retrieval_time_ms": 626,
+    "generation_time_ms": 16267,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 21586,
+  "elapsed_ms": 22287.09,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:45:36.652208+00:00"
+}

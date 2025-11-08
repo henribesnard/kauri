@@ -1,0 +1,41 @@
+{
+  "generated_at": "2025-11-08T12:44:40.247894+00:00",
+  "question_id": 1,
+  "question": "Qu'est-ce que l'OHADA ?",
+  "answer": "L'OHADA (Organisation pour l'Harmonisation en Afrique du Droit des Affaires) est une organisation intergouvernementale créée en 1993 qui regroupe 17 pays africains. Son objectif principal est d'harmoniser le droit des affaires en Afrique pour favoriser les investissements et la sécurité juridique. L'OHADA a élaboré des Actes Uniformes qui s'appliquent directement dans tous les États membres, notamment en matière de comptabilité (SYSCOHADA), de droit commercial, de droit des sociétés, et d'autres domaines du droit des affaires.",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "9ed1e492-292c-4c97-8bcd-3e27f9b38147",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 1812,
+    "latency_ms": 9544,
+    "retrieval_time_ms": 0,
+    "generation_time_ms": 0,
+    "intent_type": "general_conversation",
+    "answer_from_classifier": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 9544,
+  "elapsed_ms": 9246.44,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:44:31.000657+00:00"
+}

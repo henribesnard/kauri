@@ -1,0 +1,44 @@
+{
+  "generated_at": "2025-11-08T12:51:39.992922+00:00",
+  "question_id": 31,
+  "question": "Ou consulter les sources qui traitent des procedures collectives OHADA ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "24fd1681-47f1-40bf-bae9-d968166457c4",
+    "latency_ms": 8694,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "procedures collectives",
+      "redressement judiciaire",
+      "liquidation"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 8694,
+  "elapsed_ms": 8377.0,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:51:31.615645+00:00"
+}

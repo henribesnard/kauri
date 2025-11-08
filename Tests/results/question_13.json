@@ -1,0 +1,116 @@
+{
+  "generated_at": "2025-11-08T12:48:17.653524+00:00",
+  "question_id": 13,
+  "question": "Que dit l'acte uniforme sur les sûretés ?",
+  "answer": "L'Acte uniforme portant organisation des sûretés est un texte fondamental qui organise les garanties de paiement dans l'espace OHADA.\n\nSelon l'Acte Uniforme portant organisation des Sûretés, il prévoit plusieurs types de garanties :\n\n**Sûretés personnelles** : le cautionnement et la lettre de garantie\n**Sûretés mobilières** : le gage, le nantissement sans dépossession et les privilèges  \n**Sûretés immobilières** : l'hypothèque conventionnelle ou forcée\n\nD'après l'Acte Uniforme portant organisation des Sûretés - Titre 5 Dispositions transitoires et finales, l'acte uniforme actuel (adopté le 15 décembre 2010) a abrogé l'Acte uniforme du 17 avril 1997. Il n'est applicable qu'aux sûretés consenties ou constituées après son entrée en vigueur, tandis que les sûretés antérieures restent soumises à la législation en vigueur au moment de leur constitution (Article 227).\n\nSelon la doctrine \"Les innovations introduites dans l'Acte uniforme portant organisation des Sûretés\", la réforme avait pour objectif de moderniser les concepts tout en facilitant leur compréhension, avec des amendements destinés à améliorer le régime des sûretés personnelles et réelles, tout en renforçant le régime de publicité.\n\nL'Acte uniforme définit également l'hypothèque comme \"une sûreté réelle immobilière conventionnelle ou forcée qui confère un droit de suite et un droit de préférence\" (Article 117).",
+  "sources": [
+    {
+      "title": "Actes Uniformes / Organisation Des Sûretés / Titre_5 Dispositions transitoires et finales",
+      "score": 6.6264495849609375,
+      "category": "actes_uniformes",
+      "section": "organisation des sûretés",
+      "file_path": "/app/base_connaissances/actes_uniformes/organisation des sûretés/Titre_5 Dispositions transitoires et finales.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-03-01_171993_Ohadata_D-03-01_Aspects_juridiques_de_l’apport_des_titres_miniers_en_garantie_dans_les_Etats",
+      "score": 6.236764907836914,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-03-01_171993_Ohadata_D-03-01_Aspects_juridiques_de_l’apport_des_titres_miniers_en_garantie_dans_les_Etats.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-12-23_151109_Ohadata_D-12-23_Les_innovations_introduites_dans_l’Acte_uniforme_portant",
+      "score": 6.002586364746094,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-12-23_151109_Ohadata_D-12-23_Les_innovations_introduites_dans_l’Acte_uniforme_portant.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-03-06_142003_Ohadata_D-03-06_LE_TRAITE_OHADA,_5_APRES",
+      "score": 5.034611225128174,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-03-06_142003_Ohadata_D-03-06_LE_TRAITE_OHADA,_5_APRES.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / J-02-22_231995_Ohadata_J-02-22_I._CAUTION_EXIGEE_PAR_UNE_LOI_NATIONALE_ANTERIEURE_A_L'ACTE",
+      "score": 5.0144829750061035,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-02-22_231995_Ohadata_J-02-22_I._CAUTION_EXIGEE_PAR_UNE_LOI_NATIONALE_ANTERIEURE_A_L'ACTE.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-11-19_112010_Ohadata_D-11-19_PRESENTATION_DU_TRAITE_DE_L’OHADA",
+      "score": 4.270022392272949,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-11-19_112010_Ohadata_D-11-19_PRESENTATION_DU_TRAITE_DE_L’OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-03-11_71992_Ohadata_D-03-11_L’INTRODUCTION_DU_«_TOLME_»_OU_«_DJINGUINA_»_DANS_LE_NOUVEAU",
+      "score": 3.614086151123047,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-03-11_71992_Ohadata_D-03-11_L’INTRODUCTION_DU_«_TOLME_»_OU_«_DJINGUINA_»_DANS_LE_NOUVEAU.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / J-12-191_032011_Ohadata_J-12-191_SURETES_-_HYPOTHEQUES_CONVENTIONNELLE_-_PROCURATION_-_CAUTION",
+      "score": 3.2798011302948,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-12-191_032011_Ohadata_J-12-191_SURETES_-_HYPOTHEQUES_CONVENTIONNELLE_-_PROCURATION_-_CAUTION.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "4a29ebb4-b2b0-423c-ab43-723d016ec69a",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 386,
+    "latency_ms": 19354,
+    "retrieval_time_ms": 997,
+    "generation_time_ms": 14211,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 19354,
+  "elapsed_ms": 19861.6,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:47:57.791095+00:00"
+}

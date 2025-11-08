@@ -1,0 +1,44 @@
+{
+  "generated_at": "2025-11-08T12:49:20.291785+00:00",
+  "question_id": 18,
+  "question": "Quel acte uniforme régit le transport de marchandises par route ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "66f0e2e4-6276-4a6f-9153-7d81bc9b9069",
+    "latency_ms": 7960,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "transport",
+      "marchandises",
+      "route"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 7960,
+  "elapsed_ms": 7665.51,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:49:12.625201+00:00"
+}

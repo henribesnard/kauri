@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-11-08T12:55:37.328022+00:00",
+  "question_id": 51,
+  "question": "Y a-t-il une jurisprudence sur le transport de marchandises ?",
+  "answer": "Je n'ai pas trouvé de jurisprudence de la CCJA sur ce sujet dans ma base de données.",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "2b0ca349-42c6-4ea0-9f46-233d8d1ca734",
+    "latency_ms": 8642,
+    "intent_type": "case_law_research",
+    "num_sources": 0,
+    "retrieval_type": "case_law_research",
+    "jurisdiction_filter": "CCJA",
+    "model_used": null,
+    "tokens_used": null,
+    "report_generated": false,
+    "report_type": null
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 8642,
+  "elapsed_ms": 8307.34,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:55:29.020141+00:00"
+}

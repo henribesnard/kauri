@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:48:42.374068+00:00",
+  "question_id": 15,
+  "question": "Qu'est-ce que l'AUPSRVE ?",
+  "answer": "L'AUPSRVE est l'Acte Uniforme portant organisation des procédures simplifiées de recouvrement des créances et des voies d'exécution.\n\nSelon la doctrine sur la conversion de la saisie conservatoire, l'AUPSRVE est un acte uniforme OHADA qui régit les mesures conservatoires, les mesures d'exécution forcée et les procédures de recouvrement. Il est entré en vigueur le 10 juillet 1998 et a abrogé toutes les dispositions nationales antérieures relatives à ces matières dans les États parties, conformément à ses articles 336 et 337.\n\nD'après la jurisprudence de la CCJA, l'AUPSRVE organise notamment :\n- Les procédures de saisie conservatoire et leur conversion en saisie exécutoire (articles 69 et suivants)\n- Les saisies-attribution (article 82 et suivants)  \n- Les injonctions de payer (articles 3, 4, 8)\n- La compétence du juge de l'exécution (article 49)\n\nL'Acte Uniforme établit un régime complet et exclusif pour le recouvrement des créances et l'exécution forcée dans l'espace OHADA, remplaçant définitivement les législations nationales antérieures en la matière.",
+  "sources": [
+    {
+      "title": "Doctrine / D-14-17_101998_Ohadata_D-14-17_LA_CONVERSION_DE_LA_SAISIE_CONSERVATOIRE_EN",
+      "score": 1.1223845481872559,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-14-17_101998_Ohadata_D-14-17_LA_CONVERSION_DE_LA_SAISIE_CONSERVATOIRE_EN.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / J-16-98_19082005_Ohadata_J-16-98_JUGE_DE_L’EXECUTION_–_ARTICLE_49_AUPSRVE_–_URGENCE_–_JUGE_DES",
+      "score": 0.026807378977537155,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-16-98_19082005_Ohadata_J-16-98_JUGE_DE_L’EXECUTION_–_ARTICLE_49_AUPSRVE_–_URGENCE_–_JUGE_DES.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / Jurisprudences / J-11-42 162008 Ohadata J-11-42 Injonction De Payer - Ordonnance D'Injonction De Payer -",
+      "score": -1.0469141006469727,
+      "category": "jurisprudence",
+      "section": "Jurisprudences",
+      "file_path": "/app/base_connaissances/jurisprudences/J-11-42_162008_Ohadata_J-11-42_INJONCTION_DE_PAYER_-_ORDONNANCE_D'INJONCTION_DE_PAYER_-.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "3c38df0f-4ac9-4121-bf37-d30f2fe44220",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 300,
+    "latency_ms": 16868,
+    "retrieval_time_ms": 956,
+    "generation_time_ms": 11338,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 16868,
+  "elapsed_ms": 17500.06,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:48:24.873714+00:00"
+}

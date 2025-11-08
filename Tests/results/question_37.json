@@ -1,0 +1,89 @@
+{
+  "generated_at": "2025-11-08T12:52:41.031344+00:00",
+  "question_id": 37,
+  "question": "Combien de classes compte le plan comptable OHADA ?",
+  "answer": "Le plan comptable OHADA compte 8 classes.\n\nSelon l'Acte Uniforme relatif au droit comptable et à l'information financière, l'article 18 précise que \"les comptes du Système comptable OHADA sont regroupés par catégories homogènes appelées classes\" et distingue les \"classes de comptes de situation\" des \"classes de comptes de gestion\".\n\nD'après le Plan Comptable OHADA : Partie 1 - chapitre 1 Plan de comptes - subdivisions, la répartition est la suivante :\n\n- Les comptes de situation (ou de patrimoine ou de bilan) sont recensés dans les classes 1 à 5\n- Les comptes de gestion (ou de résultat) sont recensés dans les classes 6, 7 et 8\n\nCette organisation permet une lecture structurée du bilan et du compte de résultat selon les principes comptables OHADA.",
+  "sources": [
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 3.265338182449341,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-08-12_Ohadata_D-08-12_ETUDE_SYNTHETIQUE_DES_COMPTES_CONSOLIDES_ET_COMPTES_COMBINES",
+      "score": 3.156630516052246,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-08-12_Ohadata_D-08-12_ETUDE_SYNTHETIQUE_DES_COMPTES_CONSOLIDES_ET_COMPTES_COMBINES.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Actes Uniformes / Droit Comptable Et Information Financière / Titre_1_Chapitre_2  Organisation comptable",
+      "score": 3.0885884761810303,
+      "category": "actes_uniformes",
+      "section": "droit comptable et information financière",
+      "file_path": "/app/base_connaissances/actes_uniformes/droit comptable et information financière/Titre_1_Chapitre_2  Organisation comptable.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 1 / chapitre_1 Plan de comptes - subdivisions",
+      "score": 1.7162750959396362,
+      "category": "plan_comptable",
+      "section": "partie_1",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_1/chapitre_1 Plan de comptes - subdivisions.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-02-13_Ohadata_D-02-_13_L’OHADA,_INSTRUMENT_D’INTEGRATION_JURIDIQUE_DES_PAYS_AFRICAINS_DE",
+      "score": 0.9252733588218689,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-13_Ohadata_D-02-_13_L’OHADA,_INSTRUMENT_D’INTEGRATION_JURIDIQUE_DES_PAYS_AFRICAINS_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "383433e6-6c71-4f00-ac85-29592fbf49b2",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 202,
+    "latency_ms": 14344,
+    "retrieval_time_ms": 1043,
+    "generation_time_ms": 9043,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 14344,
+  "elapsed_ms": 13725.28,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:52:27.305507+00:00"
+}

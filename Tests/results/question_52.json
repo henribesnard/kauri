@@ -1,0 +1,56 @@
+{
+  "generated_at": "2025-11-08T12:55:45.974660+00:00",
+  "question_id": 52,
+  "question": "Quelles decisions abordent les contrats commerciaux OHADA ?",
+  "answer": "J'ai trouvé **1 document(s)** pertinent(s) sur ce sujet :\n\n\n### ⚖️ Jurisprudence (1 document(s))\n1. **Jurisprudence / J-09-67_302008_Ohadata_J-09-67_PROCEDURE_-_RECOURS_EN_CASSATION_-_CAS_D'OUVERTURE_-_AFFAIRE** (pertinence: 1.13)\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [
+    {
+      "title": "Jurisprudence / J-09-67_302008_Ohadata_J-09-67_PROCEDURE_-_RECOURS_EN_CASSATION_-_CAS_D'OUVERTURE_-_AFFAIRE",
+      "score": 1.1322979927062988,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-09-67_302008_Ohadata_J-09-67_PROCEDURE_-_RECOURS_EN_CASSATION_-_CAS_D'OUVERTURE_-_AFFAIRE.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "981a8b60-4458-430f-ae45-b6788263c76c",
+    "latency_ms": 7605,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 1,
+    "keywords_used": [
+      "contrats commerciaux",
+      "contrats",
+      "commerciaux"
+    ],
+    "categories_found": [
+      "jurisprudence"
+    ]
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 7605,
+  "elapsed_ms": 8645.28,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:55:37.329316+00:00"
+}

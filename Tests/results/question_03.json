@@ -1,0 +1,107 @@
+{
+  "generated_at": "2025-11-08T12:45:16.468895+00:00",
+  "question_id": 3,
+  "question": "Combien d'actes uniformes compte l'OHADA ?",
+  "answer": "L'OHADA compte actuellement 8 actes uniformes adoptés et en vigueur.\n\nSelon la doctrine \"PRESENTATION DU TRAITE DE L'OHADA\", huit branches juridiques ont été appréhendées par les actes uniformes OHADA. Cette source précise que les actes uniformes sont directement applicables dans les États parties et remplacent les dispositions nationales existantes et contraires.\n\nD'après la doctrine \"L'OHADA, SES INSTITUTIONS ET SES MECANISMES\", sept actes uniformes sont entrés en vigueur totalisant un droit substantiel dérivé de l'OHADA de 2 102 articles. Cette source détaille les domaines couverts : droit commercial général (288 articles), sociétés commerciales (920 articles), sûretés (151 articles), recouvrement des créances et voies d'exécution (338 articles), procédures collectives d'apurement du passif (258 articles), arbitrage (34 articles) et droit comptable (113 articles).\n\nLa doctrine \"Kwawo Lucien JOHNSON\" confirme également que sept actes uniformes sont en vigueur à ce jour, en précisant qu'il faut y ajouter le dernier né des actes uniformes, celui sur les contrats de transport de marchandises par route adopté à Yaoundé lors du Conseil des Ministres des 20 au 22 mars 2003, ce qui porte le total à huit actes uniformes.",
+  "sources": [
+    {
+      "title": "Doctrine / D-02-24_171993_Ohadata_D-02-24_Ecodroit,_n°_11_–_Mai_2002,_Pp._10_-_20.",
+      "score": 4.504300117492676,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-24_171993_Ohadata_D-02-24_Ecodroit,_n°_11_–_Mai_2002,_Pp._10_-_20..pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-11-19_112010_Ohadata_D-11-19_PRESENTATION_DU_TRAITE_DE_L’OHADA",
+      "score": 3.9825472831726074,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-11-19_112010_Ohadata_D-11-19_PRESENTATION_DU_TRAITE_DE_L’OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-04-15_Ohadata_D-04-15_L'harmonisation_du_droit_des_affaires_en_Afrique",
+      "score": 3.5394287109375,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-04-15_Ohadata_D-04-15_L'harmonisation_du_droit_des_affaires_en_Afrique.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-02-13_Ohadata_D-02-_13_L’OHADA,_INSTRUMENT_D’INTEGRATION_JURIDIQUE_DES_PAYS_AFRICAINS_DE",
+      "score": 2.7717936038970947,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-13_Ohadata_D-02-_13_L’OHADA,_INSTRUMENT_D’INTEGRATION_JURIDIQUE_DES_PAYS_AFRICAINS_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-05-37_171993_Ohadata_D-05-37_L'OHADA,_SES_INSTITUTIONS_ET_SES_MECANISMES_DE",
+      "score": 1.9701118469238281,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-05-37_171993_Ohadata_D-05-37_L'OHADA,_SES_INSTITUTIONS_ET_SES_MECANISMES_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-02-16_181996_Ohadata_D-02-16_LA_FONCTION_JURIDICTIONNELLE_DE_LA_COUR_COMMUNE_DE_JUSTICE_ET",
+      "score": 1.5117183923721313,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-02-16_181996_Ohadata_D-02-16_LA_FONCTION_JURIDICTIONNELLE_DE_LA_COUR_COMMUNE_DE_JUSTICE_ET.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-04-09_61992_Ohadata_D-04-09_Kwawo_Lucien_JOHNSON",
+      "score": 0.7077491283416748,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-04-09_61992_Ohadata_D-04-09_Kwawo_Lucien_JOHNSON.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "a87e1d73-ed93-4bd6-8b88-5b91058d8534",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 326,
+    "latency_ms": 18727,
+    "retrieval_time_ms": 1488,
+    "generation_time_ms": 12316,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 18727,
+  "elapsed_ms": 19330.1,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:44:57.138362+00:00"
+}

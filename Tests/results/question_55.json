@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-11-08T12:56:09.617909+00:00",
+  "question_id": 55,
+  "question": "Y a-t-il une jurisprudence sur la nationalite des societes OHADA ?",
+  "answer": "Je n'ai pas trouvé de jurisprudence de la CCJA sur ce sujet dans ma base de données.",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "5c9a7423-a7ce-44ae-b8db-0cd44a2dd9ad",
+    "latency_ms": 7819,
+    "intent_type": "case_law_research",
+    "num_sources": 0,
+    "retrieval_type": "case_law_research",
+    "jurisdiction_filter": "CCJA",
+    "model_used": null,
+    "tokens_used": null,
+    "report_generated": false,
+    "report_type": null
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 7819,
+  "elapsed_ms": 7521.54,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:56:02.095900+00:00"
+}

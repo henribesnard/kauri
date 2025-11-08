@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-11-08T12:55:29.019130+00:00",
+  "question_id": 50,
+  "question": "Existe-t-il une jurisprudence sur la responsabilite des dirigeants ?",
+  "answer": "Je n'ai pas trouvé de jurisprudence de la CCJA sur ce sujet dans ma base de données.",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "26f5d29b-2145-4282-89f0-e335670b2793",
+    "latency_ms": 8415,
+    "intent_type": "case_law_research",
+    "num_sources": 0,
+    "retrieval_type": "case_law_research",
+    "jurisdiction_filter": "CCJA",
+    "model_used": null,
+    "tokens_used": null,
+    "report_generated": false,
+    "report_type": null
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 8415,
+  "elapsed_ms": 8105.87,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:55:20.913180+00:00"
+}

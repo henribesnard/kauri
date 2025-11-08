@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:49:37.177861+00:00",
+  "question_id": 19,
+  "question": "Qu'est-ce que l'AUSCGIE ?",
+  "answer": "L'AUSCGIE est l'Acte Uniforme relatif au Droit des Sociétés Commerciales et du Groupement d'Intérêt Économique dans l'espace OHADA.\n\nSelon la doctrine \"DROIT DES SOCIETES COMMERCIALES OHADA - DROIT COMMUN ET REGIMES PARTICULIERS\", l'AUSCGIE constitue le droit commun uniforme qui régit les sociétés commerciales. Il contient :\n\n- La théorie générale des sociétés commerciales (articles 1er à 269)\n- Les règles spécifiques pour les formes de société reconnues : SNC, SCS, SARL, SA, société en participation et GIE\n- Il a abrogé les droits communs nationaux contraires ayant le même objet que le droit uniforme\n\nD'après cette même source, l'AUSCGIE prévoit également que les sociétés doivent mettre leurs statuts en harmonie avec ses dispositions, comme l'exige l'article 916 alinéa 2 qui impose l'harmonisation des clauses statutaires contraires au nouvel acte uniforme.\n\nL'AUSCGIE s'applique à l'ensemble des États membres de l'OHADA et établit un cadre juridique unifié pour la création, le fonctionnement et la dissolution des sociétés commerciales dans cet espace économique.",
+  "sources": [
+    {
+      "title": "Doctrine / D-03-09_82003_Ohadata_D-03-09_DROIT_DES_SOCIETES_COMMERCIALES_OHADA___DROIT_COMMUN_ET",
+      "score": 1.1740620136260986,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-03-09_82003_Ohadata_D-03-09_DROIT_DES_SOCIETES_COMMERCIALES_OHADA___DROIT_COMMUN_ET.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-20-14_52014_Ohadata_D-20-14_LES_PACTES_D’ACTIONNAIRES_DANS_L’ESPACE",
+      "score": 0.33328530192375183,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-20-14_52014_Ohadata_D-20-14_LES_PACTES_D’ACTIONNAIRES_DANS_L’ESPACE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Jurisprudence / J-16-141_19122011_Ohadata_J-16-141_COMPETENCE_DE_LA_CCJA_–_SOCIETES_COMMERCIALES_–_AUSCGIE_NON",
+      "score": 0.0001939833164215088,
+      "category": "jurisprudence",
+      "section": "",
+      "file_path": "/app/base_connaissances/jurisprudences/J-16-141_19122011_Ohadata_J-16-141_COMPETENCE_DE_LA_CCJA_–_SOCIETES_COMMERCIALES_–_AUSCGIE_NON.pdf",
+      "document_type": "jurisprudence",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "06186ea5-78e0-4856-90c5-f6c2c551c2e4",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 292,
+    "latency_ms": 16249,
+    "retrieval_time_ms": 974,
+    "generation_time_ms": 11256,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 16249,
+  "elapsed_ms": 16884.61,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:49:20.292855+00:00"
+}

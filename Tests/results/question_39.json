@@ -1,0 +1,87 @@
+{
+  "generated_at": "2025-11-08T12:53:13.675356+00:00",
+  "question_id": 39,
+  "question": "À quoi correspond le compte 401 ?",
+  "answer": "Je n'ai pas cette information dans ma documentation actuelle concernant la signification spécifique du compte 401 dans le plan comptable OHADA.\n\nMa documentation couvre principalement les principes comptables fondamentaux, le cadre conceptuel, les états financiers et les aspects généraux du système comptable OHADA, mais ne contient pas la nomenclature détaillée des comptes avec leurs correspondances numériques.\n\nPour obtenir la définition précise du compte 401, je vous recommande de consulter directement le Plan Comptable OHADA (SYSCOHADA) qui contient la liste complète et détaillée de tous les comptes avec leurs libellés et fonctionnements spécifiques.",
+  "sources": [
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 3.3344125747680664,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.7538836002349854,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-08-12_Ohadata_D-08-12_ETUDE_SYNTHETIQUE_DES_COMPTES_CONSOLIDES_ET_COMPTES_COMBINES",
+      "score": 2.6608572006225586,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-08-12_Ohadata_D-08-12_ETUDE_SYNTHETIQUE_DES_COMPTES_CONSOLIDES_ET_COMPTES_COMBINES.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.4271903038024902,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 3 / chapitre_1 Préparation des états financiers",
+      "score": 2.1699047088623047,
+      "category": "plan_comptable",
+      "section": "partie_3",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_3/chapitre_1 Préparation des états financiers.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "571a988d-ed7d-47c5-bac3-327f5d5a2035",
+    "latency_ms": 15114,
+    "intent_type": "legal_reference_search",
+    "num_sources": 5,
+    "target_reference": "Compte 401",
+    "retrieval_type": "legal_reference_search",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 5767
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 15114,
+  "elapsed_ms": 14490.23,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:52:59.184856+00:00"
+}

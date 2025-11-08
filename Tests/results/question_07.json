@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:46:32.625880+00:00",
+  "question_id": 7,
+  "question": "Quand l'OHADA a-t-elle été créée ?",
+  "answer": "L'OHADA a été créée le 17 octobre 1993 par le Traité de Port-Louis.\n\nSelon la \"Présentation de l'OHADA\", l'organisation a été \"créée par le Traité de Port-Louis du 17 octobre 1993 (révisé le 17 octobre 2008 à Québec - Canada)\". Ce traité fondateur a établi l'OHADA comme une organisation internationale de plein exercice dotée d'une personnalité juridique internationale.\n\nD'après le document \"L'OHADA, SES INSTITUTIONS ET SES MECANISMES DE FONCTIONNEMENT\", cette création est intervenue \"lors de la Conférence des Chefs d'Etat et de Gouvernement des pays ayant en commun l'usage du français\" qui s'est tenue à Port-Louis, île Maurice.",
+  "sources": [
+    {
+      "title": "Présentation OHADA / Présentation De L'Ohada.Docx / Présentation de l'OHADA",
+      "score": 1.1683740615844727,
+      "category": "presentation_ohada",
+      "section": "Présentation de l'OHADA.docx",
+      "file_path": "/app/base_connaissances/presentation_ohada/Présentation de l'OHADA.docx",
+      "document_type": "presentation_ohada",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-05-37_171993_Ohadata_D-05-37_L'OHADA,_SES_INSTITUTIONS_ET_SES_MECANISMES_DE",
+      "score": 0.2603853940963745,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-05-37_171993_Ohadata_D-05-37_L'OHADA,_SES_INSTITUTIONS_ET_SES_MECANISMES_DE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-20-12_302014_Ohadata_D-20-12_OHADA___LE_POINT_SUR_LA_RÉFORME_DE_L’ACTE",
+      "score": -0.29535573720932007,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-20-12_302014_Ohadata_D-20-12_OHADA___LE_POINT_SUR_LA_RÉFORME_DE_L’ACTE.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "f239a47b-d650-41a7-8b6d-76038e5f0c7a",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 185,
+    "latency_ms": 14296,
+    "retrieval_time_ms": 1558,
+    "generation_time_ms": 8357,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 14296,
+  "elapsed_ms": 13809.76,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:46:18.816195+00:00"
+}

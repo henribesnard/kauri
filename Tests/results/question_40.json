@@ -1,0 +1,87 @@
+{
+  "generated_at": "2025-11-08T12:53:28.711627+00:00",
+  "question_id": 40,
+  "question": "Que traite la classe 6 du plan comptable ?",
+  "answer": "Je n'ai pas cette information dans ma documentation actuelle concernant le contenu spécifique de la classe 6 du plan comptable OHADA.\n\nLes sources disponibles traitent principalement de l'organisation générale du système comptable OHADA, mais ne détaillent pas le contenu des classes de comptes spécifiques. Selon l'Acte Uniforme relatif au Droit Comptable et à l'Information Financière, les comptes du Système Comptable OHADA sont regroupés par catégories homogènes appelées classes, comprenant des classes de comptes de situation et des classes de comptes de gestion.\n\nPour obtenir des informations précises sur le contenu de la classe 6, il serait nécessaire de consulter directement le Plan Comptable Général OHADA qui détaille la nomenclature complète des comptes.",
+  "sources": [
+    {
+      "title": "Actes Uniformes / Droit Comptable Et Information Financière / Titre_1_Chapitre_2  Organisation comptable",
+      "score": 3.4386489391326904,
+      "category": "actes_uniformes",
+      "section": "droit comptable et information financière",
+      "file_path": "/app/base_connaissances/actes_uniformes/droit comptable et information financière/Titre_1_Chapitre_2  Organisation comptable.docx",
+      "document_type": "actes_uniformes",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 3 / chapitre_1 Préparation des états financiers",
+      "score": 2.669131278991699,
+      "category": "plan_comptable",
+      "section": "partie_3",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_3/chapitre_1 Préparation des états financiers.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.1548078060150146,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 2.086183547973633,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS",
+      "score": 1.4530744552612305,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-06-29_242000_Ohadata_D-06-29_UNE_PRESENTATION_CRITIQUE_DE_L’ACTE_UNIFORME_OHADA_DU_24_MARS.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "747b22c1-4b1f-4b90-b129-68faf119d319",
+    "latency_ms": 14326,
+    "intent_type": "legal_reference_search",
+    "num_sources": 5,
+    "target_reference": "Classe 6",
+    "retrieval_type": "legal_reference_search",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 5782
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 14326,
+  "elapsed_ms": 15034.56,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:53:13.676568+00:00"
+}

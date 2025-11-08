@@ -1,0 +1,44 @@
+{
+  "generated_at": "2025-11-08T12:51:07.904130+00:00",
+  "question_id": 27,
+  "question": "Quels textes expliquent les obligations des gerants de SARL OHADA ?",
+  "answer": "J'ai trouvé **0 document(s)** pertinent(s) sur ce sujet :\n\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [],
+  "metadata": {
+    "conversation_id": "f9b603ec-bb67-4ae6-bd59-0e999acdbc67",
+    "latency_ms": 8979,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 0,
+    "keywords_used": [
+      "gerants",
+      "SARL",
+      "obligations"
+    ],
+    "categories_found": []
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 8979,
+  "elapsed_ms": 8652.84,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:50:59.250297+00:00"
+}

@@ -1,0 +1,71 @@
+{
+  "generated_at": "2025-11-08T12:56:32.204655+00:00",
+  "question_id": 56,
+  "question": "Comment créer une SARL dans l'espace OHADA ?",
+  "answer": "Pour créer une SARL dans l'espace OHADA, voici les principales étapes et conditions à respecter :\n\n**Conditions de constitution :**\n\nSelon \"De la SARL en droits français et OHADA\", la SARL OHADA peut être constituée avec un seul associé et ne comporte aucune limite maximum d'associés. Le capital social minimum est fixé à 1.000.000 francs CFA, et la valeur nominale minimum des parts sociales est de 5.000 francs CFA.\n\n**Apports et formalités :**\n\nD'après la même source, les apports en numéraire doivent être intégralement libérés lors de la constitution. Pour les apports en nature, l'intervention d'un commissaire aux apports est obligatoire lorsque le montant global des apports en nature est égal ou supérieur à 5.000.000 francs CFA.\n\n**Forme des statuts :**\n\nSelon \"SIMPLIFICATION DANS LA CRÉATION DES SARL AU GABON\", l'article 10 de l'Acte Uniforme permet aux États membres de prendre des dispositions nationales concernant la forme des statuts. Certains pays comme le Gabon autorisent désormais les statuts sous forme d'acte sous-seing privé, ce qui simplifie et réduit les coûts de constitution.\n\n**Dispositions nationales :**\n\nComme indiqué dans \"SIMPLIFICATION DANS LA CRÉATION DES SARL AU GABON\", l'article 311 de l'Acte Uniforme permet également aux États membres de prendre des dispositions nationales concernant le capital social de la SARL. Plusieurs pays ont utilisé cette possibilité pour abaisser le capital minimum requis.\n\n**Immatriculation :**\n\nSelon \"DROIT DES SOCIETES COMMERCIALES OHADA\", toute société exerçant une activité commerciale sur le territoire d'un État partie doit être immatriculée pour bénéficier de la personnalité juridique.\n\nIl est important de vérifier les dispositions nationales spécifiques de chaque État membre, car elles peuvent apporter des simplifications supplémentaires aux règles de base de l'OHADA.",
+  "sources": [
+    {
+      "title": "Doctrine / D-03-09_82003_Ohadata_D-03-09_DROIT_DES_SOCIETES_COMMERCIALES_OHADA___DROIT_COMMUN_ET",
+      "score": 1.543698787689209,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-03-09_82003_Ohadata_D-03-09_DROIT_DES_SOCIETES_COMMERCIALES_OHADA___DROIT_COMMUN_ET.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-13-08_171993_Ohadata_D-13-08_De_la_SARL_en_droits_français_et_OHADA",
+      "score": 0.5059349536895752,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-13-08_171993_Ohadata_D-13-08_De_la_SARL_en_droits_français_et_OHADA.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    },
+    {
+      "title": "Doctrine / D-17-08_052016_Ohadata_D-17-08_SIMPLIFICATION_DANS_LA_CRÉATION_DES_SARL_AU",
+      "score": -0.2542581260204315,
+      "category": "doctrine",
+      "section": "",
+      "file_path": "/app/base_connaissances/doctrines/D-17-08_052016_Ohadata_D-17-08_SIMPLIFICATION_DANS_LA_CRÉATION_DES_SARL_AU.pdf",
+      "document_type": "doctrine",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "c46e4606-c683-45c2-b900-66358f7a9a95",
+    "model_used": "deepseek/deepseek-chat",
+    "tokens_used": 459,
+    "latency_ms": 22198,
+    "retrieval_time_ms": 1128,
+    "generation_time_ms": 18168,
+    "intent_type": "rag_query",
+    "use_reranking": true,
+    "retrieval_performed": true,
+    "conversation_context_used": true
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 22198,
+  "elapsed_ms": 22585.05,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:56:09.618976+00:00"
+}

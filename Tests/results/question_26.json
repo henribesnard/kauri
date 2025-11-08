@@ -1,0 +1,73 @@
+{
+  "generated_at": "2025-11-08T12:50:59.249294+00:00",
+  "question_id": 26,
+  "question": "Dans quels documents OHADA parle-t-on des amortissements degresifs ?",
+  "answer": "J'ai trouvé **3 document(s)** pertinent(s) sur ce sujet :\n\n\n### 📊 Plan Comptable OHADA (3 document(s))\n1. **Plan Comptable / Partie 1 / chapitre_5 Opérations d’investissement et de désinvestissement** (pertinence: 2.29)\n2. **Plan Comptable / Partie 2 / chapitre_35 Contrat de franchise** (pertinence: 0.43)\n3. **Plan Comptable / Partie 1 / chapitre_6 Régularisations périodiques** (pertinence: 0.29)\n\n\n💡 *Tu peux me demander des détails sur un document spécifique ou poser une question précise sur le sujet.*",
+  "sources": [
+    {
+      "title": "Plan Comptable / Partie 1 / chapitre_5 Opérations d’investissement et de désinvestissement",
+      "score": 2.2925939559936523,
+      "category": "plan_comptable",
+      "section": "partie_1",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_1/chapitre_5 Opérations d’investissement et de désinvestissement.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 2 / chapitre_35 Contrat de franchise",
+      "score": 0.4251449704170227,
+      "category": "plan_comptable",
+      "section": "partie_2",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_2/chapitre_35 Contrat de franchise.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    },
+    {
+      "title": "Plan Comptable / Partie 1 / chapitre_6 Régularisations périodiques",
+      "score": 0.287710577249527,
+      "category": "plan_comptable",
+      "section": "partie_1",
+      "file_path": "/app/base_connaissances/plan_comptable/partie_1/chapitre_6 Régularisations périodiques.docx",
+      "document_type": "plan_comptable",
+      "metadata_summary": null
+    }
+  ],
+  "metadata": {
+    "conversation_id": "17dd8caa-c239-4833-bd01-0e960071d281",
+    "latency_ms": 8417,
+    "intent_type": "document_sourcing",
+    "sourcing_mode": true,
+    "num_documents_found": 3,
+    "keywords_used": [
+      "amortissements degresifs",
+      "amortissement dégressif"
+    ],
+    "categories_found": [
+      "plan_comptable"
+    ]
+  },
+  "message_id": null,
+  "http_status": 200,
+  "latency_ms": 8417,
+  "elapsed_ms": 9389.63,
+  "error": null,
+  "status_chunks": [
+    {
+      "type": "status",
+      "content": "Je réfléchis"
+    },
+    {
+      "type": "status",
+      "content": "Je cherche des sources pour vous répondre"
+    },
+    {
+      "type": "status",
+      "content": "J'ai trouvé des sources concordantes"
+    },
+    {
+      "type": "status",
+      "content": "Je formule la réponse"
+    }
+  ],
+  "timestamp": "2025-11-08T12:50:49.858274+00:00"
+}
