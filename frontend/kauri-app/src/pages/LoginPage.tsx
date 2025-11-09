@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import OAuthButtons from '../components/auth/OAuthButtons';
 
 const USER_SERVICE_URL = import.meta.env.VITE_USER_SERVICE_URL || 'http://localhost:3201';
+const ENABLE_OAUTH = import.meta.env.VITE_ENABLE_OAUTH === 'true';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -152,9 +153,11 @@ const LoginPage: React.FC = () => {
           </form>
 
           {/* OAuth Buttons */}
-          <div className="mt-4">
-            <OAuthButtons />
-          </div>
+          {ENABLE_OAUTH && (
+            <div className="mt-4">
+              <OAuthButtons />
+            </div>
+          )}
 
           {/* Lien vers inscription */}
           <div className="mt-4 text-center">
