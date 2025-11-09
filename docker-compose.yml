@@ -236,6 +236,27 @@ services:
       retries: 3
       start_period: 40s
 
+  # ====================
+  # Grafana
+  # ====================
+  grafana:
+    image: grafana/grafana:11.2.2
+    container_name: kauri_grafana
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin123}
+      - GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s/
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      kauri_postgres:
+        condition: service_healthy
+    networks:
+      - kauri_network
+
 # ====================
 # Networks
 # ====================
@@ -260,3 +281,5 @@ volumes:
     name: kauri_chatbot_service_logs
   chatbot_data:
     name: kauri_chatbot_data
+  grafana_data:
+    name: kauri_grafana_data
