@@ -1,4 +1,4 @@
-import questionsMarkdown from '../../../../Tests/questions_demo_entreprises.md?raw';
+import questionsMarkdown from './questions_demo_entreprises.md?raw';
 
 const questionLinePattern = /^\s*\d+\.\s+(.*)$/;
 
