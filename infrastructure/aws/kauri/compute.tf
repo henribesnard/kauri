@@ -1,10 +1,10 @@
-data "aws_ami" "ubuntu_arm64" {
+data "aws_ami" "ubuntu_amd64" {
   most_recent = true
   owners      = ["099720109477"] # Canonical
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
 
   filter {
@@ -102,7 +102,7 @@ resource "aws_iam_instance_profile" "ec2" {
 }
 
 resource "aws_instance" "kauri" {
-  ami                    = data.aws_ami.ubuntu_arm64.id
+  ami                    = data.aws_ami.ubuntu_amd64.id
   instance_type          = var.ec2_instance_type
   key_name               = var.ssh_key_name
   subnet_id              = aws_subnet.public_a.id
