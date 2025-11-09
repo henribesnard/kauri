@@ -34,21 +34,25 @@ Toutes les opérations ont été faites via **AWS SSM** :
 
 | Service | URL | Notes |
 |---------|-----|-------|
-| Frontend (NGINX) | `http://52.18.6.235` | SPA buildée, login accessible. |
-| User service | `http://52.18.6.235:3201/api/v1` | Swagger: `/api/v1/docs`. Port ouvert uniquement à l’IP de test. |
-| Chatbot service | `http://52.18.6.235:3202/api/v1` | Swagger: `/api/v1/docs`. |
-| ChromaDB | `http://52.18.6.235:3104` (interne) | Volume `kauri_chromadb_data`. |
-| Postgres | `localhost:3100` (via SSM) | Bases `kauri_users` + `kauri_chatbot`. |
-| Redis | `localhost:3103` | Mot de passe dans `.env`. |
-| Grafana | `http://52.18.6.235:3000` | Login `admin / ChangeMe2024!`. Aucun dashboard encore. |
+| Frontend (NGINX) | `http://52.18.6.235` | SPA buildée. ⚠️ bug connu sur `/chat` si les bundles OAuth sont mis en cache (voir §7). |
+| User service | `http://52.18.6.235:3201/api/v1` | Swagger `/api/v1/docs`. Port ouvert uniquement à l’IP `82.67.87.81/32`. |
+| Chatbot service | `http://52.18.6.235:3202/api/v1` | Swagger `/api/v1/docs`. Même restriction. |
+| ChromaDB | `http://52.18.6.235:3104` (interne) | Volume `kauri_chromadb_data` à importer. |
+| Postgres | `localhost:3100` (via SSM) | Bases `kauri_users`, `kauri_chatbot`. |
+| Redis | `localhost:3103` | Mot de passe `.env`. |
+| Grafana | `http://52.18.6.235:3000` | Login `admin / ChangeMe2024!`. Aucun dashboard. |
 
 > ⚠️ Revenir à un SG fermé (supprimer les règles sur 3201/3202) dès que les tests Postman sont terminés.
 
 ## 4. À terminer
 
-- **Domaines/Cloudflare** : attendre la disponibilité du domaine (ex. `wezon.fr`), pointer un sous-domaine vers l’EIP, activer le proxy, mettre à jour `FRONTEND_URL`, `BACKEND_URL`, `CORS_ORIGINS` + l’URI OAuth Google.
+- **Domaines/Cloudflare** : attendre la disponibilité du domaine (ex. `wezon.fr`). Étapes :
+  1. Ajouter la zone dans Cloudflare ;
+  2. Remplacer les nameservers Ionos par ceux fournis par Cloudflare ;
+  3. Créer `app.wezon.fr` (ou autre) → A record vers `52.18.6.235` + proxy orange ;
+  4. Mettre à jour `FRONTEND_URL`, `BACKEND_URL`, `CORS_ORIGINS`, Google OAuth et rebuild/deployer.
 - **Base Chroma** : lorsque l’ingestion locale est finie, archiver `kauri_chromadb_data`, l’uploader sur S3 (`chroma/chroma_prod.tar.gz`), puis restaurer sur l’EC2 et redémarrer `chromadb` + `kauri_chatbot_service`.
-- **Grafana** : ajouter une datasource (CloudWatch ou Prometheus) et changer le mot de passe admin.
+- **Grafana** : ajouter une datasource (CloudWatch ou Prometheus) et changer le mot de passe admin à la première connexion.
 - **Emails** : le service user génère les tokens mais ne peut pas envoyer d’e-mails (SMTP non configuré). Vérifications manuelles pour l’instant.
 
 ## 5. Connexion à l’instance et commandes utiles
@@ -89,6 +93,15 @@ Toutes les opérations ont été faites via **AWS SSM** :
 5. Health-checks rapides : `curl http://localhost:3201/api/v1/health`, `curl http://localhost:3202/api/v1/health`, `curl -I http://localhost`.
 6. DB : `docker logs kauri_postgres` et inspection des volumes `/var/lib/docker/volumes/kauri_postgres_data/_data`.
 7. Toute modification Terraform doit être validée (risque de recréer l’EC2).
+
+## 7. Problèmes connus (11/11/2025)
+
+1. **Frontend `/chat` → page blanche**  
+   - Les bundles encore en cache rendent `OAuthButtons` alors que `VITE_ENABLE_OAUTH=false`. Comme l’endpoint `/api/v1/oauth/providers` retourne du HTML (providers non configurés), la SPA plante (`Cannot read properties of undefined`).  
+   - Contournement : vider le cache navigateur ou forcer un rebuild complet (`docker compose build kauri_frontend && docker compose up -d`). Lorsque Google OAuth sera prêt (domaine HTTPS + secrets), remettre `VITE_ENABLE_OAUTH=true` et vérifier que `/api/v1/oauth/providers` renvoie du JSON avant de recompiler.
+2. **Import Chroma** : pas encore réalisé. Toutes les réponses chatbot sont faites sans contexte. Prévoir le transfert de `kauri_chromadb_data`.
+3. **Ports API filtrés** : seuls les IPs autorisées (actuellement `82.67.87.81/32`) peuvent appeler `:3201`/`:3202`. Ajouter votre IP au SG ou utiliser un tunnel SSM.
+4. **Grafana** : pas de datasource ni TLS. Limité à l’IP autorisée mais à sécuriser/câbler avant démo.
 
 ---
 
