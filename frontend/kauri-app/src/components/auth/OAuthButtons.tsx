@@ -30,16 +30,28 @@ const OAuthButtons: React.FC = () => {
     twitter: false,
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [hasProviderError, setHasProviderError] = useState(false);
 
   useEffect(() => {
     // Fetch available OAuth providers
     const fetchProviders = async () => {
       try {
         const response = await fetch(`${USER_SERVICE_URL}/api/v1/oauth/providers`);
+        if (!response.ok) {
+          throw new Error(`Provider endpoint returned ${response.status}`);
+        }
         const data = await response.json();
-        setProviders(data.providers || {});
+        setProviders(data?.providers || {});
+        setHasProviderError(false);
       } catch (error) {
         console.error('Failed to fetch OAuth providers:', error);
+        setProviders({
+          google: false,
+          facebook: false,
+          linkedin: false,
+          twitter: false,
+        });
+        setHasProviderError(true);
       } finally {
         setIsLoading(false);
       }
@@ -88,7 +100,7 @@ const OAuthButtons: React.FC = () => {
     },
   ];
 
-  const enabledProviders = oauthProviders.filter(p => p.enabled);
+  const enabledProviders = (oauthProviders || []).filter(p => !!p && p.enabled);
 
   if (isLoading) {
     return (
@@ -98,7 +110,7 @@ const OAuthButtons: React.FC = () => {
     );
   }
 
-  if (enabledProviders.length === 0) {
+  if (hasProviderError || enabledProviders.length === 0) {
     return null; // Don't show anything if no providers are configured
   }
 
