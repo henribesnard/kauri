@@ -252,7 +252,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
     depends_on:
-      kauri_postgres:
+      postgres:
         condition: service_healthy
     networks:
       - kauri_network
