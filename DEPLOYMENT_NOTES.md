@@ -57,15 +57,22 @@ Toutes les opérations ont été faites via **AWS SSM** :
 
 ## 5. Connexion à l’instance et commandes utiles
 
+- **Accès AWS CLI** :
+  1. Installer AWS CLI v2.
+  2. Créer un profil (ex. `kauri`) avec les identifiants présents dans le fichier `.env` du dépôt (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION=eu-west-1`).  
+     ```
+     aws configure --profile kauri
+     ```
+  3. Toutes les commandes ci-dessous peuvent utiliser ce profil : `aws --profile kauri ...`.
 - **Shell SSM** :
   ```bash
-  aws ssm start-session \
+  aws --profile kauri ssm start-session \
     --target i-0f4e5290d3a801f3b \
     --region eu-west-1
   ```
 - **Port forwarding SSM** (exposer l’API user sur ta machine) :
   ```bash
-  aws ssm start-port-forwarding-session \
+  aws --profile kauri ssm start-port-forwarding-session \
     --target i-0f4e5290d3a801f3b \
     --region eu-west-1 \
     --document-name AWS-StartPortForwardingSessionToRemoteHost \
