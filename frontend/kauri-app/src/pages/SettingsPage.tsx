@@ -129,7 +129,8 @@ const SettingsPage: React.FC = () => {
     setLoadingConversations(true);
     try {
       const response = await conversationService.listConversations(false, 50, 0);
-      setConversations(response.conversations);
+      const safeConversations = Array.isArray(response?.conversations) ? response.conversations : [];
+      setConversations(safeConversations);
     } catch (error) {
       console.error('Error loading conversations:', error);
     } finally {

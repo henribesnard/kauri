@@ -1,0 +1,15 @@
+apiVersion: 1
+
+datasources:
+  - name: AWS CloudWatch
+    type: cloudwatch
+    uid: aws-cloudwatch
+    access: proxy
+    isDefault: true
+    editable: false
+    jsonData:
+      authType: default        # Utilise l'IAM role de l'EC2
+      defaultRegion: eu-west-1
+      customMetricsNamespaces: []
+      timeField: timestamp
+      tlsSkipVerify: false

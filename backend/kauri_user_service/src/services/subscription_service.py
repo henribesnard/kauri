@@ -11,8 +11,111 @@ from src.models.user import User, SubscriptionTier, UserUsage, UsageLog
 from src.schemas.subscription import UserQuotaInfo
 
 
+# Default tiers to seed when the reference table is empty/out-of-sync
+DEFAULT_TIERS = [
+    {
+        "tier_id": "free",
+        "tier_name": "Free",
+        "tier_name_fr": "Gratuit",
+        "tier_description": "Basic plan for students and casual users",
+        "tier_description_fr": "Plan de base pour étudiants et usage occasionnel",
+        "messages_per_day": 5,
+        "messages_per_month": 150,
+        "tokens_per_month": 100_000,
+        "price_monthly": 0,
+        "price_annual": None,
+        "has_document_sourcing": False,
+        "has_pdf_generation": False,
+        "has_priority_support": False,
+        "has_custom_training": False,
+        "has_api_access": False,
+        "display_order": 1,
+        "is_active": True,
+        "is_visible": True,
+    },
+    {
+        "tier_id": "pro",
+        "tier_name": "Pro",
+        "tier_name_fr": "Pro",
+        "tier_description": "Professional plan for accountants and students",
+        "tier_description_fr": "Plan professionnel pour comptables et étudiants",
+        "messages_per_day": 100,
+        "messages_per_month": 3_000,
+        "tokens_per_month": 5_000_000,
+        "price_monthly": 7_000,
+        "price_annual": 75_600,
+        "has_document_sourcing": True,
+        "has_pdf_generation": True,
+        "has_priority_support": False,
+        "has_custom_training": False,
+        "has_api_access": False,
+        "display_order": 2,
+        "is_active": True,
+        "is_visible": True,
+    },
+    {
+        "tier_id": "max",
+        "tier_name": "Max",
+        "tier_name_fr": "Max",
+        "tier_description": "Unlimited plan for accounting firms",
+        "tier_description_fr": "Plan illimité pour cabinets comptables",
+        "messages_per_day": None,
+        "messages_per_month": None,
+        "tokens_per_month": None,
+        "price_monthly": 22_000,
+        "price_annual": 237_600,
+        "has_document_sourcing": True,
+        "has_pdf_generation": True,
+        "has_priority_support": True,
+        "has_custom_training": False,
+        "has_api_access": False,
+        "display_order": 3,
+        "is_active": True,
+        "is_visible": True,
+    },
+    {
+        "tier_id": "enterprise",
+        "tier_name": "Enterprise",
+        "tier_name_fr": "Entreprise",
+        "tier_description": "Custom plan for large organizations",
+        "tier_description_fr": "Plan sur mesure pour grandes organisations",
+        "messages_per_day": None,
+        "messages_per_month": None,
+        "tokens_per_month": None,
+        "price_monthly": 85_000,
+        "price_annual": None,
+        "has_document_sourcing": True,
+        "has_pdf_generation": True,
+        "has_priority_support": True,
+        "has_custom_training": True,
+        "has_api_access": True,
+        "display_order": 4,
+        "is_active": True,
+        "is_visible": True,
+    },
+]
+
+
 class SubscriptionService:
     """Service for subscription and quota management"""
+
+    @staticmethod
+    def ensure_default_tiers(db: Session) -> None:
+        """
+        Ensure the reference subscription tiers exist (self-healing seed).
+        This prevents 500 errors if the table was truncated manually.
+        """
+        existing_ids = {
+            tier_id for (tier_id,) in db.query(SubscriptionTier.tier_id).all()
+        }
+        missing = [tier for tier in DEFAULT_TIERS if tier["tier_id"] not in existing_ids]
+
+        if not missing:
+            return
+
+        for tier_data in missing:
+            db.add(SubscriptionTier(**tier_data))
+        db.commit()
 
     @staticmethod
     def assign_default_subscription(db: Session, user: User) -> User:
@@ -30,6 +133,14 @@ class SubscriptionService:
     @staticmethod
     def get_tier_config(db: Session, tier_id: str) -> Optional[SubscriptionTier]:
         """Get subscription tier configuration"""
+        tier = db.query(SubscriptionTier).filter(
+            SubscriptionTier.tier_id == tier_id
+        ).first()
+        if tier:
+            return tier
+
+        # Auto-reseed default tiers if the reference row is missing
+        SubscriptionService.ensure_default_tiers(db)
         return db.query(SubscriptionTier).filter(
             SubscriptionTier.tier_id == tier_id
         ).first()
@@ -321,6 +432,9 @@ class SubscriptionService:
         """
         Get all subscription tiers for pricing page
         """
+        # Make sure at least the default tiers exist
+        SubscriptionService.ensure_default_tiers(db)
+
         query = db.query(SubscriptionTier).filter(SubscriptionTier.is_active == True)
 
         if visible_only:

@@ -1,0 +1,241 @@
+{
+  "id": null,
+  "uid": "kauri-ec2",
+  "title": "KAURI - EC2 Overview",
+  "tags": [
+    "aws",
+    "kauri"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "CPU Utilization (%)",
+      "id": 1,
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "aws-cloudwatch"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "namespace": "AWS/EC2",
+          "metricName": "CPUUtilization",
+          "statistics": [
+            "Average"
+          ],
+          "dimensions": {
+            "InstanceId": "$instance"
+          },
+          "region": "eu-west-1",
+          "period": 60
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "horizontal",
+        "colorMode": "value",
+        "graphMode": "area"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Status Check Failed",
+      "id": 2,
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "aws-cloudwatch"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "namespace": "AWS/EC2",
+          "metricName": "StatusCheckFailed",
+          "statistics": [
+            "Maximum"
+          ],
+          "dimensions": {
+            "InstanceId": "$instance"
+          },
+          "region": "eu-west-1",
+          "period": 60
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "colorMode": "value",
+        "graphMode": "none"
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Network In/Out (Bytes)",
+      "id": 3,
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "aws-cloudwatch"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "namespace": "AWS/EC2",
+          "metricName": "NetworkIn",
+          "statistics": [
+            "Sum"
+          ],
+          "dimensions": {
+            "InstanceId": "$instance"
+          },
+          "region": "eu-west-1",
+          "period": 300
+        },
+        {
+          "refId": "B",
+          "namespace": "AWS/EC2",
+          "metricName": "NetworkOut",
+          "statistics": [
+            "Sum"
+          ],
+          "dimensions": {
+            "InstanceId": "$instance"
+          },
+          "region": "eu-west-1",
+          "period": 300
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 16,
+        "x": 0,
+        "y": 8
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Disk Read/Write Ops",
+      "id": 4,
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "aws-cloudwatch"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "namespace": "AWS/EC2",
+          "metricName": "DiskReadOps",
+          "statistics": [
+            "Sum"
+          ],
+          "dimensions": {
+            "InstanceId": "$instance"
+          },
+          "region": "eu-west-1",
+          "period": 300
+        },
+        {
+          "refId": "B",
+          "namespace": "AWS/EC2",
+          "metricName": "DiskWriteOps",
+          "statistics": [
+            "Sum"
+          ],
+          "dimensions": {
+            "InstanceId": "$instance"
+          },
+          "region": "eu-west-1",
+          "period": 300
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 16,
+        "x": 0,
+        "y": 16
+      }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "instance",
+        "type": "constant",
+        "label": "EC2 Instance",
+        "query": "i-0f4e5290d3a801f3b",
+        "current": {
+          "text": "i-0f4e5290d3a801f3b",
+          "value": "i-0f4e5290d3a801f3b"
+        }
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  }
+}

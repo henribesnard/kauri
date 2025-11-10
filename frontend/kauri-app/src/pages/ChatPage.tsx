@@ -47,7 +47,8 @@ const ChatPage: React.FC = () => {
     setLoadingConversations(true);
     try {
       const response = await conversationService.listConversations(false, 50, 0);
-      setConversations(response.conversations);
+      const safeConversations = Array.isArray(response?.conversations) ? response.conversations : [];
+      setConversations(safeConversations);
     } catch (error) {
       console.error('Erreur lors du chargement des conversations:', error);
     } finally {

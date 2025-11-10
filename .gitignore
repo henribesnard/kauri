@@ -11,6 +11,7 @@ Tests/
 .claude/
 scraping/
 documentation/
+DEPLOYMENT_NOTES.md
 *.docx
 *.pdf
 !README.md
