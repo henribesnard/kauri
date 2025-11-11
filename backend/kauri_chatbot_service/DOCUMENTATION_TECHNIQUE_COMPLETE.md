@@ -136,6 +136,19 @@ KAURI Chatbot Service est un système RAG (Retrieval-Augmented Generation) conve
 | `src/rag/pipeline/rag_pipeline.py` | Pipeline RAG de base (retrieval + generation) |
 | `src/rag/agents/rag_workflow.py` | Workflow LangGraph (classification + routing) |
 
+### Gestion robuste des sources (2025-11-10)
+
+- Chaque message assistant sauvegarde désormais les sources **enrichies** (titre, score, catégorie, `file_path`,
+  résumé de métadonnées). Ces objets JSON restent disponibles pour les conversations suivantes.
+- Le `ContextManager` maintient un buffer FIFO de références dédupliquées (`get_recent_sources`) par conversation :
+  on peut réutiliser automatiquement jusqu’à 5 sources récentes sans solliciter à nouveau Chroma si elles couvrent déjà
+  la question de suivi.
+- Dans le workflow RAG, un retrieval hybride est toujours exécuté. Lorsque moins de `RAG_MIN_DOCUMENTS` (3) documents
+  pertinents sont trouvés, les sources sont complétées avec celles du buffer afin de garantir qu’au moins trois
+  références soient renvoyées au frontend.
+- Le buffer limite aussi la pollution du contexte : seules les références utiles sont conservées et envoyées au LLM,
+  ce qui évite de saturer rapidement les 8 000 tokens réservés au contexte conversationnel.
+
 ---
 
 ## 🧠 Workflow LangGraph

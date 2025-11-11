@@ -8,6 +8,8 @@ from sqlalchemy.orm import Session
 import structlog
 from src.rag.agents.intent_classifier import get_intent_classifier, IntentClassification
 from src.services.context_manager import context_manager
+from src.schemas.chat import SourceDocument
+from src.config import settings
 
 logger = structlog.get_logger()
 
@@ -251,48 +253,55 @@ class RAGWorkflow:
         logger.info("workflow_node_retrieve_and_generate", query=state["query"][:100])
 
         try:
-            from src.config import settings
-
             # Get conversation context and intent
             conversation_context = state.get("conversation_context", [])
             intent = state.get("intent")
             intent_type = intent.intent_type if intent else "rag_query"
 
-            # Smart retrieval decision
-            should_retrieve = context_manager.should_retrieve_new_documents(
+            recent_sources: list[SourceDocument] = []
+            db = state.get("db_session")
+            if db:
+                try:
+                    recent_source_dicts = context_manager.get_recent_sources(
+                        db=db,
+                        conversation_id=conversation.id,
+                        limit=settings.rag_max_documents
+                    )
+                    recent_sources = [
+                        self._dict_to_source_document(src_dict)
+                        for src_dict in recent_source_dicts
+                    ]
+                except Exception as exc:
+                    logger.warning("workflow_recent_sources_failed", error=str(exc))
+
+            # Always perform retrieval for RAG intents
+            logger.info("workflow_performing_new_retrieval")
+            requested_count = state.get("requested_source_count")
+            documents = await self.rag_pipeline.hybrid_retriever.retrieve(
                 query=state["query"],
-                conversation_history=conversation_context,
-                intent_type=intent_type
+                top_k=settings.rag_rerank_top_k,
+                use_reranking=True,
+                requested_count=requested_count
             )
 
-            if should_retrieve:
-                # Perform new retrieval
-                logger.info("workflow_performing_new_retrieval")
-                requested_count = state.get("requested_source_count")
-                documents = await self.rag_pipeline.hybrid_retriever.retrieve(
-                    query=state["query"],
-                    top_k=settings.rag_rerank_top_k,
-                    use_reranking=True,
-                    requested_count=requested_count
+            state["documents"] = documents
+            state["metadata"]["num_sources"] = len(documents)
+            state["metadata"]["retrieval_performed"] = True
+
+            # Format document context
+            doc_context = self.rag_pipeline._format_context(documents)
+            sources = self.rag_pipeline._convert_to_source_documents_enriched(documents)
+
+            # Guarantee minimum sources by reusing recent ones if needed
+            if len(sources) < settings.rag_min_documents and recent_sources:
+                merged_sources = self._merge_sources_with_history(
+                    primary_sources=sources,
+                    history_sources=recent_sources,
+                    min_required=settings.rag_min_documents
                 )
-
-                state["documents"] = documents
-                state["metadata"]["num_sources"] = len(documents)
-                state["metadata"]["retrieval_performed"] = True
-
-                # Format document context
-                doc_context = self.rag_pipeline._format_context(documents)
-                sources = self.rag_pipeline._convert_to_source_documents_enriched(documents)
-            else:
-                # Use existing context without new retrieval
-                logger.info("workflow_using_existing_context")
-                state["documents"] = []
-                state["metadata"]["num_sources"] = 0
-                state["metadata"]["retrieval_performed"] = False
-                state["metadata"]["retrieval_skipped_reason"] = "follow_up_question_with_context"
-
-                doc_context = ""
-                sources = []
+                if len(merged_sources) > len(sources):
+                    state["metadata"]["sources_padded_from_history"] = True
+                sources = merged_sources
 
             # Prepare conversation context for LLM
             conv_context_str = ""
@@ -331,6 +340,45 @@ class RAGWorkflow:
             state["sources"] = []
 
         return state
+
+    def _merge_sources_with_history(
+        self,
+        primary_sources: list[SourceDocument],
+        history_sources: list[SourceDocument],
+        min_required: int
+    ) -> list[SourceDocument]:
+        """Merge current retrieval sources with history to meet minimum requirement"""
+        combined: list[SourceDocument] = []
+        seen = set()
+
+        def _add(source: SourceDocument):
+            key = source.file_path or source.title
+            if key in seen:
+                return
+            seen.add(key)
+            combined.append(source)
+
+        for src in primary_sources:
+            _add(src)
+
+        for src in history_sources:
+            if len(combined) >= max(min_required, len(primary_sources)):
+                break
+            _add(src)
+
+        return combined
+
+    def _dict_to_source_document(self, source_dict: Dict[str, Any]) -> SourceDocument:
+        """Convert stored source dicts back to SourceDocument"""
+        return SourceDocument(
+            title=source_dict.get("title", "Source"),
+            score=float(source_dict.get("score", 0.0)),
+            category=source_dict.get("category"),
+            section=source_dict.get("section"),
+            file_path=source_dict.get("file_path"),
+            document_type=source_dict.get("document_type"),
+            metadata_summary=source_dict.get("metadata_summary")
+        )
 
     async def _ask_clarification_node(self, state: WorkflowState) -> WorkflowState:
         """Node: Ask user for clarification"""
@@ -374,7 +422,6 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
         logger.info("workflow_node_document_sourcing", query=state["query"][:100])
 
         try:
-            from src.config import settings
             import json
 
             # Extract keywords from intent's direct_answer
@@ -510,8 +557,6 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
         logger.info("workflow_node_legal_reference_search", query=state["query"][:100])
 
         try:
-            from src.config import settings
-
             intent = state.get("intent")
             legal_metadata = intent.legal_metadata if intent else None
 
@@ -585,8 +630,6 @@ Je suis spécialisé en comptabilité OHADA et je peux vous aider sur :
         logger.info("workflow_node_case_law_research", query=state["query"][:100])
 
         try:
-            from src.config import settings
-
             intent = state.get("intent")
             legal_metadata = intent.legal_metadata if intent else None
 
@@ -762,7 +805,6 @@ Utilise UNIQUEMENT les titres exacts des sources (pas de [Document X]).
         """
         logger.info("workflow_execute_stream_start", query=query[:100], conversation_id=conversation_id)
 
-        from src.config import settings
         import time
         start_time = time.time()
 

@@ -5,8 +5,10 @@ Point d'entrée FastAPI pour le service chatbot
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+import asyncio
 import structlog
 import time
+import httpx
 
 from ..config import settings
 from .routes import chat, conversations, admin
@@ -306,6 +308,10 @@ async def startup_event():
     except Exception as e:
         logger.error("bm25_index_rebuild_error", error=str(e))
 
+    # Trigger async warm-up query to keep retrieval stack hot
+    if settings.warmup_enabled:
+        asyncio.create_task(_run_warmup_sequence())
+
 
 # ====================
 # Shutdown Event
@@ -344,6 +350,67 @@ async def global_exception_handler(request: Request, exc: Exception):
             "message": "An unexpected error occurred" if not settings.debug else str(exc),
         },
     )
+
+
+async def _run_warmup_sequence():
+    """Log in and fire a sample /chat/query to warm caches after startup."""
+    if not settings.warmup_email or not settings.warmup_password:
+        logger.info("warmup_skipped_missing_credentials")
+        return
+
+    await asyncio.sleep(max(settings.warmup_delay_seconds, 0))
+
+    login_url = f"{settings.user_service_url.rstrip('/')}/api/v1/auth/login"
+    user_health_url = f"{settings.user_service_url.rstrip('/')}/api/v1/health"
+    chatbot_health_url = f"http://127.0.0.1:{settings.service_port}/api/v1/health"
+    chat_query_url = f"http://127.0.0.1:{settings.service_port}/api/v1/chat/query"
+
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            await _wait_for_endpoint(client, user_health_url)
+            await _wait_for_endpoint(client, chatbot_health_url)
+
+            login_resp = await client.post(
+                login_url,
+                json={
+                    "email": settings.warmup_email,
+                    "password": settings.warmup_password
+                },
+            )
+            login_resp.raise_for_status()
+            token = login_resp.json().get("access_token")
+            if not token:
+                raise RuntimeError("warmup login succeeded but no access token returned")
+
+            headers = {
+                "Authorization": f"Bearer {token}"
+            }
+            chat_resp = await client.post(
+                chat_query_url,
+                json={"query": settings.warmup_query},
+                headers=headers,
+                timeout=120.0
+            )
+            chat_resp.raise_for_status()
+            logger.info(
+                "warmup_chat_query_completed",
+                status_code=chat_resp.status_code
+            )
+    except Exception as exc:
+        logger.warning("warmup_chat_query_failed", error=str(exc))
+
+
+async def _wait_for_endpoint(client: httpx.AsyncClient, url: str, retries: int = 20, delay: float = 2.0):
+    """Poll an HTTP endpoint until it responds successfully or timeout."""
+    for attempt in range(retries):
+        try:
+            resp = await client.get(url)
+            if resp.status_code < 500:
+                return
+        except Exception:
+            pass
+        await asyncio.sleep(delay)
+    raise RuntimeError(f"warmup endpoint not reachable: {url}")
 
 
 if __name__ == "__main__":

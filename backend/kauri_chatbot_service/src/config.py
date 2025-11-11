@@ -114,6 +114,16 @@ class Settings(BaseSettings):
     enable_legal_reports: bool = Field(default=False, alias="ENABLE_LEGAL_REPORTS")  # Disabled by default for performance
     report_auto_generate_threshold: int = Field(default=3, alias="REPORT_AUTO_GENERATE_THRESHOLD")  # Min sources to auto-generate
 
+    # Service warm-up
+    warmup_enabled: bool = Field(default=True, alias="WARMUP_ENABLED")
+    warmup_email: str = Field(default="", alias="WARMUP_EMAIL")
+    warmup_password: str = Field(default="", alias="WARMUP_PASSWORD")
+    warmup_query: str = Field(
+        default="Liste-moi 3 sources sur les amortissements",
+        alias="WARMUP_QUERY"
+    )
+    warmup_delay_seconds: int = Field(default=5, alias="WARMUP_DELAY_SECONDS")
+
     class Config:
         # Cherche d'abord dans .env.local (pour dev local), puis .env du service, puis .env racine
         env_file = [".env.local", ".env", "../.env", "../../.env"]

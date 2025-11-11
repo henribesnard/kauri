@@ -177,7 +177,7 @@ Tu continues une conversation existante avec l'utilisateur. L'historique des mes
 
         # Step 7: Save assistant message
         sources_dict = [
-            {"title": src.title, "score": src.score}
+            src.dict()
             for src in result.get("sources", [])
         ]
 
@@ -343,7 +343,7 @@ Tu continues une conversation existante avec l'utilisateur. L'historique des mes
         full_response = "".join(accumulated_response)
 
         sources_dict = [
-            {"title": src.title, "score": src.score}
+            src.dict()
             for src in sources
         ]
 

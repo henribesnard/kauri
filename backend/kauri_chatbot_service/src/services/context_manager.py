@@ -247,6 +247,36 @@ class ConversationContextManager:
 
         return False
 
+    def get_recent_sources(
+        self,
+        db: Session,
+        conversation_id: uuid.UUID,
+        limit: int = 5
+    ) -> List[Dict[str, Any]]:
+        """Return recent assistant sources with enriched metadata"""
+        messages = db.query(Message).filter(
+            Message.conversation_id == conversation_id,
+            Message.role == "assistant",
+            Message.deleted_at.is_(None)
+        ).order_by(Message.created_at.desc()).limit(self.max_messages).all()
+
+        collected: List[Dict[str, Any]] = []
+        seen_keys = set()
+
+        for msg in messages:
+            if not msg.sources:
+                continue
+            for source in msg.sources:
+                key = source.get("file_path") or source.get("title")
+                if key and key in seen_keys:
+                    continue
+                seen_keys.add(key)
+                collected.append(source)
+                if len(collected) >= limit:
+                    return collected
+
+        return collected
+
     def format_context_for_llm(
         self,
         conversation_history: List[Dict[str, Any]],
